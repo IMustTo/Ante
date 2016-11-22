@@ -6,16 +6,16 @@ import App from './App';
 
 Vue.use(VueRouter);
 
-const Hello = (resolve) => {
+const Home = (resolve) => {
   // require.ensure 是 Webpack 的特殊语法，用来设置 code-split point
   // （代码分块）
-  require.ensure(['./components/Hello'], () => {
-    resolve(require('./components/Hello'));
+  require.ensure(['./views/Home'], () => {
+    resolve(require('./views/Home'));
   });
 };
 
 const routes = [
-  { path: '/', component: Hello },
+  { path: '/', component: Home },
 ];
 
 const router = new VueRouter({
@@ -26,4 +26,4 @@ new Vue({
   el: '#app',
   router,
   render: h => h(App),
-}).$mount('#app');
+}).$mount('#container');
