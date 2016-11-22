@@ -46,4 +46,12 @@ export default {
   font-size: 17px;
   margin-top: 10px;
 }
+.ante-icon-btn.weui-grid:before {
+  border-right: 1px solid #e24402;
+  color: #e24402;
+}
+.ante-icon-btn.weui-grid:after {
+  border-bottom: 1px solid #e24402;
+  color: #e24402;
+}
 </style>

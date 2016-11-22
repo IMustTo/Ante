@@ -1,9 +1,9 @@
 <template>
 
   <div class="container" id="container">
-    <transition :name="transitionName">
+    <keep-alive>
       <router-view></router-view>
-    </transition>
+    </keep-alive>
   </div>
 
 </template>
@@ -18,19 +18,49 @@ export default {
       transitionName: '',
     };
   },
-
-  watch: {
-    $route(to, from) {
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.transitionName = toDepth < fromDepth ? 'slideIn' : 'slideOut';
-    },
-  },
 };
 </script>
 
 <style>
 @import "./assets/css/weui.css";
+
+body,
+html {
+  height: 100%;
+
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+ul {
+  list-style: none;
+}
+.page,
+body {
+  background-color: #f8f8f8;
+}
+.link {
+  color: #1aad19;
+}
+.container {
+  overflow: hidden;
+}
+.container,
+.page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.page {
+  z-index: 1;
+
+  overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
 
 @-webkit-keyframes a {
   0% {

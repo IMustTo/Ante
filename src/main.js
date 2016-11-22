@@ -7,7 +7,6 @@ Vue.use(VueRouter);
 const TchHome = (resolve) => {
   require(['./views/TchHome'], resolve);
 };
-
 const TchAnalysis = (resolve) => {
   require(['./views/TchAnalysis'], resolve);
 };
