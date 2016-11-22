@@ -40,9 +40,6 @@ ul {
 body {
   background-color: #f8f8f8;
 }
-.link {
-  color: #1aad19;
-}
 .container {
   overflow: hidden;
 }

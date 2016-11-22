@@ -21,7 +21,7 @@ import TextBtnGroup from '../components/button/TextBtnGroup';
 import CellTitle from '../components/cell/CellTitle';
 
 export default {
-  name: 'home-page',
+  name: 'tch-home',
 
   data() {
     return {
@@ -34,18 +34,18 @@ export default {
       ],
       textBtns: [
         [
-          { name: '评价', icon: '', cls: 'active' },
-          { name: '分析', icon: '', go: 'TchAnalysis' },
-          { name: '标准', icon: '', go: 'base' },
-          { name: '荣誉殿堂', icon: '', go: 'xxx' },
-          { name: '审批', icon: '', go: 'ttt' },
+          { name: '评价', go: 'TchAssess' },
+          { name: '分析', go: 'TchAssess' },
+          { name: '标准', go: 'TchAssess' },
+          { name: '荣誉殿堂', go: 'TchAssess' },
+          { name: '审批', go: 'TchAssess' },
         ],
         [
-          { name: '评价', icon: '', cls: 'active' },
-          { name: '分析', icon: '', go: 'TchAnalysis' },
-          { name: '标准', icon: '', go: 'base' },
-          { name: '荣誉殿堂', icon: '', go: 'xxx' },
-          { name: '审批', icon: '', go: 'ttt' },
+          { name: '评价', go: 'TchAssess' },
+          { name: '分析', go: 'TchAssess' },
+          { name: '标准', go: 'TchAssess' },
+          { name: '荣誉殿堂', go: 'TchAssess' },
+          { name: '审批', go: 'TchAssess' },
         ],
       ],
       titleStyle: {
