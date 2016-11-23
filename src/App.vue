@@ -4,19 +4,33 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+
+    <weui-progress :w="w"></weui-progress>
   </div>
 
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import WeuiProgress from './components/loading/WeuiProgress';
 
 export default {
   name: 'app',
+
+  components: {
+    WeuiProgress,
+  },
 
   data() {
     return {
       transitionName: '',
     };
+  },
+
+  computed: {
+    ...mapGetters({
+      w: 'getProgress',
+    }),
   },
 };
 </script>
