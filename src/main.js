@@ -13,11 +13,20 @@ const TchAnalysis = (resolve) => {
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
 };
+const TchAssessSlider = (resolve) => {
+  require(['./views/TchAssessSlider'], resolve);
+};
 
 const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchAnalysis', component: TchAnalysis },
-  { path: '/TchAssess/:id', component: TchAssess },
+  {
+    path: '/TchAssess/:id',
+    component: TchAssess,
+    children: [
+      { name: 'slider', path: 'slider', component: TchAssessSlider },
+    ],
+  },
   { path: '/*', redirect: '/TchHome' },
 ];
 

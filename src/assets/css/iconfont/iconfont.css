@@ -1,5 +1,5 @@
 
-@font-face {font-family: "iconfont";
+@font-face {font-family: "anteicon";
   src: url('iconfont.eot?t=1479887552486'); /* IE9*/
   src: url('iconfont.eot?t=1479887552486#iefix') format('embedded-opentype'), /* IE6-IE8 */
   url('iconfont.woff?t=1479887552486') format('woff'), /* chrome, firefox */
@@ -7,8 +7,8 @@
   url('iconfont.svg?t=1479887552486#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-.iconfont {
-  font-family:"iconfont" !important;
+.anteicon {
+  font-family:"anteicon" !important;
   font-size:16px;
   font-style:normal;
   -webkit-font-smoothing: antialiased;

@@ -7,7 +7,7 @@
   @click="tapBtn">
 
     <div class="weui-grid__icon">
-        <img :src="btnProp.icon" alt="">
+      <i class="anteicon" :class="btnProp.icon"></i>
     </div>
     <p class="weui-grid__label">{{ btnProp.name }}</p>
 
@@ -40,6 +40,11 @@ export default {
 .ante-icon-btn.active,
 .ante-icon-btn.weui-grid:active {
   background-color: #e24402;
+}
+.ante-icon-btn i.anteicon {
+  font-size: 26px;
+  line-height: 26px;
+  color: #fff;
 }
 .ante-icon-btn .weui-grid__label {
   color: #fff;

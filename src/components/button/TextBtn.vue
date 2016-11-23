@@ -26,6 +26,9 @@ export default {
   background-color: #fff;
   padding: 15px 10px;
 }
+.weui-grid.ante-text-btn:active {
+  background-color: #ECECEC;
+}
 .weui-grid.ante-text-btn .weui-grid__label {
   color: #888;
 }

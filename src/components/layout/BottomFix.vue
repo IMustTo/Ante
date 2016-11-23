@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ante-layout-bottom-fix,
 .ante-layout-bottom-fix .ante-layout-content,
 .ante-layout-bottom-fix .ante-layout-bottom {

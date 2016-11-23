@@ -5,7 +5,8 @@
     <img :src="avatar"/>
     <input type="checkbox" class="weui-check" :id="iptid">
     <div class="ante-avatar-select-icon">
-      
+      <div class="ante-avatar-mask"></div>
+      <i class="anteicon icon-duihao"></i>
     </div>
   </div>
 
@@ -49,14 +50,29 @@ export default {
   position: absolute;
   width: 63px;
   height: 63px;
-  background-color: #000;
   border-radius: 10px;
   top: 11px;
   left: 6px;
   display: none;
+  overflow: hidden;
+  color: #fff;
 }
 .ante-avatar-item .weui-check:checked + .ante-avatar-select-icon {
   display: block;
+}
+.ante-avatar-mask {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+}
+.ante-avatar-select-icon .icon-duihao {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 24px;
 }
 .ante-avatar-name {
   font-size: 14px;

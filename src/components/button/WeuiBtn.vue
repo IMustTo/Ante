@@ -2,7 +2,7 @@
 <a href="javascript:;"
   class="weui-btn"
   :class="mergeCls"
-  :click="tapBtn">
+  @click="tapBtn">
   {{ name }}<slot></slot>
 </a>
 </template>
@@ -36,7 +36,9 @@ export default {
 
       return cls;
     },
+  },
 
+  methods: {
     tapBtn() {
       if (this.disabled) return;
 

@@ -6,21 +6,28 @@
       <cell-group :cells="cells"></cell-group>
     </template>
 
-    <avatar-list :avatars="avatars"></avatar-list>
+    <avatar-list v-if="avatars.length" :avatars="avatars"></avatar-list>
   
     <area-center slot="bottom">
-      <weui-btn mini>评价</weui-btn>
+      <weui-btn mini :disabled="!canAssess" @btnTap="showSliderPage">评价</weui-btn>
     </area-center>
   </bottom-fix>
+
+  <transition enter-active-class="slideIn" leave-active-class="slideOut">
+    <router-view></router-view>
+  </transition>
 
 </div>
 </template>
 
 <script>
+import BottomFix from '../components/layout/BottomFix';
+import RightSlider from '../components/layout/RightSlider';
+
 import AreaBase from '../components/area/AreaBase';
 import AreaCenter from '../components/area/AreaCenter';
+
 import AvatarList from '../components/list/AvatarList';
-import BottomFix from '../components/layout/BottomFix';
 import CellGroup from '../components/cell/CellGroup';
 import WeuiBtn from '../components/button/WeuiBtn';
 
@@ -32,6 +39,7 @@ export default {
     AreaCenter,
     AvatarList,
     BottomFix,
+    RightSlider,
     CellGroup,
     WeuiBtn,
   },
@@ -69,8 +77,28 @@ export default {
         { id: 4, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
         { id: 5, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
         { id: 6, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 11, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 12, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 13, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 14, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 15, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 16, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
       ],
+      showSlider: false,
     };
+  },
+
+  computed: {
+    canAssess() {
+      return !!(this.avatars && this.avatars.length);
+    },
+  },
+
+  methods: {
+    showSliderPage() {
+      // const path = this.$router.fullPath;
+      this.showSlider = this.$router.push({ name: 'slider' });
+    },
   },
 };
 </script>
