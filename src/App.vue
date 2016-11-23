@@ -23,6 +23,7 @@ export default {
 
 <style>
 @import "./assets/css/weui.css";
+@import "./assets/css/common.css";
 
 body,
 html {
@@ -38,7 +39,7 @@ ul {
 }
 .page,
 body {
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
 }
 .container {
   overflow: hidden;

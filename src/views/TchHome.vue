@@ -34,7 +34,7 @@ export default {
       ],
       textBtns: [
         [
-          { name: '评价', go: 'TchAssess' },
+          { name: '评价', go: '/TchAssess/1' },
           { name: '分析', go: 'TchAssess' },
           { name: '标准', go: 'TchAssess' },
           { name: '荣誉殿堂', go: 'TchAssess' },

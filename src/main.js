@@ -17,7 +17,7 @@ const TchAssess = (resolve) => {
 const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchAnalysis', component: TchAnalysis },
-  { path: '/TchAssess', component: TchAssess },
+  { path: '/TchAssess/:id', component: TchAssess },
   { path: '/*', redirect: '/TchHome' },
 ];
 

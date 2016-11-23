@@ -86,9 +86,9 @@ module.exports = {
   vue: {
     loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
     postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
+      // require('autoprefixer')({
+      //   browsers: ['last 2 versions']
+      // })
     ]
   }
 }

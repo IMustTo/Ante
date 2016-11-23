@@ -47,5 +47,8 @@ export default {
 </script>
 
 <style>
-
+.weui-btn_mini + .weui-btn_mini {
+  margin-top: 0;
+  margin-left: 15px;
+}
 </style>
