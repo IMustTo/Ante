@@ -1,13 +1,15 @@
 <template>
 <div class="ante-avatar-list anter-border-b">
 
-    <template v-for="item in avatars">
+    <template v-if="avatars" v-for="item in avatars">
       <avatar-item
         :id="item.id"
         :name="item.name"
         :avatar="item.avatar">
       </avatar-item>
     </template>
+
+    <slot></slot>
 
 </div>
 </template>

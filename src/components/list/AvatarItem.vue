@@ -3,7 +3,8 @@
 
   <div class="ante-avatar-select">
     <img :src="avatar"/>
-    <input type="checkbox" class="weui-check" :id="iptid">
+    <input type="checkbox" class="weui-check" :id="iptid"
+      v-model="checkStatus">
     <div class="ante-avatar-select-icon">
       <div class="ante-avatar-mask"></div>
       <i class="anteicon icon-duihao"></i>
@@ -18,11 +19,35 @@
 export default {
   name: 'avatar-item',
 
-  props: ['id', 'avatar', 'name'],
+  props: {
+    id: {
+      type: Number,
+    },
+    avatar: {
+      type: String,
+    },
+    name: {
+      type: String,
+    },
+    check: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   computed: {
     iptid() {
       return `avatar_${this.id}`;
+    },
+
+    checkStatus: {
+      get() {
+        return this.check;
+      },
+
+      set(value) {
+        this.$emit('changeEvt', this.id, value);
+      },
     },
   },
 };

@@ -6,9 +6,20 @@
       <cell-group :cells="cells"></cell-group>
     </template>
 
-    <avatar-list v-if="avatars.length" :avatars="avatars"></avatar-list>
+    <avatar-list v-if="avatars.length">
+      <template v-for="(item, index) in avatars">
+        <avatar-item
+          @changeEvt="checkAvatar"
+          :check="item.check"
+          :id="index"
+          :name="item.name"
+          :avatar="item.avatar">
+        </avatar-item>
+      </template>
+    </avatar-list>
   
     <area-center slot="bottom">
+      <weui-btn mini plain @tapEvt="selectAll">全选</weui-btn>
       <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
     </area-center>
   </bottom-fix>
@@ -28,6 +39,7 @@ import AreaBase from '../components/area/AreaBase';
 import AreaCenter from '../components/area/AreaCenter';
 
 import AvatarList from '../components/list/AvatarList';
+import AvatarItem from '../components/list/AvatarItem';
 import CellGroup from '../components/cell/CellGroup';
 import WeuiBtn from '../components/button/WeuiBtn';
 
@@ -38,6 +50,7 @@ export default {
     AreaBase,
     AreaCenter,
     AvatarList,
+    AvatarItem,
     BottomFix,
     RightSlider,
     CellGroup,
@@ -71,30 +84,59 @@ export default {
         ],
       ],
       avatars: [
-        { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 2, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 3, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 4, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 5, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 6, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 11, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 12, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 13, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 14, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 15, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 16, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 1, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 2, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 3, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 4, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 5, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 6, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 11, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 12, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 13, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 14, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 15, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
+        { id: 16, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
       ],
+
+      checkedAvatar: [],
+
       showSlider: false,
     };
   },
 
   computed: {
     canAssess() {
-      return !!(this.avatars && this.avatars.length);
+      return !!(this.avatars.length && this.checkedAvatar.length);
     },
   },
 
   methods: {
+    checkAvatar(index, value) {
+      this.avatars[index].check = value;
+      const { id } = this.avatars[index];
+
+      if (value) {
+        this.checkedAvatar.push(id);
+      } else {
+        const i = this.checkedAvatar.indexOf(id);
+        this.checkedAvatar.splice(i, 1);
+      }
+    },
+
+    selectAll() {
+      let check = true;
+      if (this.avatars.length === this.checkedAvatar.length) {
+        check = false;
+      }
+
+      this.checkedAvatar = [];
+      this.avatars.forEach(({ id }, index) => {
+        this.avatars[index].check = check;
+
+        if (check) this.checkedAvatar.push(id);
+      });
+    },
+
     showSliderPage() {
       // const path = this.$router.fullPath;
       this.showSlider = this.$router.push({ name: 'slider' });
