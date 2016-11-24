@@ -1,5 +1,6 @@
 <template>
 <div class="page">
+  <big-star></big-star>
   <template v-for="item in group">
     <cell-title :title="item.title" v-if="item.title"></cell-title>
 
@@ -28,6 +29,7 @@ import CellWapper from '../components/cell/CellWapper';
 import CellAccess from '../components/cell/CellAccess';
 import CellFiller from '../components/cell/CellFiller';
 import StarCell from '../components/star/StarCell';
+import BigStar from '../components/star/BigStar';
 
 export default {
   name: 'star-record',
@@ -37,6 +39,7 @@ export default {
     CellAccess,
     CellFiller,
     StarCell,
+    BigStar,
   },
 
   data() {
@@ -44,8 +47,8 @@ export default {
       group: [
         {
           stars: [
-            { icon: 'all', name: '海洋金星', count: 1 },
-            { icon: 'gold', name: '海洋全能星', count: 2 },
+            { icon: 'gold', name: '海洋金星', count: 2 },
+            { icon: 'all', name: '海洋全能星', count: 1 },
             { icon: 'silver', name: '海洋银星', count: 1 },
           ],
         },
