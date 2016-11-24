@@ -12,6 +12,9 @@ const TchHome = (resolve) => {
 const TchAnalysis = (resolve) => {
   require(['./views/TchAnalysis'], resolve);
 };
+const StarRecord = (resolve) => {
+  require(['./views/StarRecord'], resolve);
+};
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
 };
@@ -22,6 +25,7 @@ const TchAssessSlider = (resolve) => {
 const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchAnalysis', component: TchAnalysis },
+  { path: '/StarRecord/:id', component: StarRecord },
   {
     path: '/TchAssess/:id',
     component: TchAssess,
@@ -49,7 +53,7 @@ router.beforeEach((to, from, next) => {
     if (w > 85) {
       clearInterval(progress);
     }
-  }, 16);
+  }, 50);
 
   next();
 });
@@ -62,7 +66,7 @@ router.afterEach(() => {
     w = 0;
     store.commit(UPDATE_PROGRESS, { w });
     clearInterval(progress);
-  }, 16);
+  }, 50);
 });
 
 new Vue({

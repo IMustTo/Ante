@@ -36,7 +36,7 @@ export default {
       people: {
         id: 1,
         name: '王大明',
-        stars: 0,
+        stars: 1,
       },
     };
   },
@@ -53,7 +53,9 @@ export default {
     },
 
     showStars() {
-
+      if (this.people.stars) {
+        this.$router.push(`/StarRecord/${this.people.id}`);
+      }
     },
   },
 };

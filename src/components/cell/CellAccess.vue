@@ -8,7 +8,7 @@
       <slot></slot>
     </div>
 
-    <div v-if="caption" class="weui-cell__ft">{{ caption }}</div>
+    <div class="weui-cell__ft">{{ caption }}</div>
   </a>
 </div>
 
@@ -17,7 +17,24 @@
 <script>
 export default {
   name: 'cell-access',
-  props: ['id', 'name', 'caption', 'imguri'],
+  props: {
+    id: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    caption: {
+      type: String,
+      default: '',
+    },
+    imguri: {
+      type: String,
+      default: '',
+    },
+  },
 };
 </script>
 
