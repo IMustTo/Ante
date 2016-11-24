@@ -19,7 +19,9 @@
     </avatar-list>
   
     <area-center slot="bottom">
-      <weui-btn mini plain @tapEvt="selectAll">全选</weui-btn>
+      <weui-btn mini plain
+        @tapEvt="selectAll"><i class="ante-icon-inbtn"
+          :class="checkAllBtnCls"></i>&emsp;全选</weui-btn>
       <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
     </area-center>
   </bottom-fix>
@@ -105,6 +107,16 @@ export default {
   },
 
   computed: {
+    checkAllBtnCls() {
+      const checked = !!(this.avatars.length &&
+        (this.checkedAvatar.length === this.avatars.length));
+
+      return {
+        'weui-icon-success': checked,
+        'weui-icon-circle': !checked,
+      };
+    },
+
     canAssess() {
       return !!(this.avatars.length && this.checkedAvatar.length);
     },
@@ -144,3 +156,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.ante-icon-inbtn {
+  font-size: 14px;
+  position: absolute;
+  left: 10px;
+  top: 7px;
+}
+</style>
