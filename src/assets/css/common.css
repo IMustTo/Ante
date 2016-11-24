@@ -1,5 +1,23 @@
 @import './iconfont/iconfont.css';
+@import './animate.css';
 
+.anter-border-b:after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 1px;
+
+  content: ' ';
+  -webkit-transform: scaleY(.5);
+          transform: scaleY(.5);
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+
+  color: #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
 .ellipsis-one-line {
   display: -webkit-box;
   overflow: hidden;

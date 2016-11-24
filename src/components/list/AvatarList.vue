@@ -1,14 +1,12 @@
 <template>
-<div class="ante-avatar-list">
+<div class="ante-avatar-list anter-border-b">
 
     <template v-for="item in avatars">
-
       <avatar-item
         :id="item.id"
         :name="item.name"
         :avatar="item.avatar">
       </avatar-item>
-
     </template>
 
 </div>
@@ -35,5 +33,6 @@ export default {
   background-color: #fff;
   padding:10px 0 20px;
   font-size: 0;
+  margin-bottom: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <a class="weui-cell weui-cell_access" href="javascript:;">
+  <a class="weui-cell weui-cell_access" href="javascript:;" @click="$emit('tapEvt', id)">
     <div class="weui-cell__hd">
       <img v-if="imguri" :src="imguri"></div>
 
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'cell-access',
-  props: ['name', 'caption', 'imguri', 'go', 'isLink'],
+  props: ['id', 'name', 'caption', 'imguri'],
 };
 </script>
 

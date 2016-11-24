@@ -9,7 +9,7 @@
     <avatar-list v-if="avatars.length" :avatars="avatars"></avatar-list>
   
     <area-center slot="bottom">
-      <weui-btn mini :disabled="!canAssess" @btnTap="showSliderPage">评价</weui-btn>
+      <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
     </area-center>
   </bottom-fix>
 

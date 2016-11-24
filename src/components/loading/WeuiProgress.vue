@@ -16,7 +16,8 @@ export default {
   computed: {
     stl() {
       return {
-        width: `${this.w}%`,
+        webkitTransform: `scaleX(${this.w}) translateX(50%)`,
+        transform: `scaleX(${this.w}) translateX(50%)`,
       };
     },
   },
@@ -30,5 +31,8 @@ export default {
   left: 0;
   right: 0;
   z-index: 5;
+}
+.weui-progress__inner-bar {
+  width: 1%;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
     tapBtn() {
       if (this.disabled) return;
 
-      this.$emit('btnTap');
+      this.$emit('tapEvt');
     },
   },
 };

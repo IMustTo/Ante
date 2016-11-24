@@ -65,6 +65,7 @@ export default {
   height: 100%;
   background-color: #000;
   opacity: 0.5;
+  border-radius: 10px;
 }
 .ante-avatar-select-icon .icon-duihao {
   position: absolute;

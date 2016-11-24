@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
   if (progress) clearInterval(progress);
   w = 0;
   progress = setInterval(() => {
-    w = w + 5; // eslint-disable-line
+    w++; // eslint-disable-line
     store.commit(UPDATE_PROGRESS, { w });
 
     if (w > 85) {
@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   if (progress) clearInterval(progress);
 
-  store.commit(UPDATE_PROGRESS, { w: 100 });
+  store.commit(UPDATE_PROGRESS, { w: 120 });
   progress = setInterval(() => {
     w = 0;
     store.commit(UPDATE_PROGRESS, { w });
