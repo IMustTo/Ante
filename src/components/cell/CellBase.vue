@@ -5,6 +5,7 @@
 
   <div class="weui-cell__bd">
       <p>{{ name }}</p>
+      <slot></slot>
   </div>
 
   <div v-if="caption" class="weui-cell__ft">

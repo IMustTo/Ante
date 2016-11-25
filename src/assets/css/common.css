@@ -34,3 +34,10 @@
   opacity: .5;
   background-color: #000;
 }
+.ante-cell-desc {
+  color: #888;
+  font-size: 14px;
+}
+.ante-page-withb {
+  padding-bottom: 20px;
+}

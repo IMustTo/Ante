@@ -1,12 +1,14 @@
 <template>
 <div class="page">
-  <big-star></big-star>
+  
   <template v-for="item in group">
     <cell-title :title="item.title" v-if="item.title"></cell-title>
 
     <cell-wapper>
-      <template v-for="star in item.stars">
+      <template v-for="(star, index) in item.stars">
         <star-cell
+          @tapEvt="showOneStar"
+          :id="index"
           :icon="star.icon"
           :name="star.name"
           :count="star.count">
@@ -29,7 +31,6 @@ import CellWapper from '../components/cell/CellWapper';
 import CellAccess from '../components/cell/CellAccess';
 import CellFiller from '../components/cell/CellFiller';
 import StarCell from '../components/star/StarCell';
-import BigStar from '../components/star/BigStar';
 
 export default {
   name: 'star-record',
@@ -39,7 +40,6 @@ export default {
     CellAccess,
     CellFiller,
     StarCell,
-    BigStar,
   },
 
   data() {
@@ -81,6 +81,10 @@ export default {
   },
 
   methods: {
+    showOneStar(id) {
+      this.$router.push(`/StarRecordOne/${id}`);
+    },
+
     showRecord() {
       console.log('xxxx');
     },
