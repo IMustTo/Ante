@@ -16,8 +16,8 @@ export default {
   computed: {
     stl() {
       return {
-        webkitTransform: `scaleX(${this.w}) translateX(50%)`,
-        transform: `scaleX(${this.w}) translateX(50%)`,
+        webkitTransform: `scaleX(${this.w})`,
+        transform: `scaleX(${this.w})`,
       };
     },
   },
