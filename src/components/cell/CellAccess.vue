@@ -1,7 +1,9 @@
 <template>
   <a class="weui-cell weui-cell_access" href="javascript:;" @click="$emit('tapEvt', id)">
     <div class="weui-cell__hd">
-      <img v-if="imguri" :src="imguri"></div>
+      <img v-if="imguri" :src="imguri">
+      <slot name="icon"></slot>
+    </div>
 
     <div class="weui-cell__bd">
       <p>{{ name }}</p>

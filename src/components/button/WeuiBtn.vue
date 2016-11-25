@@ -53,4 +53,7 @@ export default {
   margin-top: 0;
   margin-left: 15px;
 }
+.weui-btn_mini.weui-btn_primary {
+  line-height: 2.4;
+}
 </style>

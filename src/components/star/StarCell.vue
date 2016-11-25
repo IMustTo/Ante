@@ -26,6 +26,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../../assets/css/star.css';
+
 .ante-star-cell {
   display: inline-block;
   text-align: center;
@@ -59,15 +61,7 @@ export default {
   height: 80px;
   background-size: cover;
 }
-.ante-star-icon-all {
-  background-image: url('../../assets/images/star-all.png');
-}
-.ante-star-icon-gold {
-  background-image: url('../../assets/images/star-gold.png');
-}
-.ante-star-icon-silver {
-  background-image: url('../../assets/images/star-silver.png');
-}
+
 .ante-star-icon-bj,
 .ante-star-icon-fc,
 .ante-star-icon-hm,
@@ -83,42 +77,8 @@ export default {
   border: 1px solid #d6e5f1;
   background-color: #e5f3ff;
 }
-.ante-star-icon-bj {
-  background-image: url('../../assets/images/star-bj-m.png');
-}
-.ante-star-icon-fc {
-  background-image: url('../../assets/images/star-fc-m.png');
-}
-.ante-star-icon-hm {
-  background-image: url('../../assets/images/star-hm-m.png');
-}
-.ante-star-icon-hs {
-  background-image: url('../../assets/images/star-hs-m.png');
-}
-.ante-star-icon-ht {
-  background-image: url('../../assets/images/star-ht-m.png');
-}
-.ante-star-icon-jy {
-  background-image: url('../../assets/images/star-jy-m.png');
-}
-.ante-star-icon-nm {
-  background-image: url('../../assets/images/star-nm-m.png');
-}
-.ante-star-icon-qe {
-  background-image: url('../../assets/images/star-qe-m.png');
-}
-.ante-star-icon-sh {
-  background-image: url('../../assets/images/star-sh-m.png');
-}
-.ante-star-icon-sm {
-  background-image: url('../../assets/images/star-sm-m.png');
-}
-.ante-star-icon-zy {
-  background-image: url('../../assets/images/star-zy-m.png');
-}
 
 .ante-star-icon-zdy {
-  background-image: url('../../assets/images/star-zdy-m.png');
   background-size: 58px;
   border: 1px solid #ffd08e;
   background-color: #fff4bb;
@@ -131,23 +91,5 @@ export default {
 .ante-star-icon-red,
 .ante-star-icon-yellow {
   background-size: 58px;
-}
-.ante-star-icon-blue {
-  background-image: url('../../assets/images/star-blue-m.png');
-}
-.ante-star-icon-green {
-  background-image: url('../../assets/images/star-green-m.png');
-}
-.ante-star-icon-pink {
-  background-image: url('../../assets/images/star-pink-m.png');
-}
-.ante-star-icon-purple {
-  background-image: url('../../assets/images/star-purple-m.png');
-}
-.ante-star-icon-red {
-  background-image: url('../../assets/images/star-red-m.png');
-}
-.ante-star-icon-yellow {
-  background-image: url('../../assets/images/star-yellow-m.png');
 }
 </style>

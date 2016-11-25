@@ -14,7 +14,7 @@
   </cell-wapper>
 
   <area-base>
-    <weui-btn dft>撤销</weui-btn>
+    <weui-btn dft @tapEvt="dropStar">撤销</weui-btn>
   </area-base>
 </div>
 </template>
@@ -47,6 +47,12 @@ export default {
         { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
       ],
     };
+  },
+
+  methods: {
+    dropStar() {
+      this.$router.push('/DropStar/1');
+    },
   },
 };
 </script>

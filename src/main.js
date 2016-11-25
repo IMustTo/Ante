@@ -18,8 +18,14 @@ const StarRecord = (resolve) => {
 const StarRecordOne = (resolve) => {
   require(['./views/StarRecordOne'], resolve);
 };
-const StarRecordAll = (resolve) => {
-  require(['./views/StarRecordAll'], resolve);
+const StarRecordList = (resolve) => {
+  require(['./views/StarRecordList'], resolve);
+};
+const StarRecordDetail = (resolve) => {
+  require(['./views/StarRecordDetail'], resolve);
+};
+const DropStar = (resolve) => {
+  require(['./views/DropStar'], resolve);
 };
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
@@ -33,7 +39,9 @@ const routes = [
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
   { path: '/StarRecordOne/:id', component: StarRecordOne },
-  { path: '/StarRecordAll/:id', component: StarRecordAll },
+  { path: '/StarRecordList/:id', component: StarRecordList },
+  { path: '/StarRecordDetail/:id', component: StarRecordDetail },
+  { path: '/DropStar/:id', component: DropStar },
   {
     path: '/TchAssess/:id',
     component: TchAssess,

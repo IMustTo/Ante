@@ -18,7 +18,7 @@
   </template>
 
   <cell-wapper>
-    <cell-access name="得星纪录" @tapEvt="showRecord"></cell-access>
+    <cell-access name="得星纪录" @tapEvt="showList"></cell-access>
   </cell-wapper>
 
   <cell-filler></cell-filler>
@@ -85,8 +85,8 @@ export default {
       this.$router.push(`/StarRecordOne/${id}`);
     },
 
-    showRecord() {
-      console.log('xxxx');
+    showList() {
+      this.$router.push(`/StarRecordList/${1}`);
     },
   },
 };
