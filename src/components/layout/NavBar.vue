@@ -1,19 +1,58 @@
 <template>
 <div class="weui-tab">
   <div class="weui-navbar">
-    <div class="weui-navbar__item">选项一</div>
-    <div class="weui-navbar__item">选项二</div>
-    <div class="weui-navbar__item weui-bar__item_on">选项三</div>
+
+    <template v-for="(name, index) in navbar">
+      <nav-btn
+        :checked="checked === index"
+        :name="name"
+        :index="index"
+        @tapEvt="tapNav">
+      </nav-btn>
+    </template>
+
   </div>
-  <div class="weui-tab__panel"></div>
+  <div class="weui-tab__panel">
+    <slot></slot>
+  </div>
 </div>
 </template>
 
 <script>
+import NavBtn from '../button/NavBtn';
+
 export default {
   name: 'nav-bar',
-  props: [],
+  props: {
+    navbar: {
+      type: Array,
+      default: [],
+    },
+  },
+
+  data() {
+    return {
+      checked: 0,
+    };
+  },
+
+  components: {
+    NavBtn,
+  },
+
+  methods: {
+    tapNav(index) {
+      this.checked = index;
+      this.$emit('tapEvt', index);
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.ante-page-content {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+</style>
