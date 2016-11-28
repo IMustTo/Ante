@@ -4,6 +4,7 @@
   </icon-btn-group>
 
   <cell-title
+    v-if="!isParent"
     :custom="titleStyle"
     title="海洋星评价系统">
   </cell-title>
@@ -52,6 +53,8 @@ export default {
       titleStyle: {
         color: '#333',
       },
+
+      isParent: true,
     };
   },
 
@@ -59,6 +62,24 @@ export default {
     IconBtnGroup,
     TextBtnGroup,
     CellTitle,
+  },
+
+  created() {
+    // TODO IF 家长
+    if (this.isParent) {
+      this.iconBtns = [
+        { name: '评价', icon: 'icon-pingjia', cls: 'active' },
+        { name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' },
+        { name: '标准', icon: 'icon-wbdiconbook', go: 'base' },
+        { name: '荣誉殿堂', icon: 'icon-jiangbei', go: '/HonorHall' },
+        { name: '自定义星', icon: 'icon-star', go: '/CustomStar' },
+      ];
+
+      this.textBtns = [
+        [{ name: '家庭评价', go: '/PrtAssess/1' }],
+        [{ name: '自定义星评价', go: 'TchAssess' }],
+      ];
+    }
   },
 
   methods: {

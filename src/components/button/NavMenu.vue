@@ -114,8 +114,9 @@ export default {
   position: absolute;
   left: 0;
   right: 0;
-  top: 45px;
+  top: 44px;
   box-shadow: 1px 1px 5px #bbb;
+  z-index: 100;
 }
 .ante-nav-mune-inner > li:active {
   background-color: #dfdfdf;

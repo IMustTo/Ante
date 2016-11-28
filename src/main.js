@@ -39,6 +39,12 @@ const TchApprove = (resolve) => {
 const HonorHall = (resolve) => {
   require(['./views/HonorHall'], resolve);
 };
+const StdShow = (resolve) => {
+  require(['./views/StdShow'], resolve);
+};
+const CustomStar = (resolve) => {
+  require(['./views/CustomStar'], resolve);
+};
 
 const routes = [
   { path: '/TchHome', component: TchHome },
@@ -50,6 +56,7 @@ const routes = [
   { path: '/StarRecordDetail/:id', component: StarRecordDetail },
   { path: '/DropStar/:id', component: DropStar },
   { path: '/HonorHall', component: HonorHall },
+  { path: '/StdShow/:id', component: StdShow },
   {
     path: '/TchAssess/:id',
     component: TchAssess,
@@ -57,6 +64,7 @@ const routes = [
       { name: 'slider', path: 'slider', component: TchAssessSlider },
     ],
   },
+  { path: '/CustomStar', component: CustomStar },
   { path: '/*', redirect: '/TchHome' },
 ];
 
@@ -74,7 +82,7 @@ router.beforeEach((to, from, next) => {
     w++; // eslint-disable-line
     store.commit(UPDATE_PROGRESS, { w });
 
-    if (w > 200) {
+    if (w > 95) {
       clearInterval(progress);
     }
   }, 16);
@@ -85,7 +93,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   if (progress) clearInterval(progress);
 
-  store.commit(UPDATE_PROGRESS, { w: 250 });
+  store.commit(UPDATE_PROGRESS, { w: 100 });
   progress = setInterval(() => {
     w = 0;
     store.commit(UPDATE_PROGRESS, { w });

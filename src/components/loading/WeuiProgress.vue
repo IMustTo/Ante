@@ -34,5 +34,7 @@ export default {
 }
 .weui-progress__inner-bar {
   width: 1%;
+  -webkit-transform-origin: 0 0%;
+  transform-origin: 0 0%;
 }
 </style>
