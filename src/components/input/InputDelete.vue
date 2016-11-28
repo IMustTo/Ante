@@ -1,0 +1,58 @@
+<template>
+<div class="weui-cell">
+  <div class="weui-cell__bd">
+    <textarea class="weui-textarea"
+      @input="inputValue"
+      :placeholder="holder"
+      :rows="rows">
+    </textarea>
+  </div>
+
+  <div class="ante-delete-btn" v-if="canDelete" @click="$emit('tapEvt', index)">
+    <div class="ante-delete-btn-inner"></div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+  name: 'weui-textarea',
+  props: {
+    index: {
+      type: Number,
+      default: 0,
+    },
+    holder: {
+      type: String,
+      default: '请输入',
+    },
+    rows: {
+      type: Number,
+      default: 2,
+    },
+    canDelete: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  methods: {
+    inputValue({ target: { value } }) {
+      this.$emit('inputEvt', value, this.index);
+    },
+  },
+};
+</script>
+
+<style scoped>
+.ante-delete-btn {
+  width: 20px;
+  height: 20px;
+  padding: 10px 10px 10px;
+}
+.ante-delete-btn-inner {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #e5e5e5;
+}
+</style>

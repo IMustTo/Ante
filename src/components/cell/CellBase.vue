@@ -1,15 +1,18 @@
 <template>
-<div class="weui-cell">
+<div class="weui-cell" @click="$emit('tapEvt')">
   <div class="weui-cell__hd">
-  <img v-if="imguri" :src="imguri"></div>
+    <img v-if="imguri" :src="imguri">
+    <slot name="icon"></slot>
+  </div>
 
   <div class="weui-cell__bd">
       <p>{{ name }}</p>
       <slot></slot>
   </div>
 
-  <div v-if="caption" class="weui-cell__ft">
+  <div class="weui-cell__ft">
     {{ caption }}
+    <slot name="desc"></slot>
   </div>
 </div>
 </template>
@@ -17,7 +20,20 @@
 <script>
 export default {
   name: 'cell-base',
-  props: ['name', 'caption', 'imguri'],
+  props: {
+    name: {
+      type: String,
+      default: '',
+    },
+    caption: {
+      type: String,
+      default: '',
+    },
+    imguri: {
+      type: String,
+      default: '',
+    },
+  },
 };
 </script>
 

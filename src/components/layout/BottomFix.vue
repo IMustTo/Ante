@@ -33,6 +33,7 @@ export default {
   top: 0;
   bottom: 50px;
   overflow-y: auto;
+  padding-bottom: 20px;
 }
 .ante-layout-bottom-fix .ante-layout-bottom {
   height: 50px;
