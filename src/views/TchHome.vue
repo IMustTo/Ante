@@ -27,10 +27,10 @@ export default {
     return {
       iconBtns: [
         { name: '评价', icon: 'icon-pingjia', cls: 'active' },
-        { name: '分析', icon: 'icon-fenxi', go: 'TchAnalysis' },
+        { name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' },
         { name: '标准', icon: 'icon-wbdiconbook', go: 'base' },
-        { name: '荣誉殿堂', icon: 'icon-jiangbei', go: 'xxx' },
-        { name: '审批', icon: 'icon-shenpi', go: 'ttt' },
+        { name: '荣誉殿堂', icon: 'icon-jiangbei', go: '/HonorHall' },
+        { name: '审批', icon: 'icon-shenpi', go: '/TchApprove' },
         { name: '扫码评价', icon: 'icon-scan', go: '' },
       ],
       textBtns: [

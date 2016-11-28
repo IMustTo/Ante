@@ -33,15 +33,23 @@ const TchAssess = (resolve) => {
 const TchAssessSlider = (resolve) => {
   require(['./views/TchAssessSlider'], resolve);
 };
+const TchApprove = (resolve) => {
+  require(['./views/TchApprove'], resolve);
+};
+const HonorHall = (resolve) => {
+  require(['./views/HonorHall'], resolve);
+};
 
 const routes = [
   { path: '/TchHome', component: TchHome },
+  { path: '/TchApprove', component: TchApprove },
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
   { path: '/StarRecordOne/:id', component: StarRecordOne },
   { path: '/StarRecordList/:id', component: StarRecordList },
   { path: '/StarRecordDetail/:id', component: StarRecordDetail },
   { path: '/DropStar/:id', component: DropStar },
+  { path: '/HonorHall', component: HonorHall },
   {
     path: '/TchAssess/:id',
     component: TchAssess,
