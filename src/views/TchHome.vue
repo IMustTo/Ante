@@ -43,7 +43,7 @@ export default {
           { name: '审批', go: 'TchAssess' },
         ],
         [
-          { name: '评价', go: 'TchAssess' },
+          { name: '课堂评价', go: '/ClassAssess' },
           { name: '分析', go: 'TchAssess' },
           { name: '标准', go: 'TchAssess' },
           { name: '荣誉殿堂', go: 'TchAssess' },
@@ -54,7 +54,7 @@ export default {
         color: '#333',
       },
 
-      isParent: true,
+      isParent: false,
     };
   },
 
@@ -76,8 +76,8 @@ export default {
       ];
 
       this.textBtns = [
-        [{ name: '家庭评价', go: '/PrtAssess/1' }],
-        [{ name: '自定义星评价', go: 'TchAssess' }],
+        [{ name: '家庭评价', go: '/PrtAssess' }],
+        [{ name: '自定义星评价', go: '/CustomStarAssess' }],
       ];
     }
   },

@@ -33,6 +33,9 @@ const TchAssess = (resolve) => {
 const TchAssessSlider = (resolve) => {
   require(['./views/TchAssessSlider'], resolve);
 };
+const ClassAssess = (resolve) => {
+  require(['./views/ClassAssess'], resolve);
+};
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
 };
@@ -42,8 +45,20 @@ const HonorHall = (resolve) => {
 const StdShow = (resolve) => {
   require(['./views/StdShow'], resolve);
 };
+const PrtAssess = (resolve) => {
+  require(['./views/PrtAssess'], resolve);
+};
+const AssessSuc = (resolve) => {
+  require(['./views/AssessSuc'], resolve);
+};
 const CustomStar = (resolve) => {
   require(['./views/CustomStar'], resolve);
+};
+const CustomStarAssess = (resolve) => {
+  require(['./views/CustomStarAssess'], resolve);
+};
+const CustomStarGet = (resolve) => {
+  require(['./views/CustomStarGet'], resolve);
 };
 
 const routes = [
@@ -64,7 +79,12 @@ const routes = [
       { name: 'slider', path: 'slider', component: TchAssessSlider },
     ],
   },
+  { path: '/ClassAssess', component: ClassAssess },
+  { path: '/PrtAssess', component: PrtAssess },
+  { path: '/AssessSuc', component: AssessSuc },
   { path: '/CustomStar', component: CustomStar },
+  { path: '/CustomStarAssess', component: CustomStarAssess },
+  { path: '/CustomStarGet', component: CustomStarGet },
   { path: '/*', redirect: '/TchHome' },
 ];
 
@@ -85,7 +105,7 @@ router.beforeEach((to, from, next) => {
     if (w > 95) {
       clearInterval(progress);
     }
-  }, 16);
+  }, 32);
 
   next();
 });

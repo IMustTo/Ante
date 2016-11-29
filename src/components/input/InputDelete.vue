@@ -9,7 +9,9 @@
   </div>
 
   <div class="ante-delete-btn" v-if="canDelete" @click="$emit('tapEvt', index)">
-    <div class="ante-delete-btn-inner"></div>
+    <div class="ante-delete-btn-inner">
+      <i class="anteicon icon-chahao"></i>
+    </div>
   </div>
 </div>
 </template>
@@ -54,5 +56,8 @@ export default {
   width: 18px;
   height: 18px;
   border: 1px solid #e5e5e5;
+  text-align: center;
+  color: #bbb;
+  line-height: 18px;
 }
 </style>

@@ -1,10 +1,10 @@
 
 @font-face {font-family: "anteicon";
-  src: url('iconfont.eot?t=1480310652121'); /* IE9*/
-  src: url('iconfont.eot?t=1480310652121#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1480310652121') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1480310652121') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1480310652121#anteicon') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1480384515013'); /* IE9*/
+  src: url('iconfont.eot?t=1480384515013#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1480384515013') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1480384515013') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1480384515013#anteicon') format('svg'); /* iOS 4.1- */
 }
 
 .anteicon {
@@ -28,7 +28,11 @@
 
 .icon-wbdiconbook:before { content: "\e616"; }
 
+.icon-jiahao:before { content: "\e602"; }
+
 .icon-shenpi:before { content: "\e682"; }
+
+.icon-chahao:before { content: "\e611"; }
 
 .icon-jiangbei:before { content: "\e604"; }
 

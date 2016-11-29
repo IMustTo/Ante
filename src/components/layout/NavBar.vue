@@ -55,4 +55,15 @@ export default {
   height: 100%;
   display: none;
 }
+
+.weui-navbar + .weui-tab__panel {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  height: auto;
+  overflow-y: auto;
+}
 </style>

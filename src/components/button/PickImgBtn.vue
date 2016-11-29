@@ -1,7 +1,9 @@
 <template>
 <div class="ante-pick-img"
   :class="cls"
-  @click="$emit('tapEvt')"></div>
+  @click="$emit('tapEvt')">
+    <i class="anteicon icon-jiahao"></i>
+  </div>
 </template>
 
 <script>
@@ -30,6 +32,13 @@ export default {
   width: 60px;
   display: inline-block;
   border: 1px solid #dfdfdf;
+  font-size: 0;
+  text-align: center;
+}
+.ante-pick-img .icon-jiahao {
+  font-size: 30px;
+  color: #bbb;
+  line-height: 60px;
 }
 .ante-pick-img:active {
   background-color: #f0f0f0;
@@ -37,5 +46,9 @@ export default {
 .ante-pick-img-mini {
   width: 20px;
   height: 20px;
+}
+.ante-pick-img-mini .icon-jiahao {
+  font-size: 12px;
+  line-height: 20px;
 }
 </style>
