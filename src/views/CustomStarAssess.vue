@@ -27,22 +27,14 @@
 </template>
 
 <script>
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import CellFiller from '../components/cell/CellFiller';
 import StarCell from '../components/star/StarCell';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'custom-star-assess',
   components: {
-    CellTitle,
-    CellWapper,
-    CellAccess,
     CellFiller,
     StarCell,
-    WeuiBtn,
   },
 
   data() {

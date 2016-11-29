@@ -20,15 +20,12 @@
 </template>
 
 <script>
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 
 export default {
   name: 'tch-analysis',
 
   components: {
-    CellWapper,
-    CellAccess,
+
   },
 
   data() {

@@ -13,15 +13,11 @@
 </template>
 
 <script>
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
 import CountItem from '../components/list/CountItem';
 
 export default {
   name: 'star-record-detail',
   components: {
-    CellTitle,
-    CellWapper,
     CountItem,
   },
 

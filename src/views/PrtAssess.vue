@@ -31,24 +31,16 @@
 <script>
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import StarItem from '../components/list/StarItem';
 import WeuiToast from '../components/toast/WeuiToast';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'prt-assess',
   components: {
     BottomFix,
     AreaCenter,
-    CellTitle,
-    CellWapper,
-    CellAccess,
     StarItem,
     WeuiToast,
-    WeuiBtn,
   },
 
   data() {

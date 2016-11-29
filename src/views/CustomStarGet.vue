@@ -32,13 +32,7 @@
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
 
-import CellBase from '../components/cell/CellBase';
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
-
 import PickImgBtn from '../components/button/PickImgBtn';
-import WeuiBtn from '../components/button/WeuiBtn';
 import WeuiInput from '../components/input/WeuiInput';
 import InputDelete from '../components/input/InputDelete';
 
@@ -47,12 +41,7 @@ export default {
   components: {
     BottomFix,
     AreaCenter,
-    CellBase,
-    CellTitle,
-    CellWapper,
-    CellAccess,
     PickImgBtn,
-    WeuiBtn,
     WeuiInput,
     InputDelete,
   },

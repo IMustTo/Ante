@@ -38,9 +38,6 @@ import BottomFix from '../components/layout/BottomFix';
 import RightSlider from '../components/layout/RightSlider';
 
 import AreaCenter from '../components/area/AreaCenter';
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import WeuiBtn from '../components/button/WeuiBtn';
 import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
 
@@ -51,9 +48,6 @@ export default {
     BottomFix,
     RightSlider,
     AreaCenter,
-    CellTitle,
-    CellWapper,
-    WeuiBtn,
     WeuiTextarea,
     StarItem,
     WeuiToast,

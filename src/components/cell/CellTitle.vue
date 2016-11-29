@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'cell-title',
   props: {
     title: String,
     custom: Object,

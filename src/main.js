@@ -3,6 +3,11 @@ import VueRouter from 'vue-router';
 import store from './vuex/store';
 import { UPDATE_PROGRESS } from './vuex/mutation_types';
 import App from './App';
+import common from './components/common';
+
+common.forEach((component) => {
+  Vue.component(component.name, component);
+});
 
 Vue.use(VueRouter);
 
@@ -39,6 +44,12 @@ const ClassAssess = (resolve) => {
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
 };
+const TchAprDtl = (resolve) => {
+  require(['./views/TchAprDtl'], resolve);
+};
+const AssessPass = (resolve) => {
+  require(['./views/AssessPass'], resolve);
+};
 const HonorHall = (resolve) => {
   require(['./views/HonorHall'], resolve);
 };
@@ -64,6 +75,9 @@ const CustomStarGet = (resolve) => {
 const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchApprove', component: TchApprove },
+  { path: '/TchAprDtl/:id', component: TchAprDtl },
+  { path: '/AssessPass', component: AssessPass },
+
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
   { path: '/StarRecordOne/:id', component: StarRecordOne },

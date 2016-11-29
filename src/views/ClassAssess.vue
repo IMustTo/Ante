@@ -32,12 +32,7 @@
 <script>
 import NavBar from '../components/layout/NavBar';
 import BottomFix from '../components/layout/BottomFix';
-
 import AreaCenter from '../components/area/AreaCenter';
-
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'class-assess',
@@ -45,9 +40,6 @@ export default {
     NavBar,
     BottomFix,
     AreaCenter,
-    CellWapper,
-    CellAccess,
-    WeuiBtn,
   },
 
   data() {

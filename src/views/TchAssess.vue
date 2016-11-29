@@ -43,7 +43,6 @@ import AreaCenter from '../components/area/AreaCenter';
 import AvatarList from '../components/list/AvatarList';
 import AvatarItem from '../components/list/AvatarItem';
 import CellGroup from '../components/cell/CellGroup';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'tch-assess',
@@ -56,7 +55,6 @@ export default {
     BottomFix,
     RightSlider,
     CellGroup,
-    WeuiBtn,
   },
 
   data() {

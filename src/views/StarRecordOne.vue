@@ -20,24 +20,16 @@
 </template>
 
 <script>
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellBase from '../components/cell/CellBase';
 import BigStar from '../components/star/BigStar';
 import StarSum from '../components/star/StarSum';
 import AreaBase from '../components/area/AreaBase';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'star-record-one',
   components: {
     BigStar,
     StarSum,
-    CellTitle,
-    CellWapper,
-    CellBase,
     AreaBase,
-    WeuiBtn,
   },
 
   data() {

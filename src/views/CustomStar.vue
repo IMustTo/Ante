@@ -49,11 +49,6 @@
 <script>
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellBase from '../components/cell/CellBase';
-import CellAccess from '../components/cell/CellAccess';
-import WeuiBtn from '../components/button/WeuiBtn';
 import WeuiInput from '../components/input/WeuiInput';
 import InputDelete from '../components/input/InputDelete';
 import PickImgBtn from '../components/button/PickImgBtn';
@@ -62,12 +57,7 @@ export default {
   name: 'custom-star',
   components: {
     AreaCenter,
-    CellTitle,
-    CellWapper,
     BottomFix,
-    CellAccess,
-    CellBase,
-    WeuiBtn,
     WeuiInput,
     InputDelete,
     PickImgBtn,

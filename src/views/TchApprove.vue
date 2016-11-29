@@ -28,8 +28,6 @@
 
 <script>
 import NavBar from '../components/layout/NavBar';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import StarIcon from '../components/star/StarIcon';
 import StatusBox from '../components/status/StatusBox';
 
@@ -37,8 +35,6 @@ export default {
   name: 'tch-approve',
   components: {
     NavBar,
-    CellWapper,
-    CellAccess,
     StarIcon,
     StatusBox,
   },
@@ -78,7 +74,7 @@ export default {
 
   methods: {
     showDetail(id) {
-      console.log(id);
+      this.$router.push(`/TchAprDtl/${id}`);
       // TODO
     },
 

@@ -27,16 +27,12 @@
 </template>
 
 <script>
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import StarIcon from '../components/star/StarIcon';
 import NavBar from '../components/layout/NavBar';
 
 export default {
   name: 'star-record-list',
   components: {
-    CellWapper,
-    CellAccess,
     StarIcon,
     NavBar,
   },

@@ -26,18 +26,12 @@
 </template>
 
 <script>
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import CellFiller from '../components/cell/CellFiller';
 import StarCell from '../components/star/StarCell';
 
 export default {
   name: 'star-record',
   components: {
-    CellTitle,
-    CellWapper,
-    CellAccess,
     CellFiller,
     StarCell,
   },

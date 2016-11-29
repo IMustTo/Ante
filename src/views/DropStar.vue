@@ -21,22 +21,14 @@
 </template>
 
 <script>
-import CellTitle from '../components/cell/CellTitle';
-import CellWapper from '../components/cell/CellWapper';
-import CellAccess from '../components/cell/CellAccess';
 import WeuiTextarea from '../components/input/WeuiTextarea';
 import AreaBase from '../components/area/AreaBase';
-import WeuiBtn from '../components/button/WeuiBtn';
 
 export default {
   name: 'drop-star',
   components: {
-    CellTitle,
-    CellWapper,
-    CellAccess,
     WeuiTextarea,
     AreaBase,
-    WeuiBtn,
   },
 
   data() {

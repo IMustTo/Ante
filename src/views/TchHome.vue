@@ -19,7 +19,6 @@
 <script>
 import IconBtnGroup from '../components/button/IconBtnGroup';
 import TextBtnGroup from '../components/button/TextBtnGroup';
-import CellTitle from '../components/cell/CellTitle';
 
 export default {
   name: 'tch-home',
@@ -61,7 +60,6 @@ export default {
   components: {
     IconBtnGroup,
     TextBtnGroup,
-    CellTitle,
   },
 
   created() {
