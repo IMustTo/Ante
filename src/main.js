@@ -83,6 +83,9 @@ const PrtAnalysis = (resolve) => {
 const StarExchange = (resolve) => {
   require(['./views/StarExchange'], resolve);
 };
+const StarUpgrade = (resolve) => {
+  require(['./views/StarUpgrade'], resolve);
+};
 // 自定义星
 const CustomStar = (resolve) => {
   require(['./views/CustomStar'], resolve);
@@ -123,6 +126,7 @@ const routes = [
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },
   { path: '/StarExchange', component: StarExchange },
+  { path: '/StarUpgrade/:id', component: StarUpgrade },
 
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },

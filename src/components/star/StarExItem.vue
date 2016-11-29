@@ -21,7 +21,7 @@
     <div class="ante-star-exitem-bd">
       <div class="ante-star-count">
         <div class="ante-star-excount"><span>{{ count }}</span>颗</div>
-        <weui-btn mini name="兑换"></weui-btn>
+        <weui-btn mini name="兑换" @tapEvt="$emit('exchange')"></weui-btn>
       </div>
       <div class="ante-star-desc">{{ desc }}</div>
     </div>
