@@ -1,10 +1,10 @@
 
 @font-face {font-family: "anteicon";
-  src: url('iconfont.eot?t=1480412730939'); /* IE9*/
-  src: url('iconfont.eot?t=1480412730939#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1480412730939') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1480412730939') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1480412730939#anteicon') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1480413231820'); /* IE9*/
+  src: url('iconfont.eot?t=1480413231820#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1480413231820') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1480413231820') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1480413231820#anteicon') format('svg'); /* iOS 4.1- */
 }
 
 .anteicon {
