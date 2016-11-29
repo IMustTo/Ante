@@ -64,7 +64,7 @@ export default {
 
   methods: {
     reject() {
-
+      this.$router.push('/TchAprRefuse');
     },
 
     pass() {

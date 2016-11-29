@@ -5,15 +5,18 @@ import { UPDATE_PROGRESS } from './vuex/mutation_types';
 import App from './App';
 import common from './components/common';
 
+// 注册公共组件
 common.forEach((component) => {
   Vue.component(component.name, component);
 });
 
 Vue.use(VueRouter);
 
+// 异步加载组件
 const TchHome = (resolve) => {
   require(['./views/TchHome'], resolve);
 };
+
 const TchAnalysis = (resolve) => {
   require(['./views/TchAnalysis'], resolve);
 };
@@ -32,6 +35,7 @@ const StarRecordDetail = (resolve) => {
 const DropStar = (resolve) => {
   require(['./views/DropStar'], resolve);
 };
+
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
 };
@@ -41,21 +45,30 @@ const TchAssessSlider = (resolve) => {
 const ClassAssess = (resolve) => {
   require(['./views/ClassAssess'], resolve);
 };
+
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
 };
 const TchAprDtl = (resolve) => {
   require(['./views/TchAprDtl'], resolve);
 };
-const AssessPass = (resolve) => {
-  require(['./views/AssessPass'], resolve);
+const TchAprRefuse = (resolve) => {
+  require(['./views/TchAprRefuse'], resolve);
 };
+const AprPassSuc = (resolve) => {
+  require(['./views/AprPassSuc'], resolve);
+};
+const AprRefuseSuc = (resolve) => {
+  require(['./views/AprRefuseSuc'], resolve);
+};
+
 const HonorHall = (resolve) => {
   require(['./views/HonorHall'], resolve);
 };
 const StdShow = (resolve) => {
   require(['./views/StdShow'], resolve);
 };
+
 const PrtAssess = (resolve) => {
   require(['./views/PrtAssess'], resolve);
 };
@@ -72,11 +85,14 @@ const CustomStarGet = (resolve) => {
   require(['./views/CustomStarGet'], resolve);
 };
 
+// 路由映射
 const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchApprove', component: TchApprove },
   { path: '/TchAprDtl/:id', component: TchAprDtl },
-  { path: '/AssessPass', component: AssessPass },
+  { path: '/TchAprRefuse', component: TchAprRefuse },
+  { path: '/AprPassSuc', component: AprPassSuc },
+  { path: '/AprRefuseSuc', component: AprRefuseSuc },
 
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
@@ -102,6 +118,7 @@ const routes = [
   { path: '/*', redirect: '/TchHome' },
 ];
 
+// 路由
 const router = new VueRouter({
   routes,
 });
