@@ -1,24 +1,26 @@
 <template>
 <div class="page">
-  <div class="ante-star-log">荣誉殿堂</div>
-  <avatar-paper :uri="avatar"></avatar-paper>
-  <div class="ante-std-name">样那男</div>
-  <div class="ante-std-class">2016级3班</div>
+  <div>
+    <div class="ante-star-log">荣誉殿堂</div>
+    <avatar-paper :uri="avatar"></avatar-paper>
+    <div class="ante-std-name">样那男</div>
+    <div class="ante-std-class">2016级3班</div>
 
-  <div class="ante-std-stars">
-    <div class="ante-std-star-item ante-high-star">全能星&nbsp;x&nbsp;2</div>
-    <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
-    <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;3</div>
-    <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
-    <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
-  </div>
-  <div class="ante-std-stars ante-std-stars-no-line">
-    <div class="ante-std-star-item">基础星&nbsp;x&nbsp;87</div>
-  </div>
+    <div class="ante-std-stars">
+      <div class="ante-std-star-item ante-high-star">全能星&nbsp;x&nbsp;2</div>
+      <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
+      <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;3</div>
+      <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
+      <div class="ante-std-star-item">海马之星&nbsp;x&nbsp;1</div>
+    </div>
+    <div class="ante-std-stars ante-std-stars-no-line">
+      <div class="ante-std-star-item">基础星&nbsp;x&nbsp;87</div>
+    </div>
 
-  <div class="ante-copyright-bottom">
-    <div class="ante-school-name">青岛市崂山区石老人小学</div>
-    <div class="ante-platform-name">伴行3618智慧校园平台提供技术支持和运营服务</div>
+    <div class="ante-copyright-bottom">
+      <div class="ante-school-name">青岛市崂山区石老人小学</div>
+      <div class="ante-platform-name">伴行3618智慧校园平台提供技术支持和运营服务</div>
+    </div>
   </div>
 </div>
 </template>
@@ -42,10 +44,17 @@ export default {
 
 <style scoped>
 .page {
-  padding-top: 120px;
   text-align: center;
   background-color: #ff7300;
   color: #fff;
+}
+.page > div {
+  padding-top: 120px;
+  background-image: url('../assets/images/honor-bg.png');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 0;
 }
 .ante-star-log {
   position: absolute;
@@ -53,14 +62,15 @@ export default {
   left: 0;
   right: 0;
   height: 140px;
-  -webkit-background-size: 191px 140px;
-  background-size: 191px 140px;
+  -webkit-background-size: 191px 110px;
+  background-size: 191px 110px;
   background-repeat: no-repeat;
   background-position: center center;
   z-index: 1;
   font-size: 26px;
-  padding-top: 85px;
+  padding-top: 80px;
   box-sizing: border-box;
+  background-image: url('../assets/images/honor-avatar.png');
 }
 .ante-std-name {
   font-size: 28px;

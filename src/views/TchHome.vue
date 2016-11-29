@@ -53,7 +53,7 @@ export default {
         color: '#333',
       },
 
-      isParent: false,
+      isParent: true,
     };
   },
 
@@ -67,7 +67,7 @@ export default {
     if (this.isParent) {
       this.iconBtns = [
         { name: '评价', icon: 'icon-pingjia', cls: 'active' },
-        { name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' },
+        { name: '分析', icon: 'icon-fenxi', go: '/PrtAnalysis' },
         { name: '标准', icon: 'icon-wbdiconbook', go: 'base' },
         { name: '荣誉殿堂', icon: 'icon-jiangbei', go: '/HonorHall' },
         { name: '自定义星', icon: 'icon-star', go: '/CustomStar' },

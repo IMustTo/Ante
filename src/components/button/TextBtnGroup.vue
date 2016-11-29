@@ -34,6 +34,9 @@ export default {
 </script>
 
 <style scoped>
+.weui-grids:before{
+  display: none;
+}
 .ante-text-btn-group {
   margin-top: 15px;
 }

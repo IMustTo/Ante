@@ -6,18 +6,16 @@
     <tab-bar :tabbar="tabBar" @tapEvt="changePanel">
 
       <template v-for="(list, i) in avatars">
-        <avatar-list  v-if="i === currTab">
-          <template v-for="(item, index) in list">
-            <avatar-cell
-              @tapEvt="checkAvatar"
-              :id="index"
-              :name="item.name"
-              :ban="item.ban"
-              :date="item.date"
-              :avatar="item.avatar">
-            </avatar-cell>
-          </template>
-        </avatar-list>
+        <template v-if="i === currTab" v-for="(item, index) in list">
+          <avatar-cell
+            @tapEvt="checkAvatar"
+            :id="index"
+            :name="item.name"
+            :ban="item.ban"
+            :date="item.date"
+            :avatar="item.avatar">
+          </avatar-cell>
+        </template>
       </template>
 
     </tab-bar>
@@ -54,6 +52,7 @@ export default {
 
       avatars: [
         [
+          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
           { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
           { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
           { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },

@@ -12,11 +12,12 @@ common.forEach((component) => {
 
 Vue.use(VueRouter);
 
-// 异步加载组件
+// 异步加载模块
+// 主页
 const TchHome = (resolve) => {
   require(['./views/TchHome'], resolve);
 };
-
+// 教师分析
 const TchAnalysis = (resolve) => {
   require(['./views/TchAnalysis'], resolve);
 };
@@ -35,7 +36,7 @@ const StarRecordDetail = (resolve) => {
 const DropStar = (resolve) => {
   require(['./views/DropStar'], resolve);
 };
-
+// 教师评价
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
 };
@@ -45,7 +46,7 @@ const TchAssessSlider = (resolve) => {
 const ClassAssess = (resolve) => {
   require(['./views/ClassAssess'], resolve);
 };
-
+// 教师审批
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
 };
@@ -61,20 +62,28 @@ const AprPassSuc = (resolve) => {
 const AprRefuseSuc = (resolve) => {
   require(['./views/AprRefuseSuc'], resolve);
 };
-
+// 荣誉殿堂
 const HonorHall = (resolve) => {
   require(['./views/HonorHall'], resolve);
 };
 const StdShow = (resolve) => {
   require(['./views/StdShow'], resolve);
 };
-
+// 家长评价
 const PrtAssess = (resolve) => {
   require(['./views/PrtAssess'], resolve);
 };
 const AssessSuc = (resolve) => {
   require(['./views/AssessSuc'], resolve);
 };
+// 家长分析
+const PrtAnalysis = (resolve) => {
+  require(['./views/PrtAnalysis'], resolve);
+};
+const StarExchange = (resolve) => {
+  require(['./views/StarExchange'], resolve);
+};
+// 自定义星
 const CustomStar = (resolve) => {
   require(['./views/CustomStar'], resolve);
 };
@@ -112,6 +121,9 @@ const routes = [
   { path: '/ClassAssess', component: ClassAssess },
   { path: '/PrtAssess', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
+  { path: '/PrtAnalysis', component: PrtAnalysis },
+  { path: '/StarExchange', component: StarExchange },
+
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },
   { path: '/CustomStarGet', component: CustomStarGet },

@@ -25,10 +25,11 @@ export default {
   right: 0;
   height: 135px;
   z-index: 1;
-  -webkit-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: 80%;
+  background-size: 80%;
   background-repeat: no-repeat;
   background-position: center center;
+  background-image: url('../../assets/images/honor-hall.png');
 }
 .ante-honor-content {
   margin: 0;
