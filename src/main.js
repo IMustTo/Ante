@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import store from './vuex/store';
-import { UPDATE_PROGRESS } from './vuex/mutation_types';
+import { UPDATE_PROGRESS, SHOW_LOADING } from './vuex/mutation_types';
 import App from './App';
 import common from './components/common';
 
@@ -10,6 +11,7 @@ common.forEach((component) => {
   Vue.component(component.name, component);
 });
 
+Vue.use(VueResource);
 Vue.use(VueRouter);
 
 // 异步加载模块
@@ -168,9 +170,20 @@ router.afterEach(() => {
   }, 50);
 });
 
+// vue实例
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App),
 }).$mount('#container');
+
+// 全局loading
+Vue.http.interceptors.push((request, next) => {
+  // request.credentials = true;
+  store.commit(SHOW_LOADING, true);
+  next((res) => {
+    store.commit(SHOW_LOADING, false);
+    return res;
+  });
+});

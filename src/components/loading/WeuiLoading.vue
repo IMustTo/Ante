@@ -27,17 +27,8 @@ export default {
 </script>
 
 <style scoped>
-.weui_toast {
-    position: fixed;
-    z-index: 50000;
-    width: 7.6em;
-    min-height: 7.6em;
-    top: 180px;
-    left: 50%;
-    margin-left: -3.8em;
-    text-align: center;
-    border-radius: 5px;
-    color: #fff;
+.weui-toast {
+    background: none;
 }
 
 .weui_icon_toast {

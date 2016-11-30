@@ -11,7 +11,7 @@
       </template>
     </div>
     <div class="weui-actionsheet__action">
-      <div class="weui-actionsheet__cell">取消</div>
+      <div @click="$emit('cancel')" class="weui-actionsheet__cell">取消</div>
     </div>
   </div>
 </div>
@@ -29,10 +29,6 @@ export default {
   methods: {
     tapItem({ target: { dataset: { index } } }) {
       this.$emit('tapItem', index);
-    },
-
-    tapCancel() {
-      this.$emit('cancel');
     },
   },
 };

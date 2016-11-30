@@ -6,6 +6,7 @@
     </keep-alive>
 
     <weui-progress :w="w"></weui-progress>
+    <weui-loading v-show="loading"></weui-loading>
   </div>
 
 </template>
@@ -30,6 +31,7 @@ export default {
   computed: {
     ...mapGetters({
       w: 'getProgress',
+      loading: 'getLoadingStatus',
     }),
   },
 };

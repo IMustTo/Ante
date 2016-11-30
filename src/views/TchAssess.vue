@@ -2,9 +2,16 @@
 <div class="page">
 
   <bottom-fix>
-    <template v-for="cells in options">
-      <cell-group :cells="cells"></cell-group>
-    </template>
+    <cell-wapper>
+      <cell-base name="周期" :caption="zhouqi"></cell-base>
+      <cell-access name="评价类型"
+        @tapEvt="selectType"
+        :caption="checkedType.name"></cell-access>
+    </cell-wapper>
+
+    <cell-wapper>
+      <cell-access name="组织" :caption="org.name"></cell-access>
+    </cell-wapper>
 
     <avatar-list v-if="avatars.length">
       <template v-for="(item, index) in avatars">
@@ -30,10 +37,17 @@
     <router-view></router-view>
   </transition>
 
+  <action-sheet
+    v-show="showAction"
+    @tapItem="tapTypeItem"
+    @cancel="cancelAction"
+    :sheets="typeNameArr">
+  </action-sheet>
 </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import BottomFix from '../components/layout/BottomFix';
 import RightSlider from '../components/layout/RightSlider';
 
@@ -43,6 +57,7 @@ import AreaCenter from '../components/area/AreaCenter';
 import AvatarList from '../components/list/AvatarList';
 import AvatarItem from '../components/list/AvatarItem';
 import CellGroup from '../components/cell/CellGroup';
+import { dateFormat } from '../utils';
 
 export default {
   name: 'tch-assess',
@@ -59,30 +74,13 @@ export default {
 
   data() {
     return {
-      options: [
-        [
-          {
-            name: '周期',
-            caption: '2016年8月',
-            go: '',
-            isLink: true,
-          },
-          {
-            name: '评价类型',
-            caption: '人文表达',
-            go: '',
-            isLink: true,
-          },
-        ],
-        [
-          {
-            name: '组织',
-            caption: '2016级三班',
-            go: '',
-            isLink: true,
-          },
-        ],
-      ],
+      zhouqi: dateFormat(new Date(), 'yyyy年MM月'),
+      org: {
+        id: 1,
+        name: '2016级三班',
+      },
+      showAction: false,
+
       avatars: [
         { id: 1, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
         { id: 2, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
@@ -105,6 +103,20 @@ export default {
   },
 
   computed: {
+    // 评价类型
+    ...mapGetters({
+      checkedType: 'getCheckedAssess',
+      assessTypes: 'getAssessType',
+    }),
+
+    typeNameArr() {
+      const arr = [];
+      this.assessTypes.forEach((item) => {
+        arr.push(item.name);
+      });
+      return arr;
+    },
+
     checkAllBtnCls() {
       const checked = !!(this.avatars.length &&
         (this.checkedAvatar.length === this.avatars.length));
@@ -120,7 +132,36 @@ export default {
     },
   },
 
+  created() {
+    if (!this.assessTypes.length) {
+      // TODO 没有类型
+      console.log('TODO');
+    }
+
+    // 查询默认班级
+    this.$http
+      .get('')
+      .then(response => response.json())
+      .then();
+  },
+
   methods: {
+    ...mapActions([
+      'checkAssessType',
+    ]),
+
+    selectType() {
+      this.showAction = true;
+    },
+    cancelAction() {
+      this.showAction = false;
+    },
+    tapTypeItem(i) {
+      this.cancelAction();
+      const id = this.assessTypes[i].type;
+      this.$router.replace(`/TchAssess/${id}`);
+    },
+
     checkAvatar(index, value) {
       this.avatars[index].check = value;
       const { id } = this.avatars[index];
@@ -150,6 +191,16 @@ export default {
     showSliderPage() {
       // const path = this.$router.fullPath;
       this.showSlider = this.$router.push({ name: 'slider' });
+    },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.checkAssessType({ id: to.params.id }));
+  },
+
+  watch: {
+    $route(to) {
+      this.checkAssessType({ id: to.params.id });
     },
   },
 };
