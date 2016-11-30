@@ -23,7 +23,7 @@
         <div class="ante-star-excount"><span>{{ count }}</span>颗</div>
         <weui-btn mini name="兑换" @tapEvt="$emit('exchange')"></weui-btn>
       </div>
-      <div class="ante-star-desc">{{ desc }}</div>
+      <div class="ante-star-ex-desc">{{ desc }}</div>
     </div>
   </div>
 </div>
@@ -113,7 +113,7 @@ export default {
 .ante-star-count > .weui-btn {
   float: right;
 }
-.ante-star-desc {
+.ante-star-ex-desc {
   color: #888;
   clear: both;
   font-size: 13px;

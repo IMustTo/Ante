@@ -41,3 +41,9 @@
 .ante-page-withb {
   padding-bottom: 20px;
 }
+.ante-red-word {
+  color: #ff540a;
+}
+.weui-btn-area {
+  margin: 1.17647059em 15px;
+}

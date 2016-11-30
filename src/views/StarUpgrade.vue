@@ -13,6 +13,21 @@
       <div class="ante-star-desc">(呵呵呵呵呵呵呵)</div>
     </cell-wapper>
 
+    <cell-title title="身心健康"></cell-title>
+    <cell-wapper>
+      <template v-for="(item, index) in hasStars">
+        <cell-num
+          @reduce="reduce"
+          @increase="increase"
+          :i="index"
+          :num="item.num"
+          :max="item.max"
+          :min="item.min"
+          :name="item.name">
+        </cell-num>
+      </template>
+    </cell-wapper>
+
     <p class="weui-btn-area">
       <weui-btn name="兑换" @tapEvt="exchange"></weui-btn>
     </p>
@@ -21,11 +36,13 @@
 
 <script>
 import StarLargeIcon from '../components/star/StarLargeIcon';
+import CellNum from '../components/cell/CellNum';
 
 export default {
   name: 'star-upgrade',
   components: {
     StarLargeIcon,
+    CellNum,
   },
 
   data() {
@@ -35,10 +52,22 @@ export default {
         name: '章鱼星',
         icon: 'zy',
       },
+
+      hasStars: [
+        { id: 1, name: '海马之星', num: 0, max: 3, min: 0 },
+        { id: 2, name: '海豚之星', num: 0, max: 2, min: 0 },
+      ],
     };
   },
 
   methods: {
+    reduce(i) {
+      this.hasStars[i].num--;
+    },
+    increase(i) {
+      this.hasStars[i].num++;
+    },
+
     exchange() {
 
     },
