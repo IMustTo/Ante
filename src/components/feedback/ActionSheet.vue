@@ -1,12 +1,14 @@
 <template>
 <div>
   <div class="weui-mask" id="iosMask" style="opacity: 1;"></div>
-  <div class="weui-actionsheet weui-actionsheet_toggle" id="iosActionsheet">
+
+  <div class="weui-actionsheet weui-actionsheet_toggle">
     <div class="weui-actionsheet__menu">
-      <div class="weui-actionsheet__cell">示例菜单</div>
-      <div class="weui-actionsheet__cell">示例菜单</div>
-      <div class="weui-actionsheet__cell">示例菜单</div>
-      <div class="weui-actionsheet__cell">示例菜单</div>
+      <template v-for="(item, index) in sheets">
+        <div class="weui-actionsheet__cell"
+          :data-index="index"
+          @click="tapItem">{{ item }}</div>
+      </template>
     </div>
     <div class="weui-actionsheet__action">
       <div class="weui-actionsheet__cell">取消</div>
@@ -19,11 +21,19 @@
 export default {
   name: 'action-sheet',
   props: {
+    sheets: {
+      type: Array,
+    },
+  },
 
+  methods: {
+    tapItem({ target: { dataset: { index } } }) {
+      this.$emit('tapItem', index);
+    },
+
+    tapCancel() {
+      this.$emit('cancel');
+    },
   },
 };
 </script>
-
-<style>
-
-</style>
