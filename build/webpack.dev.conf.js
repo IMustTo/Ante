@@ -14,6 +14,11 @@ module.exports = merge(baseWebpackConfig, {
   module: {
     loaders: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
+  externals: {
+    WWW_CONFIG: 'window.WWW_CONFIG',
+    WECHAT_CONFIG: 'window.WECHAT_CONFIG',
+    www_aliyun_imgurl: 'window.www_aliyun_imgurl',
+  },
   // eval-source-map is faster for development
   devtool: '#eval-source-map',
   plugins: [

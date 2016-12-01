@@ -10,11 +10,13 @@
     </cell-wapper>
 
     <cell-wapper>
-      <cell-access name="组织" :caption="org.name"></cell-access>
+      <cell-access name="组织"
+        @tapEvt="$router.push('/SelectClass')"
+        :caption="currClass.name"></cell-access>
     </cell-wapper>
 
-    <avatar-list v-if="avatars.length">
-      <template v-for="(item, index) in avatars">
+    <avatar-list v-if="students && students.length">
+      <template v-for="(item, index) in students">
         <avatar-item
           @changeEvt="checkAvatar"
           :check="item.check"
@@ -75,26 +77,13 @@ export default {
   data() {
     return {
       zhouqi: dateFormat(new Date(), 'yyyy年MM月'),
-      org: {
-        id: 1,
-        name: '2016级三班',
-      },
+      // 是否显示actionsheet
       showAction: false,
 
-      avatars: [
-        { id: 1, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 2, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 3, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 4, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 5, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 6, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 11, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 12, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 13, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 14, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 15, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-        { id: 16, name: '王小明', check: false, avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460' },
-      ],
+      // 缓存学生列表，不每次都查了
+      cacheStds: {},
+
+      students: [],
 
       checkedAvatar: [],
 
@@ -107,8 +96,11 @@ export default {
     ...mapGetters({
       checkedType: 'getCheckedAssess',
       assessTypes: 'getAssessType',
+      checkedClass: 'getCheckedClass',
+      checkedStudents: 'getCheckedStudents',
     }),
 
+    // 评价类型名字
     typeNameArr() {
       const arr = [];
       this.assessTypes.forEach((item) => {
@@ -117,9 +109,23 @@ export default {
       return arr;
     },
 
+    // 当前班级
+    currClass() {
+      let cls = {};
+
+      if (this.checkedClass.id) {
+        cls = this.checkedClass;
+      } else {
+        // 没有选择班级，查询默认的
+        this.loadDefaultOrg();
+      }
+
+      return cls;
+    },
+
     checkAllBtnCls() {
-      const checked = !!(this.avatars.length &&
-        (this.checkedAvatar.length === this.avatars.length));
+      const checked = !!(this.students.length &&
+        (this.checkedAvatar.length === this.students.length));
 
       return {
         'weui-icon-success': checked,
@@ -128,28 +134,36 @@ export default {
     },
 
     canAssess() {
-      return !!(this.avatars.length && this.checkedAvatar.length);
+      return !!(this.students.length && this.checkedAvatar.length);
     },
   },
 
   created() {
+    // 当前页面刷新重新查询 评价类型
     if (!this.assessTypes.length) {
-      // TODO 没有类型
-      console.log('TODO');
+      this.loadTypes();
     }
-
-    // 查询默认班级
-    this.$http
-      .get('')
-      .then(response => response.json())
-      .then();
   },
 
   methods: {
     ...mapActions([
+      'setAssessType',
       'checkAssessType',
+      'checkOneClass',
+      'setCheckedStudents',
     ]),
 
+    // 查询类型
+    loadTypes() {
+      this.$http
+        .post('core/evaluestar/standard/findTypeAndNameByEvalueType',
+          { evalueType: 101 })
+        .then(response => response.json())
+        .then(({ resultBean }) => {
+          this.setAssessType({ types: resultBean });
+          this.checkAssessType({ id: this.$route.params.id });
+        });
+    },
     selectType() {
       this.showAction = true;
     },
@@ -162,9 +176,44 @@ export default {
       this.$router.replace(`/TchAssess/${id}`);
     },
 
+    // 查询默认班级
+    loadDefaultOrg() {
+      this.$http
+        .post('core/evaluestar/findDefaultOrg')
+        .then(response => response.json())
+        .then(({ resultBean }) => {
+          const org = {
+            name: resultBean.orgName || '',
+            id: resultBean.orgId || 0,
+          };
+          this.checkOneClass({ org });
+        });
+    },
+    // 查询班级下的学生
+    loadStudents(orgIdList) {
+      if (this.cacheStds[orgIdList]) {
+        this.students = this.cacheStds[orgIdList];
+      } else {
+        this.$http
+          .post('system/user/findChildByOrgIds', { orgIdList })
+          .then(response => response.json())
+          .then(({ resultBean }) => {
+            resultBean.map((item) => {
+              item.name = item.studentName;
+              item.id = item.studentId;
+
+              return item;
+            });
+
+            this.students = resultBean;
+            this.cacheStds[orgIdList] = resultBean;
+          });
+      }
+    },
+
     checkAvatar(index, value) {
-      this.avatars[index].check = value;
-      const { id } = this.avatars[index];
+      this.students[index].check = value;
+      const { id } = this.students[index];
 
       if (value) {
         this.checkedAvatar.push(id);
@@ -172,35 +221,42 @@ export default {
         const i = this.checkedAvatar.indexOf(id);
         this.checkedAvatar.splice(i, 1);
       }
+
+      this.setCheckedStudents({ students: this.checkedAvatar });
     },
 
     selectAll() {
       let check = true;
-      if (this.avatars.length === this.checkedAvatar.length) {
+      if (this.students.length === this.checkedAvatar.length) {
         check = false;
       }
 
       this.checkedAvatar = [];
-      this.avatars.forEach(({ id }, index) => {
-        this.avatars[index].check = check;
+      this.students.forEach(({ id }, index) => {
+        this.students[index].check = check;
 
         if (check) this.checkedAvatar.push(id);
       });
+
+      this.setCheckedStudents({ students: this.checkedAvatar });
     },
 
     showSliderPage() {
-      // const path = this.$router.fullPath;
       this.showSlider = this.$router.push({ name: 'slider' });
     },
   },
 
+  // 切换路由params更改状态
   beforeRouteEnter(to, from, next) {
     next(vm => vm.checkAssessType({ id: to.params.id }));
   },
-
   watch: {
     $route(to) {
       this.checkAssessType({ id: to.params.id });
+    },
+
+    checkedClass({ id }) {
+      this.loadStudents(id);
     },
   },
 };

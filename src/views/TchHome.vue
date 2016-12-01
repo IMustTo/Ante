@@ -40,20 +40,13 @@ export default {
   },
 
   created() {
-    // TODO
-    if (typeof WWW_CONFIG !== 'undefined') {
-      this.$http
-        .post(`${WWW_CONFIG.projectPath}/core/evaluestar/standard/findIndexListByUserIdentity`)
-        .then(response => response.json())
-        .then(({ resultBean }) => {
-          this.addIconBtns(resultBean);
-          this.addTextBtn(resultBean);
-        });
-    } else {
-      const resultBean = {"1":[{"evalueType":"106","type":"106","name":"课堂评价","displayOrder":"601"},{"evalueType":"107","type":"107","name":"校内评价","displayOrder":"701"},{"evalueType":"108","type":"108","name":"家庭评价","displayOrder":"801"}],"10000":[{"evalueType":"10000","type":"10000","name":"自定义星","displayOrder":"10000"}],"0":[{"evalueType":"101","type":"101","name":"身心健康","displayOrder":"101"},{"evalueType":"101","type":"102","name":"品格情怀","displayOrder":"201"},{"evalueType":"101","type":"103","name":"创新思维","displayOrder":"301"},{"evalueType":"101","type":"104","name":"审美雅趣","displayOrder":"401"},{"evalueType":"101","type":"105","name":"人文表达","displayOrder":"501"}],"hasEvalues":true,"hasAnalysis":true,"hasScan":true,"hasStandard":true,"hasStarStudent":true,"hasCustom":true}; // eslint-disable-line
-      this.addIconBtns(resultBean);
-      this.addTextBtn(resultBean);
-    }
+    this.$http
+      .post('core/evaluestar/standard/findIndexListByUserIdentity')
+      .then(response => response.json())
+      .then(({ resultBean }) => {
+        this.addIconBtns(resultBean);
+        this.addTextBtn(resultBean);
+      });
   },
 
   methods: {

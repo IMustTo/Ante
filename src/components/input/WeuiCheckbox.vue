@@ -22,6 +22,10 @@ export default {
       type: Number,
       default: 0,
     },
+    index: {
+      type: String,
+      default: '',
+    },
     name: {
       type: String,
       default: '',
@@ -43,7 +47,7 @@ export default {
       },
 
       set(value) {
-        this.$emit('changeEvt', this.id, value);
+        this.$emit('changeEvt', this.id, value, this.name, this.index);
       },
     },
   },

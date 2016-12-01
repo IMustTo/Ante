@@ -48,6 +48,10 @@ const TchAssessSlider = (resolve) => {
 const ClassAssess = (resolve) => {
   require(['./views/ClassAssess'], resolve);
 };
+// 选择班级
+const SelectClass = (resolve) => {
+  require(['./views/SelectClass'], resolve);
+};
 // 教师审批
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
@@ -124,6 +128,7 @@ const routes = [
     ],
   },
   { path: '/ClassAssess', component: ClassAssess },
+  { path: '/SelectClass', component: SelectClass },
   { path: '/PrtAssess', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },
@@ -178,9 +183,11 @@ new Vue({
   render: h => h(App),
 }).$mount('#container');
 
-// 全局loading
+// 通用配置及全局loading
 Vue.http.interceptors.push((request, next) => {
-  // request.credentials = true;
+  request.root = `${WWW_CONFIG.projectPath}`;
+  request.emulateJSON = true;
+
   store.commit(SHOW_LOADING, true);
   next((res) => {
     store.commit(SHOW_LOADING, false);

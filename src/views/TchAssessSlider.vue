@@ -1,5 +1,4 @@
 <template>
-
   <right-slider @tapEvt="$router.go(-1)">
     <bottom-fix>
 
@@ -30,7 +29,6 @@
 
     </bottom-fix>
   </right-slider>
-
 </template>
 
 <script>
