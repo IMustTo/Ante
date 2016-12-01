@@ -11,6 +11,12 @@
 
       <div class="weui-textarea-counter"
         v-if="count"><span>{{ len }}</span>/{{ count }}</div>
+
+      <div v-if="icon" class="ante-textarea-btn">
+        <div class="ante-textarea-btn-camera"
+          @click="$emit('tapcamera')"></div>
+        <slot name="icon"></slot>
+      </div>
     </div>
 
     <slot></slot>
@@ -30,7 +36,10 @@ export default {
       type: Number,
       default: 3,
     },
-
+    icon: {
+      type: Boolean,
+      default: false,
+    },
     count: {
       type: Number,
       default: 0,
@@ -61,6 +70,14 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.ante-textarea-btn-camera {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/images/icon-photo.png');
+  -webkit-background-size: 70%;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+}
 </style>

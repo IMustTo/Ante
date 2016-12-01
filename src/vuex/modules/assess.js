@@ -22,7 +22,12 @@ const actions = {
 
 const mutations = {
   [SET_ASSESS_TYPE](state, { types }) {
-    state.assessType = types;
+    state.assessType = [{
+      evalueType: '101',
+      go: '/TchAssess/0',
+      name: '全部',
+      type: '0',
+    }].concat(types);
   },
 
   [CHECK_TYPE](state, { id }) {

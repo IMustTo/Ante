@@ -186,10 +186,9 @@ new Vue({
 // 通用配置及全局loading
 Vue.http.options.emulateJSON = true;
 Vue.http.options.traditional = true;
+
 Vue.http.interceptors.push((request, next) => {
   request.root = `${WWW_CONFIG.projectPath}`;
-
-  console.log(request);
 
   store.commit(SHOW_LOADING, true);
   next((res) => {

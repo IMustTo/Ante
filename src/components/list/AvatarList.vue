@@ -17,6 +17,5 @@ export default {
   background-color: #fff;
   padding:10px 0 20px;
   font-size: 0;
-  margin-bottom: 20px;
 }
 </style>

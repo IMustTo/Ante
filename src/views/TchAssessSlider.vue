@@ -17,7 +17,8 @@
       </template>
 
       <cell-title title="评价"></cell-title>
-      <weui-textarea placeholder="写一下评语（非必填）"
+      <weui-textarea placeholder="写一下评语（非必填）" icon
+        @tapcamera="selectImg"
         @inputEvt="comment">
       </weui-textarea>
 
@@ -41,8 +42,9 @@ import RightSlider from '../components/layout/RightSlider';
 import AreaCenter from '../components/area/AreaCenter';
 import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
-
 import WeuiToast from '../components/toast/WeuiToast';
+
+import { uploadImage } from '../utils/wxdd';
 
 export default {
   components: {
@@ -94,10 +96,12 @@ export default {
   methods: {
     // 查询点评项
     loadAssessItems() {
+      const req = this.assessType.type === '0'
+        ? { evalueType: '101' }
+        : { type: this.assessType.type };
+
       this.$http
-        .post('core/evaluestar/standard/findList', {
-          type: this.assessType.type,
-        })
+        .post('core/evaluestar/standard/findList', req)
         .then(response => response.json())
         .then(({ resultBean }) => {
           this.setGroupByRes(resultBean);
@@ -140,38 +144,23 @@ export default {
       this.commentContent = value;
     },
 
+    selectImg() {
+      uploadImage({
+        multiple: true, // 是否多选，默认false
+        max: 9, // 最多可选个数
+        onSuccess(result) {
+          console.log(result);
+        },
+      });
+    },
+
     // 保存评价
     saveAssess() {
-      // const req = new FormData();
-      // this.starItems.forEach(item => req.append('standardIdList', item));
-      // this.students.forEach(item => req.append('studentOrgList', item));
-
-      // const req = `standardIdList=
-      // ${this.starItems.join('&standardIdList=')}&studentOrgList=
-      // ${this.students.join('&studentOrgList=')}`;
-
-      // this.$http
-      //   .post('core/evaluestar/saveEvalueStar{?standardIdList*}{&studentOrgList*}', {}, {
-      //     params: {
-      //       standardIdList: this.starItems,
-      //       studentOrgList: this.students,
-      //     },
-      //   })
-      //   .then(() => {
-      //     this.tipSuccess();
-      //   });
-
-      // this.$resource('core/evaluestar/saveEvalueStar{?standardIdList*}{&studentOrgList*}')
-      //   .save({
-      //     standardIdList: this.starItems,
-      //     studentOrgList: this.students,
-      //   }, {}).then(() => {
-      //     this.tipSuccess();
-      //   });
       this.$http
         .post('core/evaluestar/saveEvalueStar', {
           standardIdList: this.starItems,
           studentOrgList: this.students,
+          evalueRemark: this.commentContent,
         })
         .then(() => {
           this.tipSuccess();
