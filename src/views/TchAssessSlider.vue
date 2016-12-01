@@ -24,7 +24,9 @@
       <weui-toast v-if="showSuc">评价成功</weui-toast>
 
       <area-center slot="bottom">
-        <weui-btn mini @tapEvt="tipSuccess">提交</weui-btn>
+        <weui-btn mini
+          :disabled="!canCommit"
+          @tapEvt="saveAssess">提交</weui-btn>
       </area-center>
 
     </bottom-fix>
@@ -32,6 +34,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import BottomFix from '../components/layout/BottomFix';
 import RightSlider from '../components/layout/RightSlider';
 
@@ -53,15 +56,11 @@ export default {
 
   data() {
     return {
-      group: [
-        {
-          title: '身心健康',
-          stars: [
-            { id: 1, desc: '顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶' }, { id: 2, desc: '顶顶顶顶顶顶顶顶' },
-          ],
-        },
-        { title: '品格情怀', stars: [] },
-      ],
+      // 评价项 [{ title: '', stars: [{ id: 1, desc: '' }] }],
+      group: [],
+
+      // 打星的评价id [1]
+      starItems: [],
 
       showSuc: false,
       timeout: null,
@@ -70,14 +69,113 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters({
+      assessType: 'getCheckedAssess',
+      students: 'getCheckedStudents',
+    }),
+
+    canCommit() {
+      return (
+        this.assessType &&
+        this.assessType.type &&
+        this.students &&
+        this.students.length &&
+        this.starItems &&
+        this.starItems.length
+      );
+    },
+  },
+
+  created() {
+    this.loadAssessItems();
+  },
+
   methods: {
-    change(id, checked) {
-      console.log(id);
-      console.log(checked);
+    // 查询点评项
+    loadAssessItems() {
+      this.$http
+        .post('core/evaluestar/standard/findList', {
+          type: this.assessType.type,
+        })
+        .then(response => response.json())
+        .then(({ resultBean }) => {
+          this.setGroupByRes(resultBean);
+        });
     },
 
+    // 把查出来的点评项封装成合适的数据
+    setGroupByRes(res) {
+      const group = [];
+      const typeMap = Object.create(null); // { 101: 0 }, type对应groupItem的index
+
+      res.forEach(({ id, type, name, content }) => {
+        if (!isNaN(typeMap[type])) {
+          group[typeMap[type]].stars.push({ id, desc: content });
+        } else {
+          // 当前的长度就是下一个的index
+          typeMap[type] = group.length;
+
+          group.push({
+            title: name,
+            stars: [{ id, desc: content }],
+          });
+        }
+      });
+
+      this.group = group;
+    },
+
+    // 选中或者取消一颗星星
+    change(id, checked) {
+      if (checked) {
+        this.starItems.push(id);
+      } else {
+        this.starItems.splice(this.starItems.indexOf(id), 1);
+      }
+    },
+
+    // 评论
     comment(value) {
       this.commentContent = value;
+    },
+
+    // 保存评价
+    saveAssess() {
+      // const req = new FormData();
+      // this.starItems.forEach(item => req.append('standardIdList', item));
+      // this.students.forEach(item => req.append('studentOrgList', item));
+
+      // const req = `standardIdList=
+      // ${this.starItems.join('&standardIdList=')}&studentOrgList=
+      // ${this.students.join('&studentOrgList=')}`;
+
+      // this.$http
+      //   .post('core/evaluestar/saveEvalueStar{?standardIdList*}{&studentOrgList*}', {}, {
+      //     params: {
+      //       standardIdList: this.starItems,
+      //       studentOrgList: this.students,
+      //     },
+      //   })
+      //   .then(() => {
+      //     this.tipSuccess();
+      //   });
+
+      // this.$resource('core/evaluestar/saveEvalueStar{?standardIdList*}{&studentOrgList*}')
+      //   .save({
+      //     standardIdList: this.starItems,
+      //     studentOrgList: this.students,
+      //   }, {}).then(() => {
+      //     this.tipSuccess();
+      //   });
+      this.$http
+        .post('core/evaluestar/saveEvalueStar', {
+          standardIdList: this.starItems,
+          studentOrgList: this.students,
+        })
+        .then(() => {
+          this.tipSuccess();
+        });
     },
 
     tipSuccess() {

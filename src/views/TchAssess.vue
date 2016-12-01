@@ -83,10 +83,13 @@ export default {
       // 缓存学生列表，不每次都查了
       cacheStds: {},
 
+      // 所有学生
       students: [],
 
+      // 选中的学生
       checkedAvatar: [],
 
+      // 是否显示评价项页
       showSlider: false,
     };
   },
@@ -200,7 +203,7 @@ export default {
           .then(({ resultBean }) => {
             resultBean.map((item) => {
               item.name = item.studentName;
-              item.id = item.studentId;
+              item.id = item.orgId;
 
               return item;
             });
@@ -210,7 +213,7 @@ export default {
           });
       }
     },
-
+    // 选中一个小哥
     checkAvatar(index, value) {
       this.students[index].check = value;
       const { id } = this.students[index];
@@ -224,7 +227,7 @@ export default {
 
       this.setCheckedStudents({ students: this.checkedAvatar });
     },
-
+    // 全选
     selectAll() {
       let check = true;
       if (this.students.length === this.checkedAvatar.length) {
@@ -240,7 +243,7 @@ export default {
 
       this.setCheckedStudents({ students: this.checkedAvatar });
     },
-
+    // 显示评价页
     showSliderPage() {
       this.showSlider = this.$router.push({ name: 'slider' });
     },
@@ -255,6 +258,7 @@ export default {
       this.checkAssessType({ id: to.params.id });
     },
 
+    // 更改班级重新查询学生
     checkedClass({ id }) {
       this.loadStudents(id);
     },

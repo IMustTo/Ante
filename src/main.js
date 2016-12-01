@@ -184,9 +184,12 @@ new Vue({
 }).$mount('#container');
 
 // 通用配置及全局loading
+Vue.http.options.emulateJSON = true;
+Vue.http.options.traditional = true;
 Vue.http.interceptors.push((request, next) => {
   request.root = `${WWW_CONFIG.projectPath}`;
-  request.emulateJSON = true;
+
+  console.log(request);
 
   store.commit(SHOW_LOADING, true);
   next((res) => {
