@@ -1,8 +1,14 @@
+import { mapActions } from 'vuex';
+
 export default {
   methods: {
+    ...mapActions(['showLoading']),
+
     uploadImg({ max = 9 }) {
       return new Promise((resolve) => {
         this.chooseImage({ max }).then((localIds) => {
+          this.showLoading({ show: true });
+
           const len = localIds.length;
           this.anteLocalIds = localIds;
           this.anteMediaIds = [];

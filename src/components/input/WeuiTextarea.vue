@@ -15,7 +15,7 @@
       <div v-if="icon" class="ante-textarea-btn">
         <div class="ante-textarea-btn-camera"
           @click="$emit('tapcamera')"></div>
-        <slot name="icon"></slot>
+        <slot name="images"></slot>
       </div>
     </div>
 

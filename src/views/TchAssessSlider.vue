@@ -20,6 +20,10 @@
       <weui-textarea placeholder="写一下评语（非必填）" icon
         @tapcamera="selectImg"
         @inputEvt="comment">
+
+        <image-cell slot="images"
+          @deleteEvt="deleteImg"
+          :images="images"></image-cell>
       </weui-textarea>
 
       <weui-toast v-if="showSuc">评价成功</weui-toast>
@@ -43,7 +47,7 @@ import AreaCenter from '../components/area/AreaCenter';
 import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
 import WeuiToast from '../components/toast/WeuiToast';
-
+import ImageCell from '../components/image/ImageCell';
 import uploadImg from '../mixins/uploadImg';
 
 export default {
@@ -54,6 +58,7 @@ export default {
     WeuiTextarea,
     StarItem,
     WeuiToast,
+    ImageCell,
   },
 
   mixins: [uploadImg],
@@ -65,11 +70,14 @@ export default {
 
       // 打星的评价id [1]
       starItems: [],
+      // 评论
+      commentContent: '',
+      // 附件
+      images: [],
 
       showSuc: false,
       timeout: null,
 
-      commentContent: '',
     };
   },
 
@@ -146,26 +154,36 @@ export default {
       this.commentContent = value;
     },
 
+    // 选择图片
     selectImg() {
       this.uploadImg({ max: 3 })
-        .then((res) => {
-alert('all' + JSON.stringify(res)); // eslint-disable-line
+        .then(({ resultBean = [] }) => {
+          this.images = this.images.concat(resultBean);
         });
+    },
+    // 删除一张图片
+    deleteImg(index) {
+      this.images.splice(index, 1);
     },
 
     // 保存评价
     saveAssess() {
+      const attachIdList = [];
+      this.images.forEach(item => attachIdList.push(item.id));
+
       this.$http
         .post('core/evaluestar/saveEvalueStar', {
           standardIdList: this.starItems,
           studentOrgList: this.students,
           evalueRemark: this.commentContent,
+          attachIdList,
         })
         .then(() => {
           this.tipSuccess();
         });
     },
 
+    // 成功提示
     tipSuccess() {
       this.showSuc = true;
 
@@ -174,6 +192,7 @@ alert('all' + JSON.stringify(res)); // eslint-disable-line
       }, 1500);
     },
 
+    // 返回评价选择页
     leave() {
       if (this.timeout) {
         this.showSuc = false;
