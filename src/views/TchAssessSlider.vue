@@ -44,7 +44,7 @@ import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
 import WeuiToast from '../components/toast/WeuiToast';
 
-import { uploadImage } from '../utils/wxdd';
+import uploadImg from '../mixins/uploadImg';
 
 export default {
   components: {
@@ -55,6 +55,8 @@ export default {
     StarItem,
     WeuiToast,
   },
+
+  mixins: [uploadImg],
 
   data() {
     return {
@@ -145,13 +147,10 @@ export default {
     },
 
     selectImg() {
-      uploadImage({
-        multiple: true, // 是否多选，默认false
-        max: 9, // 最多可选个数
-        onSuccess(result) {
-          console.log(result);
-        },
-      });
+      this.uploadImg({ max: 3 })
+        .then((res) => {
+alert('all' + JSON.stringify(res)); // eslint-disable-line
+        });
     },
 
     // 保存评价

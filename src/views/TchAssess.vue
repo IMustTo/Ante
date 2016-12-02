@@ -35,7 +35,9 @@
     </area-center>
   </bottom-fix>
 
-  <transition enter-active-class="slideIn" leave-active-class="slideOut">
+  <transition
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideOutRight">
     <router-view></router-view>
   </transition>
 
