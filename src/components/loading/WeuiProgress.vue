@@ -31,6 +31,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 5;
+  background: none;
 }
 .weui-progress__inner-bar {
   width: 1%;

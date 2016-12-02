@@ -48,6 +48,9 @@ const TchAssessSlider = (resolve) => {
 const ClassAssess = (resolve) => {
   require(['./views/ClassAssess'], resolve);
 };
+const TchAssessNotice = (resolve) => {
+  require(['./views/TchAssessNotice'], resolve);
+};
 // 选择班级
 const SelectClass = (resolve) => {
   require(['./views/SelectClass'], resolve);
@@ -128,6 +131,8 @@ const routes = [
     ],
   },
   { path: '/ClassAssess', component: ClassAssess },
+  { path: '/TchAssessNotice', component: TchAssessNotice },
+  // { path: '/TchAssessNotice/:id', component: TchAssessNotice },
   { path: '/SelectClass', component: SelectClass },
   { path: '/PrtAssess', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
@@ -138,7 +143,8 @@ const routes = [
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },
   { path: '/CustomStarGet', component: CustomStarGet },
-  { path: '/*', redirect: '/TchHome' },
+  // TOFIX: 从参数设置路由有不能返回的bug, 先不加redirect了
+  // { path: '/*', redirect: '/TchHome' },
 ];
 
 // 路由

@@ -27,7 +27,23 @@ export const dateFormat = (date, formatStr) => {
       if (new RegExp('(' + k + ')').test(formatStr)) formatStr = formatStr.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
   }
   return formatStr || '';
-}
+};
+
+// 获取请求路径参数
+export const getQueryString = (name) => {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
+  const r = location.search.substr(1).match(reg);
+  if (r != null) return unescape(decodeURI(r[2])); return null;
+};
+
+// 获取当前路由 ?a=1,2,3 => /1/2/3
+export const getRouter = (name) => {
+  const query = getQueryString(name);
+
+  return query
+    ? `/${query.split(',').join('/')}`
+    : null;
+};
 
 export const transitionEnd = (el, fun) => {
   const arr = ['msTransitionEnd', 'mozTransitionEnd', 'oTransitionEnd', 'webkitTransitionEnd', 'transitionend'];

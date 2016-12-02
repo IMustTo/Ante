@@ -1,5 +1,4 @@
 <template>
-
   <div class="container" id="container">
     <keep-alive>
       <router-view></router-view>
@@ -8,12 +7,12 @@
     <weui-progress :w="w"></weui-progress>
     <weui-loading v-show="loading"></weui-loading>
   </div>
-
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import WeuiProgress from './components/loading/WeuiProgress';
+import { getRouter } from './utils';
 
 export default {
   name: 'app',
@@ -33,6 +32,12 @@ export default {
       w: 'getProgress',
       loading: 'getLoadingStatus',
     }),
+  },
+
+  created() {
+    // 从参数中获取路由，决定跳转至那个页面
+    const router = getRouter('router');
+    if (router) this.$router.push(router);
   },
 };
 </script>
