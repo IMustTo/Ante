@@ -36,8 +36,8 @@ export default {
 
   created() {
     // 从参数中获取路由，决定跳转至那个页面
-    const router = getRouter('router');
-    if (router) this.$router.push(router);
+    const router = getRouter('router') || '/TchHome';
+    this.$router.push(router);
   },
 };
 </script>

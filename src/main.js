@@ -159,7 +159,7 @@ router.beforeEach((to, from, next) => {
   if (progress) clearInterval(progress);
   w = 0;
   progress = setInterval(() => {
-    w++; // eslint-disable-line
+    w++;
     store.commit(UPDATE_PROGRESS, { w });
 
     if (w > 95) {
