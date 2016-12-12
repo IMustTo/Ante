@@ -55,6 +55,10 @@ const TchAssessNotice = (resolve) => {
 const SelectClass = (resolve) => {
   require(['./views/SelectClass'], resolve);
 };
+// 选择学生（一个人）
+const SelectChild = (resolve) => {
+  require(['./views/SelectChild'], resolve);
+};
 // 教师审批
 const TchApprove = (resolve) => {
   require(['./views/TchApprove'], resolve);
@@ -134,6 +138,8 @@ const routes = [
   { path: '/TchAssessNotice', component: TchAssessNotice },
   // { path: '/TchAssessNotice/:id', component: TchAssessNotice },
   { path: '/SelectClass', component: SelectClass },
+  { path: '/SelectChild', component: SelectChild },
+
   { path: '/PrtAssess', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },

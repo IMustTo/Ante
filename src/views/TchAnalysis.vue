@@ -46,7 +46,7 @@ export default {
 
   methods: {
     pick() {
-
+      this.$router.push('/SelectChild');
     },
 
     showStars() {
