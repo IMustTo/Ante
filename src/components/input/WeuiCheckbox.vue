@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'weui-radio',
+  name: 'weui-checkbox',
 
   props: {
     id: {

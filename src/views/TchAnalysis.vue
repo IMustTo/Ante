@@ -9,7 +9,7 @@
     <transition
       enter-active-class="animated flipInX"
       leave-active-class="animated flipOutX">
-      <cell-access v-if="showStar" name="得星纪录"
+      <cell-access v-if="canShowStar" name="得星纪录"
         :caption="stars"
         @tapEvt="showStars">
       </cell-access>
@@ -52,7 +52,7 @@ export default {
     },
 
     // 显示星星数量
-    showStar() {
+    canShowStar() {
       return this.selectedChild.id && this.starNum > -1;
     },
   },

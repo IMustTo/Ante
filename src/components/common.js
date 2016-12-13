@@ -9,6 +9,8 @@ import ActionSheet from './feedback/ActionSheet';
 import WeuiDialog from './feedback/WeuiDialog';
 import WeuiLoading from './loading/WeuiLoading';
 
+import LoadMore from './scroll/LoadMore';
+
 export default [
   WeuiBtn,
   CellTitle,
@@ -18,4 +20,5 @@ export default [
   ActionSheet,
   WeuiDialog,
   WeuiLoading,
+  LoadMore,
 ];

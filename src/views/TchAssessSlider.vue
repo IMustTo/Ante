@@ -156,7 +156,7 @@ export default {
 
     // 选择图片
     selectImg() {
-      this.uploadImg({ max: 3 })
+      this.uploadImg({ max: 9 })
         .then(({ resultBean = [] }) => {
           this.images = this.images.concat(resultBean);
         });

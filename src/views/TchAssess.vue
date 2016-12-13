@@ -120,6 +120,7 @@ export default {
 
       if (this.checkedClass.id) {
         cls = this.checkedClass;
+        this.checkedAvatar = [];
       } else {
         // 没有选择班级，查询默认的
         this.loadDefaultOrg();
@@ -198,6 +199,11 @@ export default {
     loadStudents(orgIdList) {
       if (this.cacheStds[orgIdList]) {
         this.students = this.cacheStds[orgIdList];
+
+        this.students.map((item) => {
+          item.check = false;
+          return item;
+        });
       } else {
         this.$http
           .post('system/user/findChildByOrgIds', { orgIdList })
