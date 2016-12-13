@@ -2,6 +2,9 @@
 export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 // loading
 export const SHOW_LOADING = 'SHOW_LOADING';
+// 全局提示
+export const SET_GLOBLE_TIP = 'SET_GLOBLE_TIP';
+export const CHANGE_GLOBLE_TIP_STATUS = 'CHANGE_GLOBLE_TIP_STATUS';
 
 // 评价类型
 export const SET_ASSESS_TYPE = 'SET_ASSESS_TYPE';

@@ -6,11 +6,16 @@
 
     <weui-progress :w="w"></weui-progress>
     <weui-loading v-show="loading"></weui-loading>
+    <weui-dialog single
+      v-show="tipStatus"
+      @ok="showGlobleTip()"
+      :content="tip">
+    </weui-dialog>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import WeuiProgress from './components/loading/WeuiProgress';
 import { getRouter } from './utils';
 
@@ -31,6 +36,8 @@ export default {
     ...mapGetters({
       w: 'getProgress',
       loading: 'getLoadingStatus',
+      tip: 'getGlobleTip',
+      tipStatus: 'getGlobleTipStatus',
     }),
   },
 
@@ -39,6 +46,10 @@ export default {
     // const router = getRouter('router') || '/TchHome'; 有bug
     const router = getRouter('router');
     if (router) this.$router.push(router);
+  },
+
+  methods: {
+    ...mapActions(['showGlobleTip']),
   },
 };
 </script>
