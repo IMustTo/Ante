@@ -126,7 +126,7 @@ export default {
           id,
           status: StatusMap[status],
           statusCode: StatusCodeMap[status],
-          name: `创建申请 (${name})`,
+          name: '创建申请',
           person: `${studentName} (${className})`,
           desc: name,
           icon: 'zdy',
