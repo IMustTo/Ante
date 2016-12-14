@@ -17,8 +17,8 @@
       </template>
     </cell-wapper>
 
-    <cell-title title="创建原因"></cell-title>
-    <cell-wapper>
+    <cell-title v-show="reason" title="创建原因"></cell-title>
+    <cell-wapper v-show="reason">
       <cell-base :name="reason"></cell-base>
     </cell-wapper>
     <cell-title tip>本审批需要班主任操作</cell-title>
@@ -44,32 +44,47 @@ export default {
 
   data() {
     return {
-      student: {
-        name: '王侠名',
-        id: 1,
-      },
-      star: {
-        name: '开心快乐星',
-      },
-
-      benchmarks: [
-        '身体健康',
-        '顽皮捣蛋',
-        '欺师灭祖，哇哈哈哈',
-      ],
-
-      reason: '我就试试，没别的想法',
+      student: {},
+      star: {},
+      imageUrl: '',
+      benchmarks: [],
+      reason: '',
     };
   },
 
   methods: {
+    loadDetail() {
+      this.$http.post('core/evaluestar/starCustom/findStarCustomById', {
+        starCustomId: this.$route.params.id,
+      }).then(res => res.json())
+      .then(({ resultBean }) => {
+        this.student = { id: resultBean.studentId, name: resultBean.studentName || '' };
+        this.star = { id: resultBean.id, name: resultBean.name || '' };
+        this.imageUrl = resultBean.imageUrl || '';
+        this.benchmarks = resultBean.customContentList || [];
+        this.reason = resultBean.applyRemark;
+      });
+    },
+
     reject() {
       this.$router.push('/TchAprRefuse');
     },
 
     pass() {
-      this.$router.push('/AssessPass');
+      this.$http.post('core/evaluestar/starCustom/updateStarCustom/102', {
+        status: 102,
+        id: this.star.id,
+      }).then(res => res.json())
+      .then(({ resultCode }) => {
+        if (resultCode === 'JSPE-200') {
+          this.$router.push('/AssessSuc');
+        }
+      });
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.loadDetail());
   },
 };
 </script>

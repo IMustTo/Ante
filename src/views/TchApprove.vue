@@ -7,7 +7,7 @@
       <cell-wapper v-if="currNav === index">
         <!-- records-list -->
         <template v-for="item in records">
-          <cell-access :id="item.id" @tapEvt="showDetail">
+          <cell-access :id="String(item.id)" @tapEvt="showDetail">
             <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
 
             <p>{{ item.name }}
@@ -38,6 +38,7 @@ import NavBar from '../components/layout/NavBar';
 import StarIcon from '../components/star/StarIcon';
 import StatusBox from '../components/status/StatusBox';
 import MugenScroll from '../components/scroll/MugenScroll';
+import dictionary from '../mixins/dictionary';
 
 const StatusMap = {
   101: '待审批',
@@ -70,8 +71,13 @@ export default {
     MugenScroll,
   },
 
+  mixins: [dictionary],
+
   data() {
     return {
+      // 权限 101评星委员会，102班主任，103两者权限
+      type: null,
+
       currNav: 0,
       navBar: ['全部', '待审批', '已审批'],
 
@@ -102,7 +108,16 @@ export default {
 
       this.loading = true;
       this.loadCustomList()
-        .then(({ resultBean: { resultList, pageCond: { currentPage, pageCount } } }) => {
+        .then(({
+          resultBean: {
+            customResult: {
+              resultList,
+              pageCond: { currentPage, pageCount },
+            },
+            type,
+          },
+        }) => {
+          this.type = type;
           this.addRecords(resultList);
 
           if (currentPage === pageCount) {
@@ -112,6 +127,14 @@ export default {
             this.loading = false;
           }
         });
+    },
+
+    // 刷新页面
+    reloadPage() {
+      this.currentPage = 1;
+      this.noMore = false;
+      this.loading = false;
+      this.fetchData();
     },
 
     // 处理数据，添加到列表
@@ -155,6 +178,10 @@ export default {
     changePanel(index) {
       this.currNav = index;
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.reloadPage());
   },
 };
 </script>

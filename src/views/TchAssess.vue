@@ -121,9 +121,6 @@ export default {
       if (this.checkedClass.id) {
         cls = this.checkedClass;
         this.checkedAvatar = [];
-      } else {
-        // 没有选择班级，查询默认的
-        this.loadDefaultOrg();
       }
 
       return cls;
@@ -148,6 +145,10 @@ export default {
     // 当前页面刷新重新查询 评价类型
     if (!this.assessTypes.length) {
       this.loadTypes();
+    }
+
+    if (!this.checkedClass || !this.checkedClass.id) {
+      this.loadDefaultOrg();
     }
   },
 
