@@ -30,6 +30,7 @@
 <script>
 import WeuiCheckbox from '../components/input/WeuiCheckbox';
 import CheckboxGroup from '../components/input/CheckboxGroup';
+import dictionary from '../mixins/dictionary';
 
 export default {
   name: 'tch-apr-refuse',
@@ -38,12 +39,12 @@ export default {
     WeuiCheckbox,
   },
 
+  mixins: [dictionary],
+
   data() {
     return {
       reasons: [
         { value: '', check: false },
-        { name: '心情不好', check: false },
-        { name: '我高兴！！！', check: false },
       ],
     };
   },
@@ -52,6 +53,19 @@ export default {
     canRefuse() {
       return this.reasons.some(item => (item.check) && (item.name || item.value));
     },
+  },
+
+  created() {
+    this.getDicByType('custom_star_cre_reject_remark')
+      .then(({ resultBean }) => {
+        this.reasons = [{ value: '', check: false }]
+          .concat(resultBean.map((item) => { // eslint-disable-line
+            return {
+              name: item.businName,
+              check: false,
+            };
+          }));
+      });
   },
 
   methods: {
@@ -72,7 +86,18 @@ export default {
     },
 
     refuse() {
-      this.$router.push('/AprRefuseSuc');
+      const reason = this.reasons.filter(item => item.check)[0];
+
+      this.$http.post('core/evaluestar/starCustom/updateStarCustom/103', {
+        status: 103,
+        remark: reason.value || reason.name,
+        id: this.$route.params.id,
+      }).then(res => res.json())
+      .then(({ resultCode }) => {
+        if (resultCode === 'JSPE-200') {
+          this.$router.push('/AprRefuseSuc');
+        }
+      });
     },
   },
 };

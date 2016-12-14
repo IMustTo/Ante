@@ -24,8 +24,10 @@
     <cell-title tip>本审批需要班主任操作</cell-title>
 
     <area-center slot="bottom">
-      <weui-btn mini dft @tapEvt="reject">驳回</weui-btn>
-      <weui-btn mini @tapEvt="pass">通过</weui-btn>
+      <weui-btn v-show="needAprove" mini dft @tapEvt="reject">驳回</weui-btn>
+      <weui-btn v-show="needAprove" mini @tapEvt="pass">通过</weui-btn>
+      <weui-btn v-show="rejected" mini dft disabled>已驳回</weui-btn>
+      <weui-btn v-show="passed" mini disabled>已通过</weui-btn>
     </area-center>
   </bottom-fix>
 </div>
@@ -49,7 +51,22 @@ export default {
       imageUrl: '',
       benchmarks: [],
       reason: '',
+      status: null,
     };
+  },
+
+  computed: {
+    needAprove() {
+      return this.status === '101';
+    },
+
+    rejected() {
+      return this.status === '103';
+    },
+
+    passed() {
+      return this.status === '102';
+    },
   },
 
   methods: {
@@ -63,11 +80,12 @@ export default {
         this.imageUrl = resultBean.imageUrl || '';
         this.benchmarks = resultBean.customContentList || [];
         this.reason = resultBean.applyRemark;
+        this.status = resultBean.status;
       });
     },
 
     reject() {
-      this.$router.push('/TchAprRefuse');
+      this.$router.push(`/TchAprRefuse/${this.star.id}`);
     },
 
     pass() {
@@ -77,7 +95,7 @@ export default {
       }).then(res => res.json())
       .then(({ resultCode }) => {
         if (resultCode === 'JSPE-200') {
-          this.$router.push('/AssessSuc');
+          this.$router.push('/AprPassSuc');
         }
       });
     },

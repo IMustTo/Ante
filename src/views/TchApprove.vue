@@ -89,10 +89,33 @@ export default {
 
       // all   pending   approved
       recordsArr: [[], [], []],
+
+      // 数据字典缓存
+      dics: null,
     };
   },
 
   methods: {
+    // 查询数据字典
+    loadDics() {
+      return new Promise((resolve) => {
+        if (this.dics) {
+          resolve(this.dics);
+        } else {
+          Promise.all([
+            this.getDicByType('custom_star_status'),
+            // this.getDicByType(''),
+            // this.getDicByType(''),
+          ]).then((res) => {
+            this.dics = res.map(item => item.resultBean);
+
+            resolve(this.dics);
+          });
+        }
+      });
+    },
+
+    // 查询列表
     loadCustomList() {
       return this.$http.post('core/evaluestar/starCustom/getReviewStatus', {
         pageSize: 10,
@@ -107,26 +130,30 @@ export default {
       }
 
       this.loading = true;
-      this.loadCustomList()
-        .then(({
-          resultBean: {
-            customResult: {
-              resultList,
-              pageCond: { currentPage, pageCount },
-            },
-            type,
+      Promise.all([
+        this.loadCustomList(),
+        this.loadDics(),
+      ]).then(([{
+        resultBean: {
+          customResult: {
+            resultList,
+            pageCond: { currentPage, pageCount },
           },
-        }) => {
-          this.type = type;
-          this.addRecords(resultList);
+          type,
+        },
+      }, dics]) => {
+        this.type = type;
+        this.addRecords(resultList);
 
-          if (currentPage === pageCount) {
-            this.noMore = true;
-          } else {
-            this.currentPage++;
-            this.loading = false;
-          }
-        });
+        if (currentPage === pageCount) {
+          this.noMore = true;
+        } else {
+          this.currentPage++;
+          this.loading = false;
+        }
+        // TODO使用数据字典
+        console.log(dics);
+      });
     },
 
     // 刷新页面
@@ -151,7 +178,7 @@ export default {
           statusCode: StatusCodeMap[status],
           name: '创建申请',
           person: `${studentName} (${className})`,
-          desc: name,
+          desc: `申请创建自定义星：${name}`,
           icon: 'zdy',
         };
         all.push(record);
@@ -180,12 +207,13 @@ export default {
     },
   },
 
+  // 返回刷新页面
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.reloadPage());
+    if (/TchAprDtl/.test(from.path)) {
+      next(vm => vm.reloadPage());
+    } else {
+      next();
+    }
   },
 };
 </script>
-
-<style>
-
-</style>

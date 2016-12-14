@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page ante-page-withb">
   <icon-btn-group :btns="iconBtns" @tapIconBtn="goNewPage">
   </icon-btn-group>
 
@@ -20,6 +20,7 @@
 import { mapActions } from 'vuex';
 import IconBtnGroup from '../components/button/IconBtnGroup';
 import TextBtnGroup from '../components/button/TextBtnGroup';
+import scan from '../mixins/scan';
 
 export default {
   name: 'tch-home',
@@ -38,6 +39,8 @@ export default {
     IconBtnGroup,
     TextBtnGroup,
   },
+
+  mixins: [scan],
 
   created() {
     this.$http
@@ -101,7 +104,7 @@ export default {
               }
               // 家庭评价
               if (item.evalueType === '108') {
-                item.go = '/PrtAssess';
+                item.go = '/PrtAssess/108';
               }
               // 自定义星
               if (item.evalueType === '10000') {
@@ -118,7 +121,11 @@ export default {
     },
 
     goNewPage({ go }) {
-      this.$router.push(go);
+      if (go === 'scan') {
+        this.scanQrcode();
+      } else {
+        this.$router.push(go);
+      }
     },
 
     ...mapActions([

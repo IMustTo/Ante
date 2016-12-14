@@ -119,7 +119,7 @@ const routes = [
   { path: '/TchHome', component: TchHome },
   { path: '/TchApprove', component: TchApprove },
   { path: '/TchAprDtl/:id', component: TchAprDtl },
-  { path: '/TchAprRefuse', component: TchAprRefuse },
+  { path: '/TchAprRefuse/:id', component: TchAprRefuse },
   { path: '/AprPassSuc', component: AprPassSuc },
   { path: '/AprRefuseSuc', component: AprRefuseSuc },
 
@@ -145,7 +145,7 @@ const routes = [
   { path: '/SelectChild', component: SelectChild },
   { path: '/SelectMyChild', component: SelectMyChild },
 
-  { path: '/PrtAssess', component: PrtAssess },
+  { path: '/PrtAssess/:id', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },
   { path: '/StarExchange', component: StarExchange },
