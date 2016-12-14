@@ -210,6 +210,14 @@ Vue.http.interceptors.push((request, next) => {
   store.commit(SHOW_LOADING, true);
   next((res) => {
     store.commit(SHOW_LOADING, false);
+
+    // 统一请求错误处理
+    if (!res.ok) {
+      store.dispatch('showGlobleTip', `${res.status} (${res.statusText})`);
+    } else if (res.body.resultCode !== 'JSPE-200') {
+      store.dispatch('showGlobleTip', res.body.errorMessage || '系统错误');
+    }
+
     return res;
   });
 });

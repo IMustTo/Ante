@@ -1,6 +1,7 @@
 <template>
 <div class="ante-pick-img"
   :class="cls"
+  :style="bgstyle"
   @click="$emit('tapEvt')">
     <i class="anteicon icon-jiahao"></i>
   </div>
@@ -14,6 +15,11 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    bgimg: {
+      type: String,
+      default: '',
+    },
   },
 
   computed: {
@@ -21,6 +27,12 @@ export default {
       return {
         'ante-pick-img-mini': this.mini,
       };
+    },
+
+    bgstyle() {
+      return this.bgimg
+        ? { 'background-image': `url('${this.bgimg}')` }
+        : {};
     },
   },
 };
@@ -34,6 +46,9 @@ export default {
   border: 1px solid #dfdfdf;
   font-size: 0;
   text-align: center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center center;
 }
 .ante-pick-img .icon-jiahao {
   font-size: 30px;

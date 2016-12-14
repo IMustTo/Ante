@@ -16,7 +16,9 @@
       </weui-input>
 
       <cell-base name="上传标志">
-        <pick-img-btn slot="desc" @tapEvt="selectImg"></pick-img-btn>
+        <pick-img-btn slot="desc"
+          :bgimg="image.attachmentUrl"
+          @tapEvt="selectImg"></pick-img-btn>
       </cell-base>
     </cell-wapper>
 
@@ -144,8 +146,7 @@ export default {
     selectImg() {
       this.uploadImg({ max: 1 })
         .then(({ resultBean = [] }) => {
-          this.image = resultBean[0];
-          alert(JSON.stringify(resultBean)); // eslint-disable-line
+          this.image = resultBean[0] || {};
         });
     },
 
