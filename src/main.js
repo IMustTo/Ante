@@ -45,9 +45,6 @@ const TchAssess = (resolve) => {
 const TchAssessSlider = (resolve) => {
   require(['./views/TchAssessSlider'], resolve);
 };
-const ClassAssess = (resolve) => {
-  require(['./views/ClassAssess'], resolve);
-};
 const TchAssessNotice = (resolve) => {
   require(['./views/TchAssessNotice'], resolve);
 };
@@ -138,7 +135,6 @@ const routes = [
       { name: 'slider', path: 'slider', component: TchAssessSlider },
     ],
   },
-  { path: '/ClassAssess', component: ClassAssess },
   { path: '/TchAssessNotice', component: TchAssessNotice },
   // { path: '/TchAssessNotice/:id', component: TchAssessNotice },
   { path: '/SelectClass', component: SelectClass },
