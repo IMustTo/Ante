@@ -1,7 +1,50 @@
 <template>
 <div class="page">
+  <nav-bar :navbar="navBar" @tapEvt="changePanel" v-if="classAssess">
+    <template v-if="currNav === 0">
+      <cell-wapper>
+        <div class="ante-desc">
+          <p>在链接电子白板的电脑上打开下面来链接</p>
+          <a href="//www.baidu.com">www.baidu.com</a>
+          <p>然后点击下方按钮扫描电脑端二维码即可</p>
+        </div>
+      </cell-wapper>
 
-  <bottom-fix>
+      <p class="weui-btn-area">
+        <weui-btn name="扫描二维码" @tapEvt="scanQrcode()"></weui-btn>
+      </p>
+    </template>
+
+    <bottom-fix v-if="currNav === 1">
+      <cell-wapper>
+        <cell-base name="周期" :caption="zhouqi"></cell-base>
+        <cell-access name="组织"
+          @tapEvt="$router.push('/SelectClass')"
+          :caption="currClass.name"></cell-access>
+      </cell-wapper>
+
+      <avatar-list v-if="students && students.length">
+        <template v-for="(item, index) in students">
+          <avatar-item
+            @changeEvt="checkAvatar"
+            :check="item.check"
+            :id="index"
+            :name="item.name"
+            :avatar="item.avatar">
+          </avatar-item>
+        </template>
+      </avatar-list>
+      
+      <area-center slot="bottom">
+        <weui-btn mini plain
+          @tapEvt="selectAll"><i class="ante-icon-inbtn"
+            :class="checkAllBtnCls"></i>&emsp;全选</weui-btn>
+        <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
+      </area-center>
+    </bottom-fix>
+  </nav-bar>
+
+  <bottom-fix v-if="!classAssess">
     <cell-wapper>
       <cell-base name="周期" :caption="zhouqi"></cell-base>
       <cell-access name="评价类型"
@@ -54,6 +97,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import BottomFix from '../components/layout/BottomFix';
 import RightSlider from '../components/layout/RightSlider';
+import NavBar from '../components/layout/NavBar';
 
 import AreaBase from '../components/area/AreaBase';
 import AreaCenter from '../components/area/AreaCenter';
@@ -62,11 +106,12 @@ import AvatarList from '../components/list/AvatarList';
 import AvatarItem from '../components/list/AvatarItem';
 import CellGroup from '../components/cell/CellGroup';
 import { dateFormat } from '../utils';
+import scan from '../mixins/scan';
 
 export default {
   name: 'tch-assess',
-
   components: {
+    NavBar,
     AreaBase,
     AreaCenter,
     AvatarList,
@@ -75,9 +120,14 @@ export default {
     RightSlider,
     CellGroup,
   },
+  mixins: [scan],
 
   data() {
     return {
+      currNav: 0,
+      navBar: ['电子白板评价', '手机端评价'],
+      classAssess: false, // 默认5大素养评价
+
       zhouqi: dateFormat(new Date(), 'yyyy年MM月'),
       // 是否显示actionsheet
       showAction: false,
@@ -256,11 +306,22 @@ export default {
     showSliderPage() {
       this.showSlider = this.$router.push({ name: 'slider' });
     },
+
+    changePanel(index) {
+      this.currNav = index;
+    },
   },
 
   // 切换路由params更改状态
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.checkAssessType({ id: to.params.id }));
+    next((vm) => {
+      if (to.params.id === 'ketang') {
+        vm.classAssess = true;
+      } else {
+        vm.classAssess = false;
+        vm.checkAssessType({ id: to.params.id });
+      }
+    });
   },
   watch: {
     $route(to) {
@@ -276,10 +337,17 @@ export default {
 </script>
 
 <style scoped>
+.weui-tab{
+  z-index: 0;
+}
 .ante-icon-inbtn {
   font-size: 14px;
   position: absolute;
   left: 10px;
   top: 7px;
+}
+.ante-desc {
+  padding: 10px 15px;
+  color: #888;
 }
 </style>

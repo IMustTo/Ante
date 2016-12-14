@@ -89,8 +89,8 @@ export default {
 
     canCommit() {
       return (
-        this.assessType &&
-        this.assessType.type &&
+        // this.assessType &&
+        // this.assessType.type &&
         this.students &&
         this.students.length &&
         this.starItems &&
@@ -106,9 +106,13 @@ export default {
   methods: {
     // 查询点评项
     loadAssessItems() {
-      const req = this.assessType.type === '0'
+      let req = this.assessType.type === '0'
         ? { evalueType: '101' }
         : { type: this.assessType.type };
+
+      if (/ketang/.test(this.$route.fullPath)) {
+        req = { evalueType: '106' };
+      }
 
       this.$http
         .post('core/evaluestar/standard/findList', req)

@@ -30,7 +30,7 @@
     <area-center slot="bottom">
       <weui-btn mini
         :disabled="!canSubmit"
-        @tapEvt="tipSuccess">提交</weui-btn>
+        @tapEvt="submit">提交</weui-btn>
     </area-center>
   </bottom-fix>
 </div>
@@ -159,7 +159,8 @@ export default {
       });
     },
 
-    tipSuccess() {
+    // 提交评价
+    submit() {
       const starItems = [];
       this.items.forEach((item) => {
         if (item.checked) {

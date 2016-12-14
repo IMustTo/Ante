@@ -11,14 +11,16 @@
       </cell-wapper>
 
       <p class="weui-btn-area">
-        <weui-btn name="扫描二维码" @tapEvt="scan"></weui-btn>
+        <weui-btn name="扫描二维码" @tapEvt="scanQrcode()"></weui-btn>
       </p>
     </template>
 
     <bottom-fix v-if="currNav === 1">
       <cell-wapper>
-        <cell-access name="周期" :caption="cycle"></cell-access>
-        <cell-access name="组织" :caption="org.name"></cell-access>
+        <cell-base name="周期" :caption="cycle"></cell-base>
+        <cell-access name="组织"
+          @tapEvt="$router.push('/SelectClass')"
+          :caption="currClass.name"></cell-access>
       </cell-wapper>
 
       <area-center slot="bottom">
@@ -30,9 +32,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import NavBar from '../components/layout/NavBar';
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
+import scan from '../mixins/scan';
+import { dateFormat } from '../utils';
 
 export default {
   name: 'class-assess',
@@ -41,33 +46,64 @@ export default {
     BottomFix,
     AreaCenter,
   },
+  mixins: [scan],
 
   data() {
     return {
       currNav: 0,
       navBar: ['电子白板评价', '手机端评价'],
 
-      cycle: '2016-8',
-      org: {
-        id: 1,
-        name: '2016级3班',
-      },
+      cycle: dateFormat(new Date(), 'yyyy年MM月'),
     };
   },
 
   computed: {
+    ...mapGetters({
+      checkedClass: 'getCheckedClass',
+    }),
+
+    currClass() {
+      let cls = {};
+
+      if (this.checkedClass.id) {
+        cls = this.checkedClass;
+      }
+
+      return cls;
+    },
+
     canAssess() {
-      return this.cycle && this.org.id;
+      return this.checkedClass && this.checkedClass.id;
     },
   },
 
+  created() {
+    if (!this.checkedClass || !this.checkedClass.id) {
+      this.loadDefaultOrg();
+    }
+  },
+
   methods: {
+    ...mapActions([
+      'checkOneClass',
+    ]),
+
     changePanel(index) {
       this.currNav = index;
     },
 
-    scan() {
-
+    // 查询默认班级
+    loadDefaultOrg() {
+      this.$http
+        .post('core/evaluestar/findDefaultOrg')
+        .then(response => response.json())
+        .then(({ resultBean }) => {
+          const org = {
+            name: resultBean.orgName || '',
+            id: resultBean.orgId || 0,
+          };
+          this.checkOneClass({ org });
+        });
     },
 
     assess() {

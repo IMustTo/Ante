@@ -96,7 +96,7 @@ export default {
               }
               // 课堂评价
               if (item.evalueType === '106') {
-                item.go = '/ClassAssess';
+                item.go = '/TchAssess/ketang';
               }
               // 校内评价 && 扫码
               if (item.evalueType === '107') {
