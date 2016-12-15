@@ -21,3 +21,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.icon-gantanhao:before {
+  font-size: 55px;
+  line-height: 1;
+}
+</style>

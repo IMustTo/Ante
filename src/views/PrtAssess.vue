@@ -25,7 +25,8 @@
 
     <cell-title tip>每个家庭每个评价周期可以给自己家孩子评<span class="ante-red-word">5</span>颗星，剩余<span class="ante-red-word">{{ maxStar }}</span>颗星</cell-title>
 
-    <weui-toast v-if="showSuc">评价成功</weui-toast>
+    <weui-toast icon="anteicon icon-gantanhao"
+      v-if="maxStar === 0">评价机会已用完</weui-toast>
 
     <area-center slot="bottom">
       <weui-btn mini
@@ -62,7 +63,7 @@ export default {
         // { id: 4, content: '生活规律', checked: false },
       ],
 
-      maxStar: 0,
+      maxStar: 5,
 
       showSuc: false,
     };

@@ -1,5 +1,6 @@
 <template>
 <div class="page">
+  <!-- 课堂评价 -->
   <nav-bar :navbar="navBar" @tapEvt="changePanel" v-if="classAssess">
     <template v-if="currNav === 0">
       <cell-wapper>
@@ -44,6 +45,7 @@
     </bottom-fix>
   </nav-bar>
 
+  <!-- 五大素养评价 -->
   <bottom-fix v-if="!classAssess">
     <cell-wapper>
       <cell-base name="周期" :caption="zhouqi"></cell-base>
@@ -78,6 +80,7 @@
     </area-center>
   </bottom-fix>
 
+  <!-- 评价滑动页 -->
   <transition
     enter-active-class="animated slideInRight"
     leave-active-class="animated slideOutRight">
