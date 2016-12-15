@@ -76,6 +76,40 @@ export default {
   },
 
   methods: {
+    // 查询年级
+    loadGrade() {
+      return this.$http
+        .post('/system/org/findByRootOrgIdAndType', {
+          type: 104,
+        }).then(res => res.json());
+    },
+
+    // 查询学期
+    loadTerm() {
+      return this.$http
+        .post('core/evaluestar/starStudentTerm/findAllTerm')
+        .then(res => res.json());
+    },
+
+    // 查询荣誉列表
+    loadHonorList() {
+      let starType = '105';
+      switch (this.currTab) {
+        case 0: starType = '105';
+          break;
+        case 1: starType = '104';
+          break;
+        case 2: starType = '103';
+          break;
+        default: starType = '105';
+      }
+
+      return this.$http.post('core/evaluestar/starStudentTerm/findStudentHonorList', {
+        starType,
+      }).then(res => res.json());
+    },
+
+    // 点击切换
     tapNav(indexId) {
       const [i, id] = indexId.split('_'); // '${i}_${id}'
       const { btns } = this.menus[i];
