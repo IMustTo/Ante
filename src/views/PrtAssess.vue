@@ -43,7 +43,6 @@ import { mapGetters, mapActions } from 'vuex';
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
 import StarItem from '../components/list/StarItem';
-import WeuiToast from '../components/toast/WeuiToast';
 
 export default {
   name: 'prt-assess',
@@ -51,7 +50,6 @@ export default {
     BottomFix,
     AreaCenter,
     StarItem,
-    WeuiToast,
   },
 
   data() {

@@ -10,6 +10,8 @@
       <slot></slot>
   </div>
 
+  <slot name="descimg"></slot>
+
   <div class="weui-cell__ft">
     {{ caption }}
     <slot name="desc"></slot>

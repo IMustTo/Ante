@@ -3,14 +3,14 @@
   <cell-wapper>
     <cell-access
       name="被评价人"
-      :caption="selectedChild.name || '请选择'"
+      :caption="student.name || '请选择'"
       @tapEvt="pick"></cell-access>
 
     <transition
       enter-active-class="animated flipInX"
       leave-active-class="animated flipOutX">
-      <cell-access v-if="canShowStar" name="得星纪录"
-        :caption="stars"
+      <cell-access v-if="canShowStar"
+        name="得星纪录"
         @tapEvt="showStars">
       </cell-access>
     </transition>
@@ -37,15 +37,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      child: 'getCheckedChild',
+      student: 'getCheckedStudent',
     }),
-
-    selectedChild() {
-      return {
-        id: this.child.id || 0,
-        name: this.child.name || '请选择',
-      };
-    },
 
     stars() {
       return `${this.starNum || 0}颗`;
@@ -53,19 +46,19 @@ export default {
 
     // 显示星星数量
     canShowStar() {
-      return this.selectedChild.id && this.starNum > -1;
+      return this.student.id;
     },
   },
 
   methods: {
     pick() {
-      this.$router.push('/SelectChild');
+      this.$router.push('/SelectStudent');
     },
 
     loadStarsByChild() {
       this.$http
         .post('core/evaluestar/studentstar/findAnalysisById', {
-          orgId: this.child.id,
+          orgId: this.student.id,
         })
         .then(response => response.json())
         .then(({ resultBean }) => {
@@ -75,19 +68,7 @@ export default {
     },
 
     showStars() {
-      if (this.people.stars) {
-        this.$router.push(`/StarRecord/${this.people.id}`);
-      }
-    },
-  },
-
-  watch: {
-    child: {
-      handler() {
-        this.starNum = -1;
-        this.loadStarsByChild();
-      },
-      deep: true,
+      this.$router.push(`/StarRecord/${this.student.id}`);
     },
   },
 };

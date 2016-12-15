@@ -48,3 +48,16 @@
 .weui-btn-area {
   margin: 1.17647059em 15px;
 }
+
+.ante-star-custom-default {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-color: #fff4bb;
+  background-image: url('../images/star-zdy-m.png');
+}

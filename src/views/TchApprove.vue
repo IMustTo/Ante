@@ -148,12 +148,13 @@ export default {
         if (currentPage === pageCount) {
           this.noMore = true;
         } else {
-          this.currentPage++;
           this.loading = false;
         }
         // TODO使用数据字典
         console.log(dics);
       });
+
+      this.currentPage++;
     },
 
     // 刷新页面

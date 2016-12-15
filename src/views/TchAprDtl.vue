@@ -5,8 +5,8 @@
       <cell-base name="学生"
         :caption="student.name">
       </cell-base>
-      <cell-base name="星星名称"
-        :caption="star.name">
+      <cell-base name="星星名称" :caption="star.name">
+        <div slot="descimg" class="ante-star-custom-default" :style="iconbg"></div>
       </cell-base>
     </cell-wapper>
 
@@ -56,6 +56,18 @@ export default {
   },
 
   computed: {
+    iconbg() {
+      let bg = {};
+
+      if (this.star.imageUrl) {
+        bg = {
+          'background-image': `url('${this.star.imageUrl}')`,
+          'background-size': 'cover',
+        };
+      }
+
+      return bg;
+    },
     needAprove() {
       return this.status === '101';
     },
@@ -76,7 +88,7 @@ export default {
       }).then(res => res.json())
       .then(({ resultBean }) => {
         this.student = { id: resultBean.studentId, name: resultBean.studentName || '' };
-        this.star = { id: resultBean.id, name: resultBean.name || '' };
+        this.star = { id: resultBean.id, name: resultBean.name || '', imageUrl: resultBean.imageUrl || '' };
         this.imageUrl = resultBean.imageUrl || '';
         this.benchmarks = resultBean.customContentList || [];
         this.reason = resultBean.applyRemark;
@@ -106,7 +118,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

@@ -53,8 +53,8 @@ const SelectClass = (resolve) => {
   require(['./views/SelectClass'], resolve);
 };
 // 选择学生（一个人）
-const SelectChild = (resolve) => {
-  require(['./views/SelectChild'], resolve);
+const SelectStudent = (resolve) => {
+  require(['./views/SelectStudent'], resolve);
 };
 // 选择自己的孩子（一个人）
 const SelectMyChild = (resolve) => {
@@ -138,7 +138,7 @@ const routes = [
   { path: '/TchAssessNotice', component: TchAssessNotice },
   // { path: '/TchAssessNotice/:id', component: TchAssessNotice },
   { path: '/SelectClass', component: SelectClass },
-  { path: '/SelectChild', component: SelectChild },
+  { path: '/SelectStudent', component: SelectStudent },
   { path: '/SelectMyChild', component: SelectMyChild },
 
   { path: '/PrtAssess/:id', component: PrtAssess },
@@ -149,7 +149,7 @@ const routes = [
 
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },
-  { path: '/CustomStarGet', component: CustomStarGet },
+  { path: '/CustomStarGet/:id', component: CustomStarGet },
   // TOFIX: 从参数设置路由有不能返回的bug, 先不加redirect了
   // { path: '/*', redirect: '/TchHome' },
 ];

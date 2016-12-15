@@ -48,6 +48,7 @@ export default {
         { title: '全部学期', btns: [{ id: 1, name: '全部学期' }, { id: 2, name: '2016年上学期' }] },
       ],
       currTab: 0,
+      // 105金星 104全能星 103银星
       tabBar: ['金星殿堂', '全能星殿堂', '银星殿堂'],
 
       avatars: [

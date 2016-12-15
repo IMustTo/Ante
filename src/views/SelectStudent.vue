@@ -26,7 +26,7 @@ import UiSelectItem from '../components/input/UiSelectItem';
 import singleOrg from '../mixins/singleOrg';
 
 export default {
-  name: 'select-child',
+  name: 'select-student',
   components: {
     UiSelectItem,
   },
@@ -35,7 +35,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      orgs: 'getChildren',
+      orgs: 'getStudents',
     }),
 
     canConfrim() {
@@ -49,18 +49,18 @@ export default {
 
   methods: {
     ...mapActions([
-      'setChildOrg',
-      'checkOneChild',
+      'setStudents',
+      'checkOneStudent',
     ]),
 
     // single-org mixin必须实现这个方法
     setOrgs(orgs) {
-      this.setChildOrg({ children: orgs });
+      this.setStudents({ students: orgs });
     },
 
     confirm() {
       const { id, name } = this.selectedOrg;
-      this.checkOneChild({ child: { id, name } });
+      this.checkOneStudent({ student: { id, name } });
       this.$router.go(-1);
     },
   },

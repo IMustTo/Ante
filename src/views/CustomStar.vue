@@ -120,6 +120,7 @@ export default {
 
   methods: {
     ...mapActions([
+      'showGlobleTip',
       'setChildOrg',
       'checkOneChild',
     ]),
@@ -137,6 +138,10 @@ export default {
       this.setChildOrg({ children });
       if (children.length) this.checkOneChild({ child: children[0] });
     },
+    // 选择孩子页面
+    selectStd() {
+      this.$router.push('/SelectMyChild');
+    },
 
     nameStar(value) {
       this.starName = value;
@@ -150,10 +155,6 @@ export default {
         });
     },
 
-    // 选择孩子页面
-    selectStd() {
-      this.$router.push('/SelectMyChild');
-    },
     // 标准
     addBenchmark() {
       this.benchmarks.push({ value: '', canDelete: true });
@@ -184,8 +185,14 @@ export default {
         opt.imageUrl = this.image.attachmentUrl;
       }
 
-      this.$http.post('core/evaluestar/starCustom/createStarCustom', opt);
-      // TODO 成功后的提示
+      this.$http.post('core/evaluestar/starCustom/createStarCustom', opt)
+        .then(res => res.json())
+        .then(({ resultCode }) => {
+          if (resultCode === 'JSPE-200') {
+            this.showGlobleTip('创建自定义星成功，已提交评星委员会进行审核，请耐心等待审核结果！');
+            this.$router.go(-1);
+          }
+        });
     },
   },
 };

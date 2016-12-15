@@ -46,7 +46,6 @@ import RightSlider from '../components/layout/RightSlider';
 import AreaCenter from '../components/area/AreaCenter';
 import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
-import WeuiToast from '../components/toast/WeuiToast';
 import ImageCell from '../components/image/ImageCell';
 import uploadImg from '../mixins/uploadImg';
 
@@ -57,7 +56,6 @@ export default {
     AreaCenter,
     WeuiTextarea,
     StarItem,
-    WeuiToast,
     ImageCell,
   },
 

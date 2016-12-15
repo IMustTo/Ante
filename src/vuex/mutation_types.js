@@ -14,6 +14,9 @@ export const CHECK_TYPE = 'CHECK_TYPE';
 export const SET_CLASS_ORG = 'SET_CLASS_ORG';
 export const CHECK_ONE_CLASS = 'CHECK_ONE_CLASS';
 export const SET_CHECKED_STUDENTS = 'SET_CHECKED_STUDENTS';
-// 选择学生
+// 选择孩子
 export const SET_CHILD_ORG = 'SET_CHILD_ORG';
 export const CHECK_ONE_CHILD = 'CHECK_ONE_CHILD';
+// 选择学生
+export const SET_STUDENTS_ORG = 'SET_STUDENTS_ORG';
+export const CHECK_ONE_STUDENT = 'CHECK_ONE_STUDENT';
