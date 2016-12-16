@@ -20,3 +20,6 @@ export const CHECK_ONE_CHILD = 'CHECK_ONE_CHILD';
 // 选择学生
 export const SET_STUDENTS_ORG = 'SET_STUDENTS_ORG';
 export const CHECK_ONE_STUDENT = 'CHECK_ONE_STUDENT';
+
+// 荣誉殿堂学生
+export const SET_HONOR_PERSON = 'SET_HONOR_PERSON';

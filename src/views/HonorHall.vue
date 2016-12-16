@@ -4,32 +4,53 @@
 
   <honor-area>
     <tab-bar :tabbar="tabBar" @tapEvt="changePanel">
-
-      <template v-for="(list, i) in avatars">
-        <template v-if="i === currTab" v-for="(item, index) in list">
-          <avatar-cell
-            @tapEvt="checkAvatar"
-            :id="index"
-            :name="item.name"
-            :ban="item.ban"
-            :date="item.date"
-            :avatar="item.avatar">
-          </avatar-cell>
-        </template>
+      <template v-if="0 === currTab" v-for="item in goldHonor">
+        <avatar-cell
+          @tapEvt="checkAvatar"
+          :id="item.studentId"
+          :name="item.studentName"
+          :ban="item.className"
+          :date="item.date"
+          :avatar="item.avatar">
+        </avatar-cell>
       </template>
 
+      <template v-if="1 === currTab" v-for="item in allHonor">
+        <avatar-cell
+          @tapEvt="checkAvatar"
+          :id="item.studentId"
+          :name="item.studentName"
+          :ban="item.className"
+          :date="item.date"
+          :avatar="item.avatar">
+        </avatar-cell>
+      </template>
+
+      <template v-if="2 === currTab" v-for="item in silverHonor">
+        <avatar-cell
+          @tapEvt="checkAvatar"
+          :id="item.studentId"
+          :name="item.studentName"
+          :ban="item.className"
+          :date="item.date"
+          :avatar="item.avatar">
+        </avatar-cell>
+      </template>
+
+      <empty-cell v-show="showNoneContent">暂无学生进入该殿堂</empty-cell>
     </tab-bar>
   </honor-area>
-
 </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import NavMenu from '../components/button/NavMenu';
 import HonorArea from '../components/area/HonorArea';
 import TabBar from '../components/layout/TabBar';
 import AvatarList from '../components/list/AvatarList';
 import AvatarCell from '../components/avatar/AvatarCell';
+import EmptyCell from '../components/cell/EmptyCell';
 
 export default {
   name: 'honnor-hall',
@@ -39,43 +60,62 @@ export default {
     TabBar,
     AvatarList,
     AvatarCell,
+    EmptyCell,
   },
 
   data() {
     return {
+      termId: 0,
+      gradeId: 0,
       menus: [
-        { title: '全校', btns: [{ id: 1, name: '全校' }, { id: 2, name: '2016级1班' }] },
-        { title: '全部学期', btns: [{ id: 1, name: '全部学期' }, { id: 2, name: '2016年上学期' }] },
+        { title: '全校', btns: [{ id: 0, name: '全校' }] },
+        { title: '全部学期', btns: [{ id: 0, name: '全部学期' }] },
       ],
       currTab: 0,
       // 105金星 104全能星 103银星
       tabBar: ['金星殿堂', '全能星殿堂', '银星殿堂'],
 
-      avatars: [
-        [
-          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '王小明', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-        ],
-        [
-          { id: 1, name: '哈哈哈', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '哈哈哈', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '哈哈哈', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '哈哈哈', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-        ],
-        [
-          { id: 1, name: '呵呵呵', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '呵呵呵', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '呵呵呵', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-          { id: 1, name: '呵呵呵', avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460', ban: '2016级2班' },
-        ],
-      ],
+
+      // {
+      //  "studentName": "陈小鑫",
+      //  "className": "14级一班",
+      //  "createTime": 1481644800000,
+      //  "orgSeq": null,
+      //  "termId": null,
+      //  "studentId": null,
+      //  "headPortraitId": null,
+      //  "avatar": "http://img.i3618.com.cn/i3618-config/child-avator/boy.png",
+      //  "studentSex": "103"
+      // }
+      goldHonor: [],
+      allHonor: [],
+      silverHonor: [],
     };
   },
 
+  computed: {
+    // 显示为空
+    showNoneContent() {
+      return (
+        (this.currTab === 0 && !this.goldHonor.length) ||
+        (this.currTab === 1 && !this.allHonor.length) ||
+        (this.currTab === 2 && !this.silverHonor.length)
+      );
+    },
+  },
+
+  created() {
+    Promise.all([
+      this.loadGrade(),
+      this.loadTerm(),
+    ]).then(res => this.setMenus(res));
+
+    this.loadHonorList();
+  },
+
   methods: {
+    ...mapActions(['setHonorPerson']),
+
     // 查询年级
     loadGrade() {
       return this.$http
@@ -95,24 +135,62 @@ export default {
     loadHonorList() {
       let starType = '105';
       switch (this.currTab) {
-        case 0: starType = '105';
-          break;
         case 1: starType = '104';
           break;
         case 2: starType = '103';
           break;
         default: starType = '105';
       }
-
-      return this.$http.post('core/evaluestar/starStudentTerm/findStudentHonorList', {
+      const req = {
+        pageSize: 9999,
+        currentPage: 1,
         starType,
-      }).then(res => res.json());
+      };
+
+      if (this.termId) req.termId = this.termId;
+      if (this.gradeId) req.orgSeq = this.gradeId;
+
+      return this.$http
+        .post('core/evaluestar/starStudentTerm/findStudentHonorList', req)
+        .then(res => res.json())
+        .then(({ resultBean: { resultList } }) => {
+          switch (this.currTab) {
+            case 1: this.allHonor = resultList;
+              break;
+            case 2: this.silverHonor = resultList;
+              break;
+            default: this.goldHonor = resultList;
+          }
+        });
     },
 
-    // 点击切换
+    setMenus(res) {
+      const grades = res[0].resultBean || [];
+      const terms = res[1].resultBean || [];
+      this.menus = [
+        {
+          title: '全校',
+          btns: [
+            { id: 0, name: '全校' },
+            ...grades.map(({ orgId, orgName }) => { // eslint-disable-line
+              return { id: orgId, name: orgName };
+            }),
+          ],
+        },
+        {
+          title: '全部学期',
+          btns: [{ id: 0, name: '全部学期' }, ...terms],
+        },
+      ];
+    },
+
+    // 点击切换 年级 || 学期
     tapNav(indexId) {
       const [i, id] = indexId.split('_'); // '${i}_${id}'
       const { btns } = this.menus[i];
+
+      if (i === '0') this.gradeId = Number(id);
+      if (i === '1') this.termId = Number(id);
 
       btns.some((item) => {
         if (item.id == id) { // eslint-disable-line
@@ -123,18 +201,44 @@ export default {
         return false;
       });
     },
-
+    // 切换殿堂种类
     changePanel(index) {
       this.currTab = index;
     },
 
+    // 查看个人详细
     checkAvatar(id) {
+      let persons = [];
+      switch (this.currTab) {
+        case 1: persons = this.allHonor;
+          break;
+        case 2: persons = this.silverHonor;
+          break;
+        default: persons = this.goldHonor;
+      }
+
+      persons.some((item) => {
+        if (item.studentId === id) {
+          this.setHonorPerson({ student: item });
+          return true;
+        }
+        return false;
+      });
+
       this.$router.push(`/StdShow/${id}`);
+    },
+  },
+
+  watch: {
+    currTab() {
+      this.loadHonorList();
+    },
+    gradeId() {
+      this.loadHonorList();
+    },
+    termId() {
+      this.loadHonorList();
     },
   },
 };
 </script>
-
-<style>
-
-</style>

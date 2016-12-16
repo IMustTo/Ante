@@ -61,6 +61,8 @@ export default {
   },
 
   methods: {
+    // 查询风采星
+    // evaluestar/seaStar/findSeaStarTypeList
     reduce(i) {
       this.hasStars[i].num--;
     },

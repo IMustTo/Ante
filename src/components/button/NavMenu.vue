@@ -120,6 +120,9 @@ export default {
 }
 .ante-nav-mune-inner > li:active {
   background-color: #dfdfdf;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ante-nav-mune-inner > li:not(:last-child):after {
   content: " ";

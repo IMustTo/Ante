@@ -23,9 +23,9 @@ const StarMap = {
 
 export default {
   methods: {
-    setStarData(studentOrg) {
+    setStarData(studentOrg, isStudentId) {
       return new Promise((resolve, reject) => {
-        this.loadStarRecords(studentOrg)
+        this.loadStarRecords(studentOrg, isStudentId)
           .then((res) => {
             resolve(this.getStarGroup(res.resultBean || {
               starCustom: [],
@@ -35,10 +35,15 @@ export default {
       });
     },
     // 查询得星纪录
-    loadStarRecords(studentOrg) {
-      return this.$http
-        .post(`core/evaluestar/studentstar/${studentOrg}/findByStudentId`)
-        .then(res => res.json());
+    loadStarRecords(studentOrg, isStudentId) {
+      let url = 'core/evaluestar/studentstar/findByStudentOrg';
+      let req = { studentOrg };
+      if (isStudentId) {
+        url = 'core/evaluestar/studentstar/findByStudentId';
+        req = { studentId: studentOrg };
+      }
+
+      return this.$http.post(url, req).then(res => res.json());
     },
 
     // 设置星星数据

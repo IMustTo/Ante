@@ -18,7 +18,6 @@
     <cell-wapper>
       <template v-for="(star, index) in item.stars">
         <star-cell
-          @tapEvt="showOneStar"
           :id="index"
           :icon="star.icon"
           :name="star.name"
@@ -34,7 +33,7 @@
   </cell-wapper>
 
   <p class="weui-btn-area">
-    <weui-btn @tapEvt="exchange">海洋星兑换</weui-btn>
+    <weui-btn @tapEvt="exchange" :disabled="!canEx">海洋星兑换</weui-btn>
   </p>
 
   <cell-filler></cell-filler>
@@ -99,6 +98,10 @@ export default {
       student: 'getCheckedChild',
       children: 'getChildren',
     }),
+
+    canEx() {
+      return this.student && this.student.orgId;
+    },
   },
 
   created() {
@@ -132,16 +135,12 @@ export default {
       this.$router.push('/SelectMyChild');
     },
 
-    showOneStar(id) {
-      this.$router.push(`/StarRecordOne/${id}`);
-    },
-
     showList() {
       this.$router.push(`/StarRecordList/${1}`);
     },
 
     exchange() {
-      this.$router.push('/StarExchange');
+      this.$router.push(`/StarExchange/${this.student.orgId}`);
     },
   },
 

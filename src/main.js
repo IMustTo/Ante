@@ -144,7 +144,7 @@ const routes = [
   { path: '/PrtAssess/:id', component: PrtAssess },
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },
-  { path: '/StarExchange', component: StarExchange },
+  { path: '/StarExchange/:id', component: StarExchange },
   { path: '/StarUpgrade/:id', component: StarUpgrade },
 
   { path: '/CustomStar', component: CustomStar },
