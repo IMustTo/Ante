@@ -10,11 +10,11 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "echarts": "^3.3.2",
     "es6-promise": "^4.0.5",
     "immutable": "^3.8.1",
     "lodash.throttle": "^4.1.1",
     "vue": "^2.0.8",
-    "vue-echarts": "^2.0.0",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.3",
     "vuex": "^2.0.0"

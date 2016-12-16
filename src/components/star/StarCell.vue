@@ -1,8 +1,8 @@
 <template>
 <div class="ante-star-cell" @click="$emit('tapEvt', id)">
-  <div class="ante-star-icon" :class="iconCls"></div>
+  <div class="ante-star-icon" :class="iconCls" :style="iconImg"></div>
   <div class="ante-star-name">{{ name }}</div>
-  <div class="ante-star-count"><span>{{ count }}</span>&nbsp;颗</div>
+  <div class="ante-star-count"><span class="ante-red-word">{{ count }}</span>&nbsp;颗<span v-if="cancel"> (撤销{{cancel}}颗)</span></div>
 </div>
 </template>
 
@@ -10,7 +10,32 @@
 export default {
   name: 'star-cell',
 
-  props: ['id', 'icon', 'name', 'count'],
+  props: {
+    id: {
+      type: Number,
+      default: 0,
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    count: {
+      type: Number,
+      default: 1,
+    },
+    cancel: {
+      type: Number,
+      default: 0,
+    },
+    img: {
+      type: String,
+      default: '',
+    },
+  },
 
   computed: {
     iconCls() {
@@ -20,6 +45,19 @@ export default {
       }
 
       return cls;
+    },
+
+    iconImg() {
+      let imgStyle = {};
+
+      if (this.img) {
+        imgStyle = {
+          'background-image': `url('${this.img}')`,
+          'background-size': 'cover',
+        };
+      }
+
+      return imgStyle;
     },
   },
 };
@@ -44,10 +82,9 @@ export default {
 .ante-star-count {
   line-height: 2;
 }
-.ante-star-count span {
-  color: #ff6a29;
-}
+
 .ante-star-icon {
+  display: inline-block;
   width: 78px;
   height: 78px;
   border-radius: 10px;
