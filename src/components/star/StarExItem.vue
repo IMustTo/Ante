@@ -20,8 +20,18 @@
     </div>
     <div class="ante-star-exitem-bd">
       <div class="ante-star-count">
-        <div class="ante-star-excount"><span>{{ count }}</span>颗</div>
-        <weui-btn mini name="兑换" @tapEvt="$emit('exchange')"></weui-btn>
+        <div class="ante-star-excount"
+          v-if="!isFc"><span class="ante-red-word">{{ count }}</span>颗<span v-if="cancel"> (撤销{{cancel}}颗)</span></div>
+
+        <div class="ante-star-excount ante-star-excount-fc"
+        v-if="isFc">
+          风采星<span class="ante-red-word">{{ fc }}</span>颗<br/>
+          <span v-if="fccancel"> (撤销{{ fccancel }}颗)</span><br/>
+          自定义星<span class="ante-red-word">{{ zdy }}</span>颗<br/>
+          <span v-if="zdycancel"> (撤销{{ zdycancel }}颗)</span>
+        </div>
+
+        <weui-btn mini :name="btnName" @tapEvt="$emit('exchange')"></weui-btn>
       </div>
       <div class="ante-star-ex-desc">{{ desc }}</div>
     </div>
@@ -46,6 +56,36 @@ export default {
       type: Number,
       default: 0,
     },
+    cancel: {
+      type: Number,
+      default: 0,
+    },
+    btnName: {
+      type: String,
+      default: '兑换',
+    },
+
+    isFc: {
+      type: Boolean,
+      default: false,
+    },
+    fc: {
+      type: Number,
+      default: 0,
+    },
+    fccancel: {
+      type: Number,
+      default: 0,
+    },
+    zdy: {
+      type: Number,
+      default: 0,
+    },
+    zdycancel: {
+      type: Number,
+      default: 0,
+    },
+
   },
   components: {
     StarIcon,
@@ -107,8 +147,8 @@ export default {
   line-height: 2.3;
   font-size: 13px;
 }
-.ante-star-excount span {
-  color: #ff540a;
+.ante-star-excount-fc {
+  line-height: 1.2;
 }
 .ante-star-count > .weui-btn {
   float: right;

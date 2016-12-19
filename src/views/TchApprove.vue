@@ -87,7 +87,7 @@ export default {
 
       // 加载更多
       loading: false,
-      currentPage: 1,
+      currentPage: 0,
       // 没有更多了
       noMore: false,
 
@@ -110,9 +110,7 @@ export default {
 
     // 加载更多
     fetchData() {
-      if (this.currentPage === 1) {
-        this.recordsArr = [[], [], []];
-      }
+      this.currentPage++;
 
       this.loading = true;
 
@@ -124,19 +122,17 @@ export default {
       }) => {
         this.addRecords(resultList);
 
-        if (currentPage === pageCount) {
+        if (currentPage >= pageCount) {
           this.noMore = true;
         } else {
           this.loading = false;
         }
       });
-
-      this.currentPage++;
     },
 
     // 刷新页面
     reloadPage() {
-      this.currentPage = 1;
+      this.currentPage = 0;
       this.noMore = false;
       this.loading = false;
       this.fetchData();
@@ -144,13 +140,17 @@ export default {
 
     // 处理数据，添加到列表
     addRecords(resultList) {
+      if (this.currentPage === 1) {
+        this.recordsArr = [[], [], []];
+      }
+
       const all = []; // 全部
       const pending = []; // 待处理
       const approved = []; // 已处理
 
       resultList.forEach((item) => {
         const {
-          id,
+          foreignId,
           status,
           type,
           name = '',
@@ -159,7 +159,7 @@ export default {
         } = item;
 
         const record = {
-          id: `${id}_${type}`,
+          id: `${foreignId}_${type}`,
           unvisited: status === '101',
           status: StatusMap[status],
           statusCode: StatusCodeMap[status],
@@ -187,9 +187,9 @@ export default {
     showDetail(idType) {
       const [id, type] = idType.split('_');
       if (type === '101' || type === '102') {
-        this.$router.push(`/TchAprDtl/${id}`);
+        this.$router.push(`/TchAprDtl/${id}_${type}`);
       }
-      // TODO
+      // TODO 撤星
     },
 
     changePanel(index) {
@@ -199,11 +199,11 @@ export default {
 
   // 返回刷新页面
   beforeRouteEnter(to, from, next) {
-    if (/TchAprDtl/.test(from.path)) {
-      next(vm => vm.reloadPage());
-    } else {
-      next();
-    }
+    next((vm) => {
+      if (vm.currentPage !== 0) {
+        vm.reloadPage();
+      }
+    });
   },
 };
 </script>

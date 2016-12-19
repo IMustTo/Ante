@@ -64,15 +64,15 @@
 .ante-star-icon-yellow {
   background-image: url('../images/star-yellow-m.png');
 }
-
-.ante-star-icon-all {
-  background-image: url('../images/star-all.png');
+/* 大星星 */
+.ante-star-large-icon-all {
+  background-image: url('../images/star-all-m.png');
 }
-.ante-star-icon-gold {
-  background-image: url('../images/star-gold.png');
+.ante-star-large-icon-gold {
+  background-image: url('../images/star-golden-m.png');
 }
-.ante-star-icon-silver {
-  background-image: url('../images/star-silver.png');
+.ante-star-large-icon-silver {
+  background-image: url('../images/star-silver-m.png');
 }
 
 .ante-star-large-icon-bj {

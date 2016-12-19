@@ -17,7 +17,8 @@
       </template>
     </cell-wapper>
 
-    <cell-title v-show="reason" title="创建原因"></cell-title>
+    <cell-title v-show="reason && isCreate" title="创建原因"></cell-title>
+    <cell-title v-show="reason && !isCreate" title="申请说明"></cell-title>
     <cell-wapper v-show="reason">
       <cell-base :name="reason"></cell-base>
     </cell-wapper>
@@ -37,6 +38,17 @@
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
 
+// const StatusMap = {
+//   101: '创建待审核',
+//   102: '创建审批通过',
+//   103: '创建审批拒绝',
+//   104: '申请得星',
+//   105: '申请得星拒绝',
+//   106: '已得星',
+//   107: '撤销得星',
+//   108: '已兑换高级星',
+// };
+
 export default {
   name: 'tch-apr-dtl',
   components: {
@@ -46,6 +58,7 @@ export default {
 
   data() {
     return {
+      type: '',
       student: {},
       star: {},
       imageUrl: '',
@@ -68,23 +81,42 @@ export default {
 
       return bg;
     },
+    // 是否创建流程
+    isCreate() {
+      return this.type === '101';
+    },
+
     needAprove() {
-      return this.status === '101';
+      return (
+        (this.isCreate && this.status === '101') ||
+        (!this.isCreate && this.status === '104')
+      );
     },
-
     rejected() {
-      return this.status === '103';
+      return (
+        (this.isCreate && this.status === '103') ||
+        (!this.isCreate && this.status === '105')
+      );
     },
-
     passed() {
-      return this.status === '102';
+      return (
+        (this.isCreate && this.status !== '101' && this.status !== '103') ||
+        (!this.isCreate && (
+          this.status === '106' ||
+          this.status === '107' ||
+          this.status === '108'
+        ))
+      );
     },
   },
 
   methods: {
     loadDetail() {
+      const [id, type] = this.$route.params.id.split('_');
+      this.type = type;
+
       this.$http.post('core/evaluestar/starCustom/findStarCustomById', {
-        starCustomId: this.$route.params.id,
+        starCustomId: id,
       }).then(res => res.json())
       .then(({ resultBean }) => {
         this.student = { id: resultBean.studentId, name: resultBean.studentName || '' };
@@ -97,17 +129,22 @@ export default {
     },
 
     reject() {
-      this.$router.push(`/TchAprRefuse/${this.star.id}`);
+      this.$router.push(`/TchAprRefuse/${this.star.id}_${this.status}`);
     },
 
+    // 创建自定义星批准
     pass() {
-      this.$http.post('core/evaluestar/starCustom/updateStarCustom/102', {
-        status: 102,
+      const status = this.status === '101'
+        ? '102'
+        : '106';
+
+      this.$http.post(`core/evaluestar/starCustom/updateStarCustom/${status}`, {
+        status,
         id: this.star.id,
       }).then(res => res.json())
       .then(({ resultCode }) => {
         if (resultCode === 'JSPE-200') {
-          this.$router.push('/AprPassSuc');
+          this.$router.push(`/AprPassSuc/${this.star.id}`);
         }
       });
     },

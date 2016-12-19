@@ -87,11 +87,13 @@ export default {
 
     refuse() {
       const reason = this.reasons.filter(item => item.check)[0];
+      const [id, originStatus] = this.$route.params.id;
+      const status = originStatus === '101' ? '103' : '105';
 
-      this.$http.post('core/evaluestar/starCustom/updateStarCustom/103', {
-        status: 103,
+      this.$http.post(`core/evaluestar/starCustom/updateStarCustom/${status}`, {
+        id,
+        status,
         remark: reason.value || reason.name,
-        id: this.$route.params.id,
       }).then(res => res.json())
       .then(({ resultCode }) => {
         if (resultCode === 'JSPE-200') {

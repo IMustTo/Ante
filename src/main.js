@@ -117,7 +117,7 @@ const routes = [
   { path: '/TchApprove', component: TchApprove },
   { path: '/TchAprDtl/:id', component: TchAprDtl },
   { path: '/TchAprRefuse/:id', component: TchAprRefuse },
-  { path: '/AprPassSuc', component: AprPassSuc },
+  { path: '/AprPassSuc/:id', component: AprPassSuc },
   { path: '/AprRefuseSuc', component: AprRefuseSuc },
 
   { path: '/TchAnalysis', component: TchAnalysis },
@@ -145,7 +145,7 @@ const routes = [
   { path: '/AssessSuc', component: AssessSuc },
   { path: '/PrtAnalysis', component: PrtAnalysis },
   { path: '/StarExchange/:id', component: StarExchange },
-  { path: '/StarUpgrade/:id', component: StarUpgrade },
+  { path: '/StarUpgrade/:type/:id', component: StarUpgrade },
 
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },
