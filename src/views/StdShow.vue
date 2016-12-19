@@ -22,7 +22,7 @@
     </template>
 
     <div class="ante-copyright-bottom">
-      <div class="ante-school-name">青岛市崂山区石老人小学</div>
+      <div class="ante-school-name">{{ schoolName }}</div>
       <div class="ante-platform-name">伴行3618智慧校园平台提供技术支持和运营服务</div>
     </div>
   </div>
@@ -32,18 +32,21 @@
 <script>
 import { mapGetters } from 'vuex';
 import AvatarPaper from '../components/avatar/AvatarPaper';
+import StarCell from '../components/star/StarCell';
 import starRecords from '../mixins/starRecords';
 
 export default {
   name: 'std-show',
   components: {
     AvatarPaper,
+    StarCell,
   },
   mixins: [starRecords],
 
   data() {
     return {
       group: [],
+      schoolName: WWW_CONFIG.currentCorpName,
     };
   },
 
@@ -55,8 +58,8 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.setStarData(vm.student.studentId, true)
-        .then(group => this.group = group); // eslint-disable-line
+      vm.setStarData(to.params.id, true)
+        .then(group => vm.group = group); // eslint-disable-line
     });
   },
 };
@@ -67,6 +70,14 @@ export default {
   text-align: center;
   background-color: #ff7300;
   color: #fff;
+}
+
+.page .weui-cells__title {
+  text-align: left;
+  color: #fff;
+}
+.page .weui-cells {
+  color: #000;
 }
 .page > div {
   padding-top: 120px;
@@ -122,8 +133,7 @@ export default {
   padding: 0;
 }
 .ante-copyright-bottom {
-  margin: 130px 40px 20px;
-  border-top: 2px solid #d8a473;
+  margin: 20px 40px 20px;
 }
 .ante-school-name {
   padding: 18px 0;

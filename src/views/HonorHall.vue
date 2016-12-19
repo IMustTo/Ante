@@ -172,8 +172,8 @@ export default {
           title: '全校',
           btns: [
             { id: 0, name: '全校' },
-            ...grades.map(({ orgId, orgName }) => { // eslint-disable-line
-              return { id: orgId, name: orgName };
+            ...grades.map(({ orgSeq, orgName }) => { // eslint-disable-line
+              return { id: orgSeq, name: orgName };
             }),
           ],
         },

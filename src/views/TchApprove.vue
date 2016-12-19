@@ -7,7 +7,7 @@
       <cell-wapper v-if="currNav === index">
         <!-- records-list -->
         <template v-for="item in records">
-          <cell-access :id="String(item.id)" @tapEvt="showDetail">
+          <cell-access :id="item.id" :unvisited="item.unvisited" @tapEvt="showDetail">
             <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
 
             <p>{{ item.name }}
@@ -44,22 +44,26 @@ const StatusMap = {
   101: '待审批',
   102: '已通过',
   103: '已驳回',
-  104: '已通过',
-  105: '已通过',
-  106: '已通过',
-  107: '已通过',
-  108: '已通过',
 };
 
 const StatusCodeMap = {
   101: 'pending',
   102: 'passed',
   103: 'refused',
-  104: 'passed',
-  105: 'passed',
-  106: 'passed',
-  107: 'passed',
-  108: 'passed',
+};
+
+const TypeMap = {
+  101: '创建申请',
+  102: '得星申请',
+  103: '恢复撤星申请',
+  104: '恢复撤星申请',
+};
+
+const TypeDescMap = {
+  101: '创建自定义星',
+  102: '自定义星',
+  103: '恢复自定义星',
+  104: '恢复星星',
 };
 
 export default {
@@ -96,28 +100,9 @@ export default {
   },
 
   methods: {
-    // 查询数据字典
-    loadDics() {
-      return new Promise((resolve) => {
-        if (this.dics) {
-          resolve(this.dics);
-        } else {
-          Promise.all([
-            this.getDicByType('custom_star_status'),
-            // this.getDicByType(''),
-            // this.getDicByType(''),
-          ]).then((res) => {
-            this.dics = res.map(item => item.resultBean);
-
-            resolve(this.dics);
-          });
-        }
-      });
-    },
-
     // 查询列表
     loadCustomList() {
-      return this.$http.post('core/evaluestar/starCustom/getReviewStatus', {
+      return this.$http.post('core/evaluestar/approveRecord/getApproveRecord', {
         pageSize: 10,
         currentPage: this.currentPage,
       }).then(response => response.json());
@@ -130,19 +115,13 @@ export default {
       }
 
       this.loading = true;
-      Promise.all([
-        this.loadCustomList(),
-        this.loadDics(),
-      ]).then(([{
+
+      this.loadCustomList().then(({
         resultBean: {
-          customResult: {
-            resultList,
-            pageCond: { currentPage, pageCount },
-          },
-          type,
+          resultList,
+          pageCond: { currentPage, pageCount },
         },
-      }, dics]) => {
-        this.type = type;
+      }) => {
         this.addRecords(resultList);
 
         if (currentPage === pageCount) {
@@ -150,8 +129,6 @@ export default {
         } else {
           this.loading = false;
         }
-        // TODO使用数据字典
-        console.log(dics);
       });
 
       this.currentPage++;
@@ -172,15 +149,24 @@ export default {
       const approved = []; // 已处理
 
       resultList.forEach((item) => {
-        const { id, status, name, studentName, className } = item;
-        const record = {
+        const {
           id,
+          status,
+          type,
+          name = '',
+          studentName = '',
+          className = '',
+        } = item;
+
+        const record = {
+          id: `${id}_${type}`,
+          unvisited: status === '101',
           status: StatusMap[status],
           statusCode: StatusCodeMap[status],
-          name: '创建申请',
+          name: TypeMap[type],
           person: `${studentName} (${className})`,
-          desc: `申请创建自定义星：${name}`,
-          icon: 'zdy',
+          desc: `${TypeDescMap[type]}：${name}`,
+          icon: 'zdy', // TODO星星图标
         };
         all.push(record);
 
@@ -198,8 +184,11 @@ export default {
       ];
     },
 
-    showDetail(id) {
-      this.$router.push(`/TchAprDtl/${id}`);
+    showDetail(idType) {
+      const [id, type] = idType.split('_');
+      if (type === '101' || type === '102') {
+        this.$router.push(`/TchAprDtl/${id}`);
+      }
       // TODO
     },
 
