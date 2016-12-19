@@ -26,12 +26,14 @@
         <div class="ante-star-excount ante-star-excount-fc"
         v-if="isFc">
           风采星<span class="ante-red-word">{{ fc }}</span>颗<br/>
-          <span v-if="fccancel"> (撤销{{ fccancel }}颗)</span><br/>
+          <span v-if="fccancel"> (撤销{{ fccancel }}颗)<br/></span>
           自定义星<span class="ante-red-word">{{ zdy }}</span>颗<br/>
           <span v-if="zdycancel"> (撤销{{ zdycancel }}颗)</span>
         </div>
 
-        <weui-btn mini :name="btnName" @tapEvt="$emit('exchange')"></weui-btn>
+        <weui-btn mini :name="btnName"
+          :disabled="!canExchange"
+          @tapEvt="$emit('exchange')"></weui-btn>
       </div>
       <div class="ante-star-ex-desc">{{ desc }}</div>
     </div>
@@ -86,6 +88,10 @@ export default {
       default: 0,
     },
 
+    canExchange: {
+      type: Boolean,
+      default: true,
+    },
   },
   components: {
     StarIcon,

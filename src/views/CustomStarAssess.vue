@@ -102,29 +102,31 @@ export default {
 
     // 查询自定义星纪录
     loadStarRecords() {
-      this.$http.post('core/evaluestar/starCustom/findListByStuOrgId', {
-        stuOrgId: this.student.orgId,
-        pageSize: 999,
-        currentPage: 1,
-      }).then(res => res.json())
-      .then(({ resultBean }) => {
-        const resultList = resultBean ? resultBean.resultList : [];
-        this.stars = resultList.map((item) => {
-          if (!item.imageUrl) {
-            item.icon = 'zdy';
-          }
+      if (this.student.orgId) {
+        this.$http.post('core/evaluestar/starCustom/findListByStuOrgId', {
+          stuOrgId: this.student.orgId,
+          pageSize: 999,
+          currentPage: 1,
+        }).then(res => res.json())
+        .then(({ resultBean }) => {
+          const resultList = resultBean ? resultBean.resultList : [];
+          this.stars = resultList.map((item) => {
+            if (!item.imageUrl) {
+              item.icon = 'zdy';
+            }
 
-          if (item.status === '106') {
-            item.count = 1;
-          }
+            if (item.status === '106') {
+              item.count = 1;
+            }
 
-          if (item.status === '102') {
-            item.canApply = true;
-          }
+            if (item.status === '102') {
+              item.canApply = true;
+            }
 
-          return item;
+            return item;
+          });
         });
-      });
+      }
     },
 
     // 申请得星
@@ -135,11 +137,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    if (/CustomStarGet/.test(from.path)) {
-      next(vm => vm.loadStarRecords());
-    } else {
-      next();
-    }
+    next(vm => vm.loadStarRecords());
   },
   watch: {
     student() {

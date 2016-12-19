@@ -171,9 +171,9 @@ export default {
         {
           title: '全校',
           btns: [
-            { id: 0, name: '全校' },
-            ...grades.map(({ orgSeq, orgName }) => { // eslint-disable-line
-              return { id: orgSeq, name: orgName };
+            { id: 0, name: '全校', orgSeq: '' },
+            ...grades.map(({ orgId, orgSeq, orgName }) => { // eslint-disable-line
+              return { id: orgId, orgSeq, name: orgName };
             }),
           ],
         },
@@ -189,12 +189,12 @@ export default {
       const [i, id] = indexId.split('_'); // '${i}_${id}'
       const { btns } = this.menus[i];
 
-      if (i === '0') this.gradeId = Number(id);
-      if (i === '1') this.termId = Number(id);
-
       btns.some((item) => {
         if (item.id == id) { // eslint-disable-line
           this.menus[i].title = item.name;
+
+          if (i === '0') this.gradeId = item.orgSeq;
+          if (i === '1') this.termId = Number(id);
           return true;
         }
 

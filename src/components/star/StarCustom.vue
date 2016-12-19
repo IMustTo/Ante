@@ -72,6 +72,7 @@ export default {
   text-align: center;
   padding: 14px 12px;
   font-size: 14px;
+  vertical-align: top;
 }
 
 .ante-star-name {

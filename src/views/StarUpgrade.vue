@@ -109,6 +109,7 @@
           </cell-num>
         </template>
       </cell-wapper>
+      <cell-title warn v-show="silverExTip"><span class="ante-warn-word">{{ silverExTip }}</span></cell-title>
     </div>
 
     <p class="weui-btn-area">
@@ -173,34 +174,21 @@ export default {
       starCountDesc: '',
 
       // 身心健康
-      sxjk: [
-        { code: '106', name: '箭鱼之星', num: 0, max: 0, min: 0 },
-        { code: '107', name: '白鲸之星', num: 0, max: 0, min: 0 },
-      ],
+      sxjk: [],
       // 品格情怀
-      pgqh: [
-        { code: '108', name: '海豚之星', num: 0, max: 0, min: 0 },
-        { code: '109', name: '珊瑚之星', num: 0, max: 0, min: 0 },
-        { code: '110', name: '海狮之星', num: 0, max: 0, min: 0 },
-        { code: '111', name: '尼莫之星', num: 0, max: 0, min: 0 },
-        { code: '112', name: '企鹅之星', num: 0, max: 0, min: 0 },
-      ],
+      pgqh: [],
       // 创新思维
-      cxsw: [
-        { code: '113', name: '章鱼之星', num: 0, max: 0, min: 0 },
-      ],
+      cxsw: [],
       // 审美雅趣
-      smyq: [
-        { code: '114', name: '水母之星', num: 0, max: 0, min: 0 },
-      ],
+      smyq: [],
       // 人文表达
-      rwbd: [
-        { code: '115', name: '海马之星', num: 0, max: 0, min: 0 },
-      ],
+      rwbd: [],
       // 自定义星
       zdyx: [
         // { code: '116', name: '自定义星', num: 0, max: 0, min: 0 },
       ],
+
+      fengcaiCount: 0,
 
       // 是否可兑换
       canEx: false,
@@ -211,12 +199,86 @@ export default {
   },
 
   computed: {
+    lackArr() {
+      const arr = [];
+
+      [
+        { code: 'sxjk', name: '身心健康' },
+        { code: 'pgqh', name: '品格情怀' },
+        { code: 'cxsw', name: '创新思维' },
+        { code: 'smyq', name: '审美雅趣' },
+        { code: 'rwbd', name: '人文表达' },
+      ].forEach((dalei) => {
+        if (!this[dalei.code].some(item => item.num)) {
+          arr.push(dalei.name);
+        }
+      });
+
+      return arr;
+    },
+
+    // 不能兑换银星的提示
+    silverExTip() {
+      let tip = '';
+      if (this.lackArr.length) {
+        tip = `缺少“${this.lackArr.join('、')}”素养的风采星，五大素养每一类至少要有一颗`;
+      } else {
+        tip = this.fengcaiCount > 8 ? '选择的数量太多' : '';
+      }
+
+      return tip;
+    },
+
     exFc() {
       return this.type === '102';
     },
   },
 
   methods: {
+    initConfig() {
+      this.type = ''; // 大类
+      this.miniType = ''; // 小类
+      this.orgId = '';
+      this.star = { name: '请选择' };
+      this.starList = [];
+      this.starNameArr = [];
+      this.starCount = {};
+      this.starCountDesc = '';
+
+      // 身心健康
+      this.sxjk = [
+        { code: '106', name: '箭鱼之星', num: 0, max: 0, min: 0 },
+        { code: '107', name: '白鲸之星', num: 0, max: 0, min: 0 },
+      ];
+      // 品格情怀
+      this.pgqh = [
+        { code: '108', name: '海豚之星', num: 0, max: 0, min: 0 },
+        { code: '109', name: '珊瑚之星', num: 0, max: 0, min: 0 },
+        { code: '110', name: '海狮之星', num: 0, max: 0, min: 0 },
+        { code: '111', name: '尼莫之星', num: 0, max: 0, min: 0 },
+        { code: '112', name: '企鹅之星', num: 0, max: 0, min: 0 },
+      ];
+      // 创新思维
+      this.cxsw = [
+        { code: '113', name: '章鱼之星', num: 0, max: 0, min: 0 },
+      ];
+      // 审美雅趣
+      this.smyq = [
+        { code: '114', name: '水母之星', num: 0, max: 0, min: 0 },
+      ];
+      // 人文表达
+      this.rwbd = [
+        { code: '115', name: '海马之星', num: 0, max: 0, min: 0 },
+      ];
+      // 自定义星
+      this.zdyx = [];
+      this.fengcaiCount = 0;
+      // 是否可兑换
+      this.canEx = false;
+      this.showAction = false;
+      this.showSuc = false;
+    },
+
     // 查询风采星类型
     loadSubType() {
       this.$http.post('core/evaluestar/seaStar/findSeaStarTypeList', {
@@ -272,7 +334,7 @@ export default {
           ? `( 你的${this.star.consumeTypeName}${baseStar}余额 <span class="ante-red-word">${leftQty}</span> 颗，已撤销${cancelQty}颗 )`
           : `( 你的${this.star.consumeTypeName}${baseStar}余额 <span class="ante-red-word">${leftQty}</span> 颗 )`;
 
-        if (leftQty > this.star.consumeQty) {
+        if (leftQty >= this.star.consumeQty) {
           this.canEx = true;
         }
       }
@@ -291,55 +353,88 @@ export default {
         });
       });
 
+      this.zdyx = starCustom.map((item) => {
+        const { id, name } = item;
+        return { id, code: '116', name, num: 0, max: 1, min: 0 };
+      });
+
       this.starCountDesc = cancelFc
         ? `( 你的海洋风采星余额 <span class="ante-red-word">${fengcai}</span> 颗，已撤销${cancelFc}颗 )`
         : `( 你的海洋风采星余额 <span class="ante-red-word">${fengcai}</span> 颗 )`;
-      // this.zdyx.map();
+
+      // TODO this.zdyx.map();
     },
 
     // 身心健康
     reduceSxjk(i) {
       this.sxjk[i].num--;
+      this.calcCanExSilver(-1);
     },
     increaseSxjk(i) {
       this.sxjk[i].num++;
+      this.calcCanExSilver(1);
     },
     // 品格情怀
     reducePgqh(i) {
       this.pgqh[i].num--;
+      this.calcCanExSilver(-1);
     },
     increasePgqh(i) {
       this.pgqh[i].num++;
+      this.calcCanExSilver(1);
     },
     // 创新思维
     reduceCxsw(i) {
       this.cxsw[i].num--;
+      this.calcCanExSilver(-1);
     },
     increaseCxsw(i) {
       this.cxsw[i].num++;
+      this.calcCanExSilver(1);
     },
     // 审美雅趣
     reduceSmyq(i) {
       this.smyq[i].num--;
+      this.calcCanExSilver(-1);
     },
     increaseSmyq(i) {
       this.smyq[i].num++;
+      this.calcCanExSilver(1);
     },
     // 人文表达
     reduceRwbd(i) {
       this.rwbd[i].num--;
+      this.calcCanExSilver(-1);
     },
     increaseRwbd(i) {
       this.rwbd[i].num++;
+      this.calcCanExSilver(1);
     },
     // 自定义星
     reduceZdyx(i) {
       this.zdyx[i].num--;
+      this.calcCanExSilver(-2);
     },
     increaseZdyx(i) {
-      this.zdyx[i].num++;
+      // 自定义星只能加一次
+      if (!this.zdyx.some(item => item.num)) {
+        this.zdyx[i].num++;
+        this.calcCanExSilver(2);
+      }
     },
 
+    // 计算可否兑换银星
+    calcCanExSilver(increase) {
+      this.fengcaiCount += increase;
+
+      if (!this.lackArr.length && this.fengcaiCount === 8) {
+        this.canEx = true;
+      } else {
+        this.canEx = false;
+      }
+    },
+
+    // 兑换
     exchange() {
       // core/evaluestar/exchange/save
       this.canEx = false;
@@ -347,6 +442,24 @@ export default {
         type: this.star.code,
         studentOrg: this.orgId,
       };
+
+      // 兑换银星需要传json字符串
+      if (this.type === '103') {
+        const consumeStar = [];
+        ['sxjk', 'pgqh', 'cxsw', 'smyq', 'rwbd', 'zdyx'].forEach((dalei) => {
+          this[dalei].forEach((item) => {
+            if (item.num) { // 有数量
+              if (item.id) { // 自定义星有ID
+                consumeStar.push({ id: item.id, type: item.code, qty: item.num });
+              } else {
+                consumeStar.push({ type: item.code, qty: item.num });
+              }
+            }
+          });
+        });
+
+        req.consumeStar = JSON.stringify(consumeStar);
+      }
 
       this.$http.post('core/evaluestar/exchange/save', req)
         .then(res => res.json())
@@ -383,9 +496,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.canEx = false;
-      vm.showSuc = false;
-      vm.showAction = false;
+      vm.initConfig();
 
       vm.type = to.params.type;
       vm.orgId = to.params.id;
@@ -456,5 +567,8 @@ export default {
 }
 .ante-big-word {
   font-size: 20px;
+}
+.ante-warn-word {
+  color: red;
 }
 </style>

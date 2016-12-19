@@ -152,5 +152,15 @@ export default {
         });
     },
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.student.orgId) {
+        vm.setStarData(vm.student.orgId)
+          .then((group) => {
+            vm.group = group;
+          });
+      }
+    });
+  },
 };
 </script>

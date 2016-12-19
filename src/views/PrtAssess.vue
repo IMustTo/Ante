@@ -84,7 +84,7 @@ export default {
   },
 
   created() {
-    if (!this.children.length) {
+    if (!this.student || !this.student.orgId) {
       this.loadChild()
         .then(({ resultBean }) => this.initChild(resultBean))
         .then(() => {
@@ -178,6 +178,17 @@ export default {
         }
       });
     },
+  },
+
+  // 切换路由params更改状态
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.student.orgId) {
+        vm.loadListByStd()
+          .then(res => vm.countStar(res));
+        vm.loadAssessItems();
+      }
+    });
   },
 };
 </script>

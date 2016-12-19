@@ -49,6 +49,9 @@ export default {
     // 设置星星数据
     getStarGroup(res) {
       const group = [];
+      let goldStar = {};
+      let allStar = {};
+      let silverStar = {};
       const haiyang = { stars: [] };
       const fengcai = { title: '海洋风采星', stars: [] };
       const zidingyi = { title: '自定义星', stars: [] };
@@ -67,12 +70,28 @@ export default {
             fengcai.stars.push(starItem);
             break;
           case '103':
-            haiyang.stars.push(starItem);
+            silverStar = starItem;
+            break;
+          case '104':
+            allStar = starItem;
+            break;
+          case '105':
+            goldStar = starItem;
             break;
           default: // 101
             jichu.stars.push(starItem);
         }
       });
+
+      if (goldStar.name) {
+        haiyang.stars.push(goldStar);
+      }
+      if (allStar.name) {
+        haiyang.stars.push(allStar);
+      }
+      if (silverStar.name) {
+        haiyang.stars.push(silverStar);
+      }
 
       starCustom.forEach(item => zidingyi.stars.push({
         icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
