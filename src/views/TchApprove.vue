@@ -188,6 +188,8 @@ export default {
       const [id, type] = idType.split('_');
       if (type === '101' || type === '102') {
         this.$router.push(`/TchAprDtl/${id}_${type}`);
+      } else {
+        this.$router.push(`/TchAprReapply/${type}/${id}`);
       }
       // TODO 撤星
     },

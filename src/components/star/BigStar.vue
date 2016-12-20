@@ -1,6 +1,6 @@
 <template>
 <div class="ante-big-star">
-  <div class="ante-big-star-inner"></div>
+  <div class="ante-big-star-inner" :class="iconCls"></div>
 </div>
 </template>
 
@@ -8,12 +8,28 @@
 export default {
   name: 'big-star',
   props: {
+    icon: {
+      type: String,
+      default: '',
+    },
+  },
 
+  computed: {
+    iconCls() {
+      const cls = {};
+      if (this.icon) {
+        cls[`ante-star-large-icon-${this.icon}`] = true;
+      }
+
+      return cls;
+    },
   },
 };
 </script>
 
 <style scoped>
+@import '../../assets/css/star.css';
+
 .ante-big-star {
   height: 100vw;
   background-image: url('../../assets/images/bg-issue.jpg');
@@ -25,6 +41,5 @@ export default {
   background-size: 85%;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url('../../assets/images/star-all-m.png');
 }
 </style>

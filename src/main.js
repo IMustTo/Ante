@@ -41,6 +41,9 @@ const DropStar = (resolve) => {
 const DropStarNotice = (resolve) => {
   require(['./views/DropStarNotice'], resolve);
 };
+const ReapplyStar = (resolve) => {
+  require(['./views/ReapplyStar'], resolve);
+};
 // 教师评价
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
@@ -72,6 +75,9 @@ const TchAprDtl = (resolve) => {
 };
 const TchAprRefuse = (resolve) => {
   require(['./views/TchAprRefuse'], resolve);
+};
+const TchAprReapply = (resolve) => {
+  require(['./views/TchAprReapply'], resolve);
 };
 const AprPassSuc = (resolve) => {
   require(['./views/AprPassSuc'], resolve);
@@ -123,6 +129,7 @@ const routes = [
   { path: '/TchApprove', component: TchApprove },
   { path: '/TchAprDtl/:id', component: TchAprDtl },
   { path: '/TchAprRefuse/:id', component: TchAprRefuse },
+  { path: '/TchAprReapply/:type/:id', component: TchAprReapply },
   { path: '/AprPassSuc/:id', component: AprPassSuc },
   { path: '/AprRefuseSuc', component: AprRefuseSuc },
 
@@ -130,9 +137,10 @@ const routes = [
   { path: '/StarRecord/:id', component: StarRecord },
   { path: '/StarRecordOne/:type/:id', component: StarRecordOne },
   { path: '/StarRecordList/:id', component: StarRecordList },
-  { path: '/StarRecordDetail/:id', component: StarRecordDetail },
+  { path: '/StarRecordDetail/:id/:org', component: StarRecordDetail },
   { path: '/DropStar/:type/:id', component: DropStar },
   { path: '/DropStarNotice/:id', component: DropStarNotice },
+  { path: '/ReapplyStar/:id', component: ReapplyStar },
 
   { path: '/HonorHall', component: HonorHall },
   { path: '/StdShow/:id', component: StdShow },

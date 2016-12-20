@@ -1,7 +1,7 @@
 <template>
 <div class="page">
   <cell-wapper>
-    <cell-num name="撤销数量" :showCount="false"
+    <cell-num name="撤销数量"
       @reduce="reduce"
       @increase="increase"
       :num="num"
@@ -42,7 +42,7 @@ export default {
       type: '',
       orgId: '',
 
-      max: 3,
+      max: 0,
       num: 0,
       reason: '',
 
@@ -107,7 +107,7 @@ export default {
     next((vm) => {
       vm.type = to.params.type;
       vm.orgId = to.params.id;
-      // vm.records = []; TODO
+      vm.max = Number(to.query.count);
     });
   },
 };

@@ -18,10 +18,8 @@
   <cell-title tip>当学生经努力再次达到获星条件时，可申请恢复</cell-title>
 
   <p class="weui-btn-area">
-    <weui-btn @tapEvt="submit">申请恢复</weui-btn>
+    <weui-btn v-if="statusDesc" :disabled="!canReapply" @tapEvt="submit">{{ statusDesc }}</weui-btn>
   </p>
-
-  <weui-toast v-if="showSuc">已申请</weui-toast>
 </div>
 </template>
 
@@ -29,27 +27,7 @@
 import ArticleTitle from '../components/article/ArticleTitle';
 import ArticleInfo from '../components/article/ArticleInfo';
 import { dateFormat } from '../utils';
-
-const StarNameMap = {
-  101: '身心健康基础星',
-  102: '品格情怀基础星',
-  103: '创新思维基础星',
-  104: '审美雅趣基础星',
-  105: '人文表达基础星',
-  106: '箭鱼之星',
-  107: '白鲸之星',
-  108: '海豚之星',
-  109: '珊瑚之星',
-  110: '海狮之星',
-  111: '尼莫之星',
-  112: '企鹅之星',
-  113: '章鱼之星',
-  114: '水母之星',
-  115: '海马之星',
-  117: '海洋银星',
-  118: '海洋全能星',
-  119: '海洋金星',
-};
+import { StarNameMap } from '../utils/starsMap';
 
 export default {
   name: 'drop-star-notice',
@@ -62,7 +40,6 @@ export default {
     return {
       school: WWW_CONFIG.currentCorpName,
       info: {},
-
       showSuc: false,
     };
   },
@@ -85,6 +62,30 @@ export default {
         ? StarNameMap[this.info.type]
         : '';
     },
+
+    canReapply() {
+      return this.info.status === '101' || this.info.status === '104';
+    },
+
+    statusDesc() {
+      let sts = '';
+
+      switch (this.info.status) {
+        case '101':
+        case '104':
+          sts = '申请恢复';
+          break;
+        case '102':
+          sts = '已申请';
+          break;
+        case '103':
+          sts = '已恢复';
+          break;
+        default:
+      }
+
+      return sts;
+    },
   },
 
   methods: {
@@ -98,15 +99,7 @@ export default {
     },
 
     submit() {
-      this.$http.post('core/evaluestar/cancelrecord/applyOrApprove', {
-        id: this.$route.params.id,
-        status: '102',
-      }).then(res => res.json())
-      .then(({ resultCode }) => {
-        if (resultCode === 'JSPE-200') {
-          this.showSuc = true;
-        }
-      });
+      this.$router.replace(`/ReapplyStar/${this.$route.params.id}`);
     },
   },
 

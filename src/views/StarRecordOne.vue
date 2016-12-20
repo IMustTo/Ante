@@ -1,7 +1,7 @@
 <template>
 <div class="page">
-  <big-star></big-star>
-  <star-sum name="海洋金星" :count="3"></star-sum>
+  <big-star :icon="starIcon"></big-star>
+  <star-sum :name="starName" :count="starCount"></star-sum>
   <cell-title tip>哈哈哈哈哈哈哈</cell-title>
 
   <cell-wapper>
@@ -11,6 +11,12 @@
         <p class="ante-cell-desc">{{ item.desc }}</p>
       </cell-base>
     </template>
+
+    <load-more
+      @loadmore="fetchData"
+      :loading="loading"
+      :nomore="noMore"
+      :canTap="true">暂无更多数据</load-more>
   </cell-wapper>
 
   <area-base>
@@ -23,6 +29,9 @@
 import BigStar from '../components/star/BigStar';
 import StarSum from '../components/star/StarSum';
 import AreaBase from '../components/area/AreaBase';
+import starRecords from '../mixins/starRecords';
+import { dateFormat } from '../utils';
+import { StarNameMap, StarCodeMap } from '../utils/starsMap';
 
 export default {
   name: 'star-record-one',
@@ -31,11 +40,23 @@ export default {
     StarSum,
     AreaBase,
   },
+  mixins: [starRecords],
 
   data() {
     return {
       type: '',
       orgId: '',
+
+      starName: '',
+      starCount: 0,
+      starIcon: '',
+
+      // 加载更多
+      loading: false,
+      currentPage: 0,
+      // 没有更多了
+      noMore: false,
+
       records: [
         { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
         { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
@@ -44,8 +65,73 @@ export default {
   },
 
   methods: {
+    // 设置星星名字，数量
+    setStarData() {
+      this.starIcon = StarCodeMap[this.type];
+      this.starName = StarNameMap[this.type];
+
+      this.loadStarRecords(this.orgId)
+        .then(({ resultBean }) => {
+          const commonStar = resultBean.commonStar || {};
+          const currStar = commonStar[this.type];
+
+          this.starName = currStar.typeName;
+          this.starCount = currStar.leftQty;
+          this.cancelCount = currStar.cancelQty;
+        });
+    },
+
+    loadStarRecord() {
+      return this.$http.post('core/evaluestar/starchangelog/findGainStarList', {
+        pageSize: 10,
+        currentPage: this.currentPage,
+        studentOrg: this.orgId,
+        type: this.type,
+      }).then(res => res.json());
+    },
+
+    fetchData() {
+      this.currentPage++;
+
+      this.loading = true;
+      this.loadStarRecord().then(({
+        resultBean: {
+          resultList,
+          pageCond: { currentPage, pageCount },
+        },
+      }) => {
+        this.loading = false;
+
+        this.addRecords(resultList);
+        if (currentPage >= pageCount) {
+          this.noMore = true;
+        }
+      });
+    },
+
+    // 添加数据到列表
+    addRecords(resultList) {
+      if (this.currentPage === 1) {
+        this.records = [];
+      }
+
+      this.records = this.records.concat(resultList.map((item) => {
+        item.name = `${this.starName} + ${item.changeQty}`;
+        item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日');
+        item.desc = item.changeType;
+        return item;
+      }));
+    },
+
+    reloadPage() {
+      this.currentPage = 0;
+      this.noMore = false;
+      this.loading = false;
+      this.fetchData();
+    },
+
     dropStar() {
-      this.$router.push(`/DropStar/${this.type}/${this.orgId}`);
+      this.$router.push(`/DropStar/${this.type}/${this.orgId}?count=${this.starCount}`);
     },
   },
 
@@ -53,7 +139,9 @@ export default {
     next((vm) => {
       vm.type = to.params.type;
       vm.orgId = to.params.id;
-      // vm.records = []; TODO
+
+      vm.reloadPage();
+      vm.setStarData();
     });
   },
 };

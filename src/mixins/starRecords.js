@@ -1,25 +1,4 @@
-const StarMap = {
-  101: 'blue',
-  102: 'green',
-  103: 'pink',
-  104: 'purple',
-  105: 'red',
-  601: 'yellow',
-  // '116': 'fc',
-  106: 'jy',
-  107: 'bj',
-  108: 'ht',
-  109: 'sh',
-  110: 'hs',
-  111: 'nm',
-  112: 'qe',
-  113: 'zy',
-  114: 'sm',
-  115: 'hm',
-  117: 'silver',
-  118: 'all',
-  119: 'gold',
-};
+import { StarCodeMap } from '../utils/starsMap';
 
 export default {
   methods: {
@@ -62,7 +41,7 @@ export default {
       starArr.forEach((item) => {
         const { starType, type, typeName, leftQty, cancelQty } = commonStar[item];
         const starItem = {
-          type, icon: StarMap[type], name: typeName, count: leftQty, cancel: cancelQty,
+          type, icon: StarCodeMap[type], name: typeName, count: leftQty, cancel: cancelQty,
         };
 
         switch (starType) {

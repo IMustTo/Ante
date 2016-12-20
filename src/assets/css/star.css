@@ -66,13 +66,13 @@
 }
 /* 大星星 */
 .ante-star-large-icon-all {
-  background-image: url('../images/star-all-m.png');
+  background-image: url('../images/star-all-l.png');
 }
 .ante-star-large-icon-gold {
-  background-image: url('../images/star-golden-m.png');
+  background-image: url('../images/star-golden-l.png');
 }
 .ante-star-large-icon-silver {
-  background-image: url('../images/star-silver-m.png');
+  background-image: url('../images/star-silver-l.png');
 }
 
 .ante-star-large-icon-bj {

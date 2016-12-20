@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page ante-page-withb">
   <template v-for="list in group">
     <cell-title>{{ list.title }}</cell-title>
     
@@ -23,6 +23,9 @@ export default {
 
   data() {
     return {
+      id: '',
+      orgId: '',
+
       group: [
         {
           title: '身心健康',
@@ -41,9 +44,46 @@ export default {
       ],
     };
   },
+
+  methods: {
+    loadData() {
+      this.$http.post('core/evaluestar/standard/findListByRecordId', {
+        recordId: this.id,
+        stuOrgId: this.orgId,
+      }).then(res => res.json())
+      .then(({ resultBean }) => {
+        this.setGroupByRes(resultBean);
+      });
+    },
+
+    setGroupByRes(res) {
+      const group = [];
+      const typeMap = Object.create(null); // { 101: 0 }, type对应groupItem的index
+
+      res.forEach(({ id, type, name, content }) => {
+        if (!isNaN(typeMap[type])) {
+          group[typeMap[type]].data.push({ id, desc: content, count: 1 });
+        } else {
+          // 当前的长度就是下一个的index
+          typeMap[type] = group.length;
+
+          group.push({
+            title: name,
+            data: [{ id, desc: content, count: 1 }],
+          });
+        }
+      });
+
+      this.group = group;
+    },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.orgId = to.params.org;
+      vm.id = to.params.id;
+      vm.loadData();
+    });
+  },
 };
 </script>
-
-<style>
-
-</style>
