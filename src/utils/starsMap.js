@@ -20,11 +20,11 @@ export const StarNameMap = {
 };
 
 export const StarCodeMap = {
-  101: 'blue',
-  102: 'green',
-  103: 'pink',
-  104: 'purple',
-  105: 'red',
+  101: '', // 基础星
+  102: '', // 基础星
+  103: '', // 基础星
+  104: '', // 基础星
+  105: '', // 基础星
 
   106: 'jy',
   107: 'bj',
@@ -40,4 +40,13 @@ export const StarCodeMap = {
   117: 'silver',
   118: 'all',
   119: 'gold',
+};
+
+export const ColorNumMap = {
+  1: 'green',
+  2: 'yellow',
+  3: 'red',
+  4: 'pink',
+  5: 'blue',
+  6: 'purple',
 };

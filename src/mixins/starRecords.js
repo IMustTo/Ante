@@ -1,4 +1,4 @@
-import { StarCodeMap } from '../utils/starsMap';
+import { ColorNumMap, StarCodeMap } from '../utils/starsMap';
 
 export default {
   methods: {
@@ -39,9 +39,13 @@ export default {
       const { starCustom, commonStar } = res;
       const starArr = Object.keys(commonStar);
       starArr.forEach((item) => {
-        const { starType, type, typeName, leftQty, cancelQty } = commonStar[item];
+        const { starType, type, typeName, leftQty, cancelQty, colorNum = 0 } = commonStar[item];
         const starItem = {
-          type, icon: StarCodeMap[type], name: typeName, count: leftQty, cancel: cancelQty,
+          type,
+          icon: starType === '101' ? ColorNumMap[colorNum] : StarCodeMap[type],
+          name: typeName,
+          count: leftQty,
+          cancel: cancelQty,
         };
 
         switch (starType) {

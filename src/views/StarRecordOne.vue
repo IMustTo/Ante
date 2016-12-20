@@ -31,7 +31,7 @@ import StarSum from '../components/star/StarSum';
 import AreaBase from '../components/area/AreaBase';
 import starRecords from '../mixins/starRecords';
 import { dateFormat } from '../utils';
-import { StarNameMap, StarCodeMap } from '../utils/starsMap';
+import { StarNameMap, StarCodeMap, ColorNumMap } from '../utils/starsMap';
 
 export default {
   name: 'star-record-one',
@@ -58,8 +58,8 @@ export default {
       noMore: false,
 
       records: [
-        { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
-        { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
+        // { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
+        // { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
       ],
     };
   },
@@ -78,6 +78,10 @@ export default {
           this.starName = currStar.typeName;
           this.starCount = currStar.leftQty;
           this.cancelCount = currStar.cancelQty;
+
+          if (currStar.starType === '101') {
+            this.starIcon = ColorNumMap[currStar.colorNum];
+          }
         });
     },
 
