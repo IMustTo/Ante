@@ -54,6 +54,9 @@ const TchAssessSlider = (resolve) => {
 const TchAssessNotice = (resolve) => {
   require(['./views/TchAssessNotice'], resolve);
 };
+const SchoolAssess = (resolve) => {
+  require(['./views/SchoolAssess'], resolve);
+};
 // 选择班级
 const SelectClass = (resolve) => {
   require(['./views/SelectClass'], resolve);
@@ -151,6 +154,7 @@ const routes = [
       { name: 'slider', path: 'slider', component: TchAssessSlider },
     ],
   },
+  { path: '/SchoolAssess/:type/:id', component: SchoolAssess },
   { path: '/TchAssessNotice', component: TchAssessNotice },
   // { path: '/TchAssessNotice/:id', component: TchAssessNotice },
   { path: '/SelectClass', component: SelectClass },
