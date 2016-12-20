@@ -102,7 +102,7 @@ export default {
   methods: {
     // 查询列表
     loadCustomList() {
-      return this.$http.post('core/evaluestar/approveRecord/getApproveRecord', {
+      return this.$http.post('core/evaluestar/approveProcess/getApproveRecord', {
         pageSize: 10,
         currentPage: this.currentPage,
       }).then(response => response.json());

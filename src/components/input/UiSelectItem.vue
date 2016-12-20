@@ -80,7 +80,7 @@ export default {
   methods: {
     tapTitle(e) {
       const prt = e.target.closest('.ui-selector-item');
-
+// TOFIX: closest安卓不支持
       if (!/active/.test(prt.className)) {
         prt.className = `${prt.className} active`;
       } else {

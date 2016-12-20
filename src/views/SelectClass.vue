@@ -60,7 +60,7 @@ export default {
 
     // 保存一下最后选择班级
     saveDefault(id) {
-      this.$http.post('core/selectHistory/new/evalueStar/defaultOrg', { orgId: id });
+      this.$http.post('core/selectHistory/new/evalueStar/defaultOrg', { config: id });
     },
 
     confirm() {
