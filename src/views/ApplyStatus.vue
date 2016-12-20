@@ -1,7 +1,7 @@
 <template>
 <div class="page">
   <weui-msg :title="statusDesc" :desc="desc">
-    <weui-btn @tapEvt="goList">申请得星</weui-btn>
+    <weui-btn @tapEvt="goList" v-if="status === '102'">申请得星</weui-btn>
   </weui-msg>
 </div>
 </template>

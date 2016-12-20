@@ -39,6 +39,9 @@
 
   color: #888;
 }
+.ante-page-white {
+  background-color: #fff;
+}
 .ante-page-withb {
   padding-bottom: 20px;
 }

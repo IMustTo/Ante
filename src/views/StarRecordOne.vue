@@ -34,6 +34,8 @@ export default {
 
   data() {
     return {
+      type: '',
+      orgId: '',
       records: [
         { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
         { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
@@ -43,8 +45,16 @@ export default {
 
   methods: {
     dropStar() {
-      this.$router.push('/DropStar/1');
+      this.$router.push(`/DropStar/${this.type}/${this.orgId}`);
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.type = to.params.type;
+      vm.orgId = to.params.id;
+      // vm.records = []; TODO
+    });
   },
 };
 </script>

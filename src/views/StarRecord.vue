@@ -7,7 +7,7 @@
       <template v-for="(star, index) in item.stars">
         <star-cell
           @tapEvt="showOneStar"
-          :id="index"
+          :id="Number(star.type)"
           :icon="star.icon"
           :name="star.name"
           :count="star.count"
@@ -77,12 +77,12 @@ export default {
   },
 
   methods: {
-    showOneStar(id) {
-      this.$router.push(`/StarRecordOne/${id}`);
+    showOneStar(type) {
+      this.$router.push(`/StarRecordOne/${type}/${this.$route.params.id}`);
     },
 
     showList() {
-      this.$router.push(`/StarRecordList/${1}`);
+      this.$router.push(`/StarRecordList/${this.$route.params.id}`);
     },
   },
 

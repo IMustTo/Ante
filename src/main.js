@@ -38,6 +38,9 @@ const StarRecordDetail = (resolve) => {
 const DropStar = (resolve) => {
   require(['./views/DropStar'], resolve);
 };
+const DropStarNotice = (resolve) => {
+  require(['./views/DropStarNotice'], resolve);
+};
 // 教师评价
 const TchAssess = (resolve) => {
   require(['./views/TchAssess'], resolve);
@@ -110,6 +113,9 @@ const CustomStarAssess = (resolve) => {
 const CustomStarGet = (resolve) => {
   require(['./views/CustomStarGet'], resolve);
 };
+const ApplyStatus = (resolve) => {
+  require(['./views/ApplyStatus'], resolve);
+};
 
 // 路由映射
 const routes = [
@@ -122,10 +128,12 @@ const routes = [
 
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
-  { path: '/StarRecordOne/:id', component: StarRecordOne },
+  { path: '/StarRecordOne/:type/:id', component: StarRecordOne },
   { path: '/StarRecordList/:id', component: StarRecordList },
   { path: '/StarRecordDetail/:id', component: StarRecordDetail },
-  { path: '/DropStar/:id', component: DropStar },
+  { path: '/DropStar/:type/:id', component: DropStar },
+  { path: '/DropStarNotice/:id', component: DropStarNotice },
+
   { path: '/HonorHall', component: HonorHall },
   { path: '/StdShow/:id', component: StdShow },
   {
@@ -146,6 +154,7 @@ const routes = [
   { path: '/PrtAnalysis', component: PrtAnalysis },
   { path: '/StarExchange/:id', component: StarExchange },
   { path: '/StarUpgrade/:type/:id', component: StarUpgrade },
+  { path: '/ApplyStatus/:id', component: ApplyStatus },
 
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },

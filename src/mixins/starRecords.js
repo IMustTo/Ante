@@ -62,7 +62,7 @@ export default {
       starArr.forEach((item) => {
         const { starType, type, typeName, leftQty, cancelQty } = commonStar[item];
         const starItem = {
-          icon: StarMap[type], name: typeName, count: leftQty, cancel: cancelQty,
+          type, icon: StarMap[type], name: typeName, count: leftQty, cancel: cancelQty,
         };
 
         switch (starType) {
@@ -94,7 +94,7 @@ export default {
       }
 
       starCustom.forEach(item => zidingyi.stars.push({
-        icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
+        id: item.id, type: item.type, icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
       }));
 
       if (haiyang.stars.length) {
