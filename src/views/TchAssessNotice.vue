@@ -15,10 +15,10 @@
       <div class="ante-std-star-item" v-for="item in detail.standardList">
         &emsp;【{{ item.standardName }}】 {{ item.standardContent }}
       </div>
+      <div class="ante-std-star-item" v-if="detail.remark">评语：{{ detail.remark }}</div>
 
-      <img class="ante-std-star-img"
-        src="item.attachmentUrl"
-        v-for="item in detail.attachIdList"/>
+      <img class="ante-std-star-img" v-for="item in detail.attachList"
+        :src="item.attachmentUrl"/>
     </div>
 
     <div class="ante-copyright-bottom">
@@ -164,7 +164,7 @@ export default {
 .ante-std-star-img {
   width: 100%;
 }
-.ante-std-star-img + .ante-std-star-img {
+.ante-std-star-img {
   margin-top: 10px;
 }
 </style>

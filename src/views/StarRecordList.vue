@@ -101,43 +101,50 @@ export default {
       this.fetchMyRecords();
     },
 
+    loadRecords(req) {
+      return this.$http
+        .post('core/evaluestar/starchangelog/findGainStarList', req)
+        .then(res => res.json());
+    },
     // 查询全部记录
-    loadAllRecords() {
-      return this.$http.post('core/evaluestar/starchangelog/findGainStarList', {
+    loadallRecords() {
+      return this.loadRecords({
         studentOrg: this.orgId,
         currentPage: this.allPage,
-        pageSize: 2000,
-      }).then(res => res.json());
+        pageSize: 10,
+      });
     },
     // 查询我审批的记录
-    loadMyRecords() {
-      return this.$http.post('core/evaluestar/starrecord/findRecordListByOpetId', {
+    loadmyRecords() {
+      return this.loadRecords({
         stuOrgId: this.orgId,
         currentPage: this.myPage,
         pageSize: 10,
-      }).then(res => res.json());
+        operatorId: WWW_CONFIG.loginUser ? WWW_CONFIG.loginUser.operatorId : 0,
+      });
     },
 
-    fetchAllRecords() {
-      this.allLoading = true;
-      this.allPage++;
+    // 区分type获取数据 all my
+    fetchData(type) {
+      this[`${type}Loading`] = true;
+      this[`${type}Page`]++;
 
-      this.loadAllRecords()
+      this[`load${type}Records`]()
         .then(({ resultBean = {} }) => {
-          this.allLoading = false;
+          this[`${type}Loading`] = false;
 
           const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
           if (currentPage >= pageCount) {
-            this.allNoMore = true;
+            this[`${type}NoMore`] = true;
           }
 
-          if (this.allPage === 1) {
-            this.allRecords = [];
+          if (this[`${type}Page`] === 1) {
+            this[`${type}Records`] = [];
           }
 
-          this.allRecords = this.allRecords.concat(resultList.map((item) => {
+          this[`${type}Records`] = this[`${type}Records`].concat(resultList.map((item) => {
             item.name = `${item.typeName} + ${item.changeQty}`;
-            item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 mm:ss');
+            item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 hh:mm:ss');
             item.desc = item.operateTypeDesc;
             if (item.starType === '101') {
               item.icon = 'blue';
@@ -148,31 +155,63 @@ export default {
           }));
         });
     },
+    fetchAllRecords() {
+      this.fetchData('all');
+      // this.allLoading = true;
+      // this.allPage++;
+
+      // this.loadAllRecords()
+      //   .then(({ resultBean = {} }) => {
+      //     this.allLoading = false;
+
+      //     const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
+      //     if (currentPage >= pageCount) {
+      //       this.allNoMore = true;
+      //     }
+
+      //     if (this.allPage === 1) {
+      //       this.allRecords = [];
+      //     }
+
+      //     this.allRecords = this.allRecords.concat(resultList.map((item) => {
+      //       item.name = `${item.typeName} + ${item.changeQty}`;
+      //       item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 mm:ss');
+      //       item.desc = item.operateTypeDesc;
+      //       if (item.starType === '101') {
+      //         item.icon = 'blue';
+      //       } else {
+      //         item.icon = StarCodeMap[item.type];
+      //       }
+      //       return item;
+      //     }));
+      //   });
+    },
 
     fetchMyRecords() {
-      this.myLoading = true;
-      this.myPage ++;
-      this.loadMyRecords()
-        .then(({ resultBean = {} }) => {
-          this.myLoading = false;
+      this.fetchData('my');
+      // this.myLoading = true;
+      // this.myPage ++;
+      // this.loadMyRecords()
+      //   .then(({ resultBean = {} }) => {
+      //     this.myLoading = false;
 
-          const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
-          if (currentPage >= pageCount) {
-            this.myNoMore = true;
-          }
+      //     const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
+      //     if (currentPage >= pageCount) {
+      //       this.myNoMore = true;
+      //     }
 
-          if (this.myPage === 1) {
-            this.myRecords = [];
-          }
+      //     if (this.myPage === 1) {
+      //       this.myRecords = [];
+      //     }
 
-          this.myRecords = this.myRecords.concat(resultList.map((item) => {
-            item.name = `海洋基础星 + ${item.num}`;
-            item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日');
-            item.desc = item.remark;
-            item.icon = 'blue';
-            return item;
-          }));
-        });
+      //     this.myRecords = this.myRecords.concat(resultList.map((item) => {
+      //       item.name = `海洋基础星 + ${item.num}`;
+      //       item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日');
+      //       item.desc = item.remark;
+      //       item.icon = 'blue';
+      //       return item;
+      //     }));
+      //   });
     },
 
     showDetail(id) {

@@ -119,7 +119,7 @@ export default {
               item.count = 1;
             }
 
-            if (item.status === '102') {
+            if (item.status === '102' || item.status === '105') {
               item.canApply = true;
             }
 

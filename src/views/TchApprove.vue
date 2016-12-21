@@ -8,7 +8,7 @@
         <!-- records-list -->
         <template v-for="item in records">
           <cell-access :id="item.id" :unvisited="item.unvisited" @tapEvt="showDetail">
-            <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
+            <!-- <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon> -->
 
             <p>{{ item.name }}
               <status-box :name="item.status" :code="item.statusCode"></status-box>

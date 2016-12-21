@@ -20,6 +20,8 @@ export default {
       studentName: '',
       starName: '',
       status: '',
+
+      remark: '',
     };
   },
 
@@ -54,10 +56,10 @@ export default {
           word = `你申请的自定义星“${this.starName}”已经通过审批，可以使用了`;
           break;
         case '103':
-          word = `你申请的自定义星“${this.starName}没有通过审批`;
+          word = `你申请的自定义星“${this.starName}没有通过审批：${this.remark}`;
           break;
         case '105':
-          word = `${this.studentName}同学的得星申请已驳回`;
+          word = `${this.studentName}同学的得星申请被驳回：${this.remark}`;
           break;
         case '106':
           word = `${this.studentName}同学获得一颗自定义星“${this.starName}`;
@@ -79,6 +81,7 @@ export default {
         this.studentName = resultBean.studentName || '';
         this.starName = resultBean.name || '';
         this.status = resultBean.status;
+        this.remark = resultBean.approveRemark;
       });
     },
 
