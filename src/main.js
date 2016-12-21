@@ -6,6 +6,8 @@ import { UPDATE_PROGRESS, SHOW_LOADING } from './vuex/mutation_types';
 import App from './App';
 import common from './components/common';
 
+require('./vendor/polyfill');
+
 // 注册公共组件
 common.forEach((component) => {
   Vue.component(component.name, component);
