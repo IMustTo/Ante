@@ -102,6 +102,17 @@ export default {
     canEx() {
       return this.student && this.student.orgId;
     },
+
+    baseIcon() {
+      if (this.group.length) {
+        const { stars } = this.group[this.group.length - 1];
+        if (['green', 'yellow', 'red', 'pink', 'blue', 'purple'].indexOf(stars[0].icon) > -1) {
+          return stars[0].icon;
+        }
+      }
+
+      return 'blue';
+    },
   },
 
   created() {
@@ -136,7 +147,7 @@ export default {
     },
 
     showList() {
-      this.$router.push(`/StarRecordList/${1}`);
+      this.$router.push(`/StarRecordList/${this.student.orgId}?base=${this.baseIcon}&isprt=true`);
     },
 
     exchange() {

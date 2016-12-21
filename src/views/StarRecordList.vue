@@ -1,10 +1,10 @@
 <template>
 <div class="page">
 
-  <nav-bar :navbar="navBar" @tapEvt="changePanel">
+  <nav-bar v-show="!isprt" :navbar="navBar" @tapEvt="changePanel">
     <cell-wapper v-if="currNav === 0">
       <template v-for="item in allRecords">
-        <cell-access v-if="item.starType === '101'" :id="String(item.id)" :name="item.name"
+        <cell-access v-if="item.starType === '101'" :id="item.idType" :name="item.name"
           @tapEvt="showRecordDetail">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
@@ -27,7 +27,7 @@
 
     <cell-wapper v-if="currNav === 1">
       <template v-for="item in myRecords">
-        <cell-access :id="String(item.id)" :name="item.name" @tapEvt="showDetail">
+        <cell-access :id="item.idType" :name="item.name" @tapEvt="showDetail">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
           <p class="ante-cell-desc">{{ item.desc }}</p>
@@ -42,6 +42,28 @@
     </cell-wapper>
   </nav-bar>
 
+  <cell-wapper v-show="isprt">
+    <template v-for="item in allRecords">
+      <cell-access v-if="item.starType === '101'" :id="item.idType" :name="item.name"
+        @tapEvt="showRecordDetail">
+        <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
+        <p class="ante-cell-desc">{{ item.date }}</p>
+        <p class="ante-cell-desc">{{ item.desc }}</p>
+      </cell-access>
+
+      <cell-base v-if="item.starType !== '101'" :name="item.name">
+        <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
+        <p class="ante-cell-desc">{{ item.date }}</p>
+        <p class="ante-cell-desc">{{ item.desc }}</p>
+      </cell-base>
+    </template>
+
+    <load-more
+      @loadmore="fetchAllRecords"
+      :loading="allLoading"
+      :nomore="allNoMore"
+      :canTap="true">暂无更多数据</load-more>
+  </cell-wapper>
 </div>
 </template>
 
@@ -61,6 +83,7 @@ export default {
   data() {
     return {
       orgId: '',
+      base: 'blue',
       allRecords: [
         // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'hm' },
         // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'sh' },
@@ -87,6 +110,8 @@ export default {
       myPage: 0,
       myLoading: false,
       myNoMore: false,
+
+      isprt: false,
     };
   },
 
@@ -117,7 +142,7 @@ export default {
     // 查询我审批的记录
     loadmyRecords() {
       return this.loadRecords({
-        stuOrgId: this.orgId,
+        studentOrg: this.orgId,
         currentPage: this.myPage,
         pageSize: 10,
         operatorId: WWW_CONFIG.loginUser ? WWW_CONFIG.loginUser.operatorId : 0,
@@ -146,8 +171,9 @@ export default {
             item.name = `${item.typeName} + ${item.changeQty}`;
             item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 hh:mm:ss');
             item.desc = item.operateTypeDesc;
+            item.idType = `${item.id}_${item.type}`;
             if (item.starType === '101') {
-              item.icon = 'blue';
+              item.icon = this.base;
             } else {
               item.icon = StarCodeMap[item.type];
             }
@@ -157,61 +183,10 @@ export default {
     },
     fetchAllRecords() {
       this.fetchData('all');
-      // this.allLoading = true;
-      // this.allPage++;
-
-      // this.loadAllRecords()
-      //   .then(({ resultBean = {} }) => {
-      //     this.allLoading = false;
-
-      //     const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
-      //     if (currentPage >= pageCount) {
-      //       this.allNoMore = true;
-      //     }
-
-      //     if (this.allPage === 1) {
-      //       this.allRecords = [];
-      //     }
-
-      //     this.allRecords = this.allRecords.concat(resultList.map((item) => {
-      //       item.name = `${item.typeName} + ${item.changeQty}`;
-      //       item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 mm:ss');
-      //       item.desc = item.operateTypeDesc;
-      //       if (item.starType === '101') {
-      //         item.icon = 'blue';
-      //       } else {
-      //         item.icon = StarCodeMap[item.type];
-      //       }
-      //       return item;
-      //     }));
-      //   });
     },
 
     fetchMyRecords() {
       this.fetchData('my');
-      // this.myLoading = true;
-      // this.myPage ++;
-      // this.loadMyRecords()
-      //   .then(({ resultBean = {} }) => {
-      //     this.myLoading = false;
-
-      //     const { resultList = [], pageCond: { currentPage, pageCount } } = resultBean;
-      //     if (currentPage >= pageCount) {
-      //       this.myNoMore = true;
-      //     }
-
-      //     if (this.myPage === 1) {
-      //       this.myRecords = [];
-      //     }
-
-      //     this.myRecords = this.myRecords.concat(resultList.map((item) => {
-      //       item.name = `海洋基础星 + ${item.num}`;
-      //       item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日');
-      //       item.desc = item.remark;
-      //       item.icon = 'blue';
-      //       return item;
-      //     }));
-      //   });
     },
 
     showDetail(id) {
@@ -237,6 +212,8 @@ export default {
     next((vm) => {
       if (!/StarRecordDetail/.test(from.path)) {
         vm.orgId = to.params.id;
+        vm.base = to.query.base;
+        vm.isprt = to.query.isprt;
         vm.initConfig();
       }
     });

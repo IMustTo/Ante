@@ -60,7 +60,7 @@ export default {
         iconBtns.push({ name: '评价', icon: 'icon-pingjia', cls: 'active' });
       }
       if (res.hasAnalysis) {
-        iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' });
+        iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/CommonAnalysis' });
       }
       if (res.hasStandard) {
         iconBtns.push({ name: '标准', icon: 'icon-wbdiconbook', go: 'base' });

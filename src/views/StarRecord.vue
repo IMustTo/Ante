@@ -8,6 +8,7 @@
         <star-cell
           @tapEvt="showOneStar"
           :id="Number(star.type)"
+          :img="star.img"
           :icon="star.icon"
           :name="star.name"
           :count="star.count"
@@ -76,13 +77,26 @@ export default {
     };
   },
 
+  computed: {
+    baseIcon() {
+      if (this.group.length) {
+        const { stars } = this.group[this.group.length - 1];
+        if (['green', 'yellow', 'red', 'pink', 'blue', 'purple'].indexOf(stars[0].icon) > -1) {
+          return stars[0].icon;
+        }
+      }
+
+      return 'blue';
+    },
+  },
+
   methods: {
     showOneStar(type) {
       this.$router.push(`/StarRecordOne/${type}/${this.$route.params.id}`);
     },
 
     showList() {
-      this.$router.push(`/StarRecordList/${this.$route.params.id}`);
+      this.$router.push(`/StarRecordList/${this.$route.params.id}?base=${this.baseIcon}`);
     },
   },
 

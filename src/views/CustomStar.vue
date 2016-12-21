@@ -125,6 +125,15 @@ export default {
       'checkOneChild',
     ]),
 
+    init() {
+      // TODO
+
+      // this.starName = '';
+      this.image = {};
+      // this.benchmarks = [{ value: '' }];
+      // this.reason = '';
+    },
+
     // 查询孩子
     loadChild() {
       return this.$http.post('system/user/findChildByOperatorId', {
@@ -194,6 +203,14 @@ export default {
           }
         });
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!/SelectMyChild/.test(from.path)) {
+        vm.init();
+      }
+    });
   },
 };
 </script>

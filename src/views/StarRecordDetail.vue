@@ -47,8 +47,10 @@ export default {
 
   methods: {
     loadData() {
-      this.$http.post('core/evaluestar/standard/findListByRecordId', {
-        recordId: this.id,
+      const [id, type] = this.id.split('_');
+      this.$http.post('core/evaluestar/standard/findListByTypeAndRecordId', {
+        type,
+        recordId: id,
         stuOrgId: this.orgId,
       }).then(res => res.json())
       .then(({ resultBean }) => {

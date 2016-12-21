@@ -12,9 +12,9 @@
     </cell-base>
   </cell-wapper>
 
-  <cell-title v-show="stars.length">我的自定义星</cell-title>
-  <cell-wapper v-show="stars.length">
-    <template v-for="(star, index) in stars">
+  <cell-title>我的自定义星</cell-title>
+  <cell-wapper>
+    <template v-show="stars.length" v-for="(star, index) in stars">
       <star-custom
         @tapEvt="applyStar"
         :id="index"
@@ -25,11 +25,12 @@
         :count="star.count">
       </star-custom>
     </template>
+    <empty-cell v-show="!stars.length">您还没有自定义星</empty-cell>
   </cell-wapper>
 
-  <cell-wapper>
+<!--   <cell-wapper>
     <cell-access name="审批纪录"></cell-access>
-  </cell-wapper>
+  </cell-wapper> -->
 
   <p class="weui-btn-area">
     <weui-btn name="创建自定义星" @tapEvt="$router.push('/CustomStar')"></weui-btn>
@@ -41,12 +42,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import CellFiller from '../components/cell/CellFiller';
 import StarCustom from '../components/star/StarCustom';
+import EmptyCell from '../components/cell/EmptyCell';
 
 export default {
   name: 'custom-star-assess',
   components: {
     CellFiller,
     StarCustom,
+    EmptyCell,
   },
 
   data() {
