@@ -40,6 +40,8 @@ export default {
 
   data() {
     return {
+      type: '',
+      id: '',
       studentName: '',
 
       items: [
@@ -55,10 +57,7 @@ export default {
 
   computed: {
     canSubmit() {
-      return (
-        this.id &&
-        this.items.some(item => item.checked)
-      );
+      return this.items.some(item => item.checked);
     },
   },
 
@@ -114,7 +113,7 @@ export default {
 
       this.$http.post('core/evaluestar/saveEvalueStar', {
         standardIdList: starItems,
-        studentOrgList: this.orgId,
+        studentOrgList: this.id,
       })
       .then(res => res.json())
       .then(({ resultCode }) => {
