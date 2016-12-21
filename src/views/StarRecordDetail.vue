@@ -27,20 +27,20 @@ export default {
       orgId: '',
 
       group: [
-        {
-          title: '身心健康',
-          data: [
-            { desc: '呵呵呵呵呵', count: '2' },
-            { desc: '呵呵呵呵呵', count: '3' },
-          ],
-        },
-        {
-          title: '品格情怀',
-          data: [
-            { desc: '呵呵呵呵呵', count: '2' },
-            { desc: '呵呵呵呵呵', count: '3' },
-          ],
-        },
+        // {
+        //   title: '身心健康',
+        //   data: [
+        //     { desc: '呵呵呵呵呵', count: '2' },
+        //     { desc: '呵呵呵呵呵', count: '3' },
+        //   ],
+        // },
+        // {
+        //   title: '品格情怀',
+        //   data: [
+        //     { desc: '呵呵呵呵呵', count: '2' },
+        //     { desc: '呵呵呵呵呵', count: '3' },
+        //   ],
+        // },
       ],
     };
   },

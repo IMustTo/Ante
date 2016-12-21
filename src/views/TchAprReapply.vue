@@ -31,7 +31,7 @@
     <weui-btn v-if="canApr" @tapEvt="pass('103')">通过</weui-btn>
     <weui-btn v-if="canApr" dft @tapEvt="pass('104')">驳回</weui-btn>
 
-    <weui-btn v-if="!canApr" dft @tapEvt="reject">{{ statusDesc }}</weui-btn>
+    <weui-btn v-if="!canApr" disabled :dft="info.status === '104'">{{ statusDesc }}</weui-btn>
   </p>
 
   <weui-toast v-if="showSuc">已处理</weui-toast>

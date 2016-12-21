@@ -1,7 +1,7 @@
 <template>
 <div class="page">
   <weui-msg title="评价成功">
-    <weui-btn @tapEvt="back">确定</weui-btn>
+    <weui-btn v-if="showBtn" @tapEvt="back">确定</weui-btn>
   </weui-msg>
 </div>
 </template>
@@ -15,6 +15,18 @@ export default {
   components: {
     WeuiBtn,
     WeuiMsg,
+  },
+
+  data() {
+    return {
+      showBtn: true,
+    };
+  },
+
+  created() {
+    if (/SchoolAssess/.test(location.href)) {
+      this.showBtn = false;
+    }
   },
 
   methods: {

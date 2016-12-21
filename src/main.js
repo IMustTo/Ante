@@ -90,6 +90,9 @@ const AprPassSuc = (resolve) => {
 const AprRefuseSuc = (resolve) => {
   require(['./views/AprRefuseSuc'], resolve);
 };
+const AprReNotice = (resolve) => {
+  require(['./views/AprReNotice'], resolve);
+};
 // 荣誉殿堂
 const HonorHall = (resolve) => {
   require(['./views/HonorHall'], resolve);
@@ -137,6 +140,7 @@ const routes = [
   { path: '/TchAprReapply/:type/:id', component: TchAprReapply },
   { path: '/AprPassSuc/:id', component: AprPassSuc },
   { path: '/AprRefuseSuc', component: AprRefuseSuc },
+  { path: '/AprReNotice/:id', component: AprReNotice },
 
   { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },

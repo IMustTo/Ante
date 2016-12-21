@@ -1,7 +1,7 @@
 <template>
 <div class="page">
   <weui-msg :title="statusDesc" :desc="desc">
-    <weui-btn @tapEvt="goList" v-if="status === '102'">申请得星</weui-btn>
+    <weui-btn @tapEvt="applyGet" v-if="status === '102'">申请得星</weui-btn>
   </weui-msg>
 </div>
 </template>
@@ -82,8 +82,8 @@ export default {
       });
     },
 
-    goList() {
-      // this.$router.push('/TchApprove');
+    applyGet() {
+      this.$router.push(`/CustomStarGet/${this.$route.params.id}`);
     },
   },
 
