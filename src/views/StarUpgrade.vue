@@ -531,7 +531,7 @@ export default {
           };
             break;
           case '105': vm.star = {
-            code: '117',
+            code: '119',
             name: '海洋金星',
             icon: StarMap['119'],
             starType: '105',
