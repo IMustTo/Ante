@@ -222,8 +222,10 @@ export default {
       let tip = '';
       if (this.lackArr.length) {
         tip = `缺少“${this.lackArr.join('、')}”素养的风采星，五大素养每一类至少要有一颗`;
-      } else {
-        tip = this.fengcaiCount > 8 ? '选择的数量太多' : '';
+      } else if (this.fengcaiCount > 8) {
+        tip = `风采星数量超出${this.fengcaiCount - 8}颗`;
+      } else if (this.fengcaiCount < 8) {
+        tip = `还缺少${8 - this.fengcaiCount}颗任意风采星才能进行兑换`;
       }
 
       return tip;

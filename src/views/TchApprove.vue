@@ -4,7 +4,7 @@
   <nav-bar :navbar="navBar" @tapEvt="changePanel">
     <!-- nav-page -->
     <template v-for="(records, index) in recordsArr">
-      <cell-wapper v-if="currNav === index">
+      <cell-wapper v-show="currNav === index">
         <!-- records-list -->
         <template v-for="item in records">
           <cell-access :id="item.id" :unvisited="item.unvisited" @tapEvt="showDetail">
@@ -18,13 +18,13 @@
           </cell-access>
         </template>
 
-        <mugen-scroll v-if="!noMore" scroll-container="CellWapper"
+        <mugen-scroll v-show="!noMore" scroll-container="CellWapper"
           :handler="fetchData"
           :should-handle="!loading">
           <load-more loading></load-more>
         </mugen-scroll>
 
-        <load-more v-if="noMore">暂无更多数据</load-more>
+        <load-more v-show="noMore">暂无更多数据</load-more>
       </cell-wapper>
     </template>
 
