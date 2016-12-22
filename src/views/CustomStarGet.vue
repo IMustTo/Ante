@@ -18,6 +18,7 @@
     <cell-title>申请说明</cell-title>
     <cell-wapper>
       <input-delete holder="简单说明一下申请得星的理由"
+        :caption="reason"
         @inputEvt="addReason">
       </input-delete>
     </cell-wapper>
@@ -145,7 +146,10 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.loadStarInfo());
+    next((vm) => {
+      vm.reason = '';
+      vm.loadStarInfo();
+    });
   },
 };
 </script>

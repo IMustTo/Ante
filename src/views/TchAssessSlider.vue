@@ -10,6 +10,7 @@
             <star-item
               @changeEvt="change"
               :id="star.id"
+              :checked="star.checked"
               :desc="star.desc">
             </star-item>
           </template>
@@ -47,7 +48,7 @@ import AreaCenter from '../components/area/AreaCenter';
 import StarItem from '../components/list/StarItem';
 import WeuiTextarea from '../components/input/WeuiTextarea';
 import ImageCell from '../components/image/ImageCell';
-import uploadImg from '../mixins/uploadImg';
+import uploadImg from '../mixins/wx.uploadImg';
 
 export default {
   components: {
@@ -127,14 +128,14 @@ export default {
 
       res.forEach(({ id, type, name, content }) => {
         if (!isNaN(typeMap[type])) {
-          group[typeMap[type]].stars.push({ id, desc: content });
+          group[typeMap[type]].stars.push({ id, desc: content, checked: false });
         } else {
           // 当前的长度就是下一个的index
           typeMap[type] = group.length;
 
           group.push({
             title: name,
-            stars: [{ id, desc: content }],
+            stars: [{ id, desc: content, checked: false }],
           });
         }
       });

@@ -14,13 +14,13 @@
     </cell-wapper>
     <cell-title title="家庭评价"></cell-title>
     <cell-wapper>
-      <template v-for="star in items">
-        <star-item
-          @changeEvt="change"
-          :id="star.id"
-          :desc="star.content">
-        </star-item>
-      </template>
+      <star-item
+        v-for="star in items"
+        @changeEvt="change"
+        :id="star.id"
+        :checked="star.checked"
+        :desc="star.content">
+      </star-item>
     </cell-wapper>
 
     <cell-title tip>每个家庭每个评价周期可以给自己家孩子评<span class="ante-red-word">5</span>颗星，剩余<span class="ante-red-word">{{ maxStar }}</span>颗星</cell-title>
@@ -56,12 +56,10 @@ export default {
     return {
       items: [
         // { id: 1, content: '生活自理', checked: false },
-        // { id: 2, content: '讲究卫生', checked: false },
-        // { id: 3, content: '分担家务', checked: false },
-        // { id: 4, content: '生活规律', checked: false },
       ],
 
       maxStar: 5,
+      starCount: 0,
 
       showSuc: false,
     };
@@ -100,6 +98,7 @@ export default {
     ...mapActions([
       'setChildOrg',
       'checkOneChild',
+      'showGlobleTip',
     ]),
 
     // 查询孩子
@@ -157,6 +156,15 @@ export default {
 
         return false;
       });
+
+      if (checked) {
+        this.starCount++;
+        if (this.starCount > this.maxStar) {
+          this.showGlobleTip(`您本次最多能评价${this.maxStar}颗星星，当前已选中${this.starCount}颗，超出上限`);
+        }
+      } else {
+        this.starCount--;
+      }
     },
 
     // 提交评价
@@ -184,6 +192,8 @@ export default {
   // 切换路由params更改状态
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      vm.starCount = 0;
+
       if (vm.student.orgId) {
         vm.loadListByStd()
           .then(res => vm.countStar(res));

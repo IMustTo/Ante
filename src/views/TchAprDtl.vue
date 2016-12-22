@@ -22,7 +22,7 @@
     <cell-wapper v-show="reason">
       <cell-base :name="reason"></cell-base>
     </cell-wapper>
-    <cell-title tip>本审批需要班主任操作</cell-title>
+    <cell-title v-show="!isCreate" tip>本审批需要班主任操作</cell-title>
 
     <area-center slot="bottom">
       <weui-btn v-show="needAprove" mini dft @tapEvt="reject">驳回</weui-btn>

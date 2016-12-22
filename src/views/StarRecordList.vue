@@ -193,10 +193,11 @@ export default {
       this.$router.push(`/StarRecordDetail/${id}/${this.orgId}`);
     },
 
-    showRecordDetail(id) {
+    showRecordDetail(idType) {
       this.allRecords.some((item) => {
+        const id = idType.split('_')[0];
         if (id == item.id) { // eslint-disable-line
-          this.showDetail(item.recordId);
+          this.showDetail(`${item.recordId}_${item.type}`);
           return true;
         }
         return false;

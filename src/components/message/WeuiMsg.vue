@@ -39,7 +39,14 @@ export default {
   computed: {
     cls() {
       const iconClass = {};
-      iconClass[`weui-icon-${this.icon}`] = true;
+
+      if (this.icon === 'fail') {
+        iconClass['weui-icon-warn'] = true;
+        iconClass['weui-icon_msg-primary'] = true;
+      } else {
+        iconClass[`weui-icon-${this.icon}`] = true;
+      }
+
       return iconClass;
     },
   },

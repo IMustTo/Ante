@@ -2,7 +2,7 @@
 <div class="weui-cell">
   <div class="weui-cell__bd">
     <textarea class="weui-textarea"
-      @input="inputValue"
+      v-model="value"
       :placeholder="holder"
       :rows="rows">
     </textarea>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'weui-textarea',
+  name: 'input-delete',
   props: {
     index: {
       type: Number,
@@ -36,11 +36,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    caption: {
+      type: String,
+      default: '',
+    },
   },
 
-  methods: {
-    inputValue({ target: { value } }) {
-      this.$emit('inputEvt', value, this.index);
+  computed: {
+    value: {
+      set(vl) {
+        this.$emit('inputEvt', vl, this.index);
+      },
+
+      get() {
+        return this.caption;
+      },
     },
   },
 };

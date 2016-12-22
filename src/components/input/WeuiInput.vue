@@ -4,10 +4,9 @@
       <label class="weui-label">{{ name }}</label>
     </div>
     <div class="weui-cell__bd">
-      <input class="weui-input"
-        :type="tp"
+      <input class="weui-input" type="text"
         :placeholder="holder"
-        @input="$emit('inputEvt', $event.target.value)"></div>
+        v-model="value"></div>
   </div>
 </template>
 
@@ -24,9 +23,23 @@ export default {
       type: String,
       default: '请输入',
     },
+    caption: {
+      type: String,
+      default: '',
+    },
   },
 
+  computed: {
+    value: {
+      set(vl) {
+        this.$emit('inputEvt', vl);
+      },
 
+      get() {
+        return this.caption;
+      },
+    },
+  },
 };
 </script>
 

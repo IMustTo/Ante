@@ -36,7 +36,7 @@ import { mapGetters, mapActions } from 'vuex';
 import NavBar from '../components/layout/NavBar';
 import BottomFix from '../components/layout/BottomFix';
 import AreaCenter from '../components/area/AreaCenter';
-import scan from '../mixins/scan';
+import scan from '../mixins/wx.scan';
 import { dateFormat } from '../utils';
 
 export default {

@@ -11,6 +11,7 @@
         <star-item
           @changeEvt="change"
           :id="star.id"
+          :checked="star.checked"
           :desc="star.content">
         </star-item>
       </template>
@@ -46,9 +47,6 @@ export default {
 
       items: [
         // { id: 1, content: '生活自理', checked: false },
-        // { id: 2, content: '讲究卫生', checked: false },
-        // { id: 3, content: '分担家务', checked: false },
-        // { id: 4, content: '生活规律', checked: false },
       ],
 
       showSuc: false,

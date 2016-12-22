@@ -109,7 +109,7 @@ import AvatarList from '../components/list/AvatarList';
 import AvatarItem from '../components/list/AvatarItem';
 import CellGroup from '../components/cell/CellGroup';
 import { dateFormat } from '../utils';
-import scan from '../mixins/scan';
+import scan from '../mixins/wx.scan';
 
 export default {
   name: 'tch-assess',

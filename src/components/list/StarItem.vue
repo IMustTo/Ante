@@ -7,7 +7,7 @@
   <div class="weui-cell__hd">
     <input type="checkbox"
       class="weui-check ante-star-check"
-      @change="$emit('changeEvt', id, $event.target.checked)"
+      v-model="value"
       :id="iptid">
     <div class="ante-star-icon"></div>
   </div>
@@ -18,9 +18,25 @@
 export default {
   name: 'star-item',
 
-  props: ['id', 'desc'],
+  props: {
+    id: Number,
+    desc: String,
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   computed: {
+    value: {
+      set(vl) {
+        this.$emit('changeEvt', this.id, vl);
+      },
+      get() {
+        return this.checked;
+      },
+    },
+
     iptid() {
       return `star_${this.id}`;
     },

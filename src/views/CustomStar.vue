@@ -12,7 +12,11 @@
         :caption="student.studentName">
       </cell-base>
 
-      <weui-input name="星星名称" holder="给星星起个名字吧" @inputEvt="nameStar">
+      <weui-input
+        name="星星名称"
+        holder="给星星起个名字吧"
+        @inputEvt="nameStar"
+        :caption="starName">
       </weui-input>
 
       <cell-base name="上传标志">
@@ -24,15 +28,15 @@
 
     <cell-title title="评价标准"></cell-title>
     <cell-wapper>
-      <template v-for="(item, index) in benchmarks">
-        <input-delete
-          holder="请输入一条评价标准"
-          @tapEvt="deleteBenchmark"
-          @inputEvt="inputBenchmark"
-          :index="index"
-          :canDelete="item.canDelete">
-        </input-delete>
-      </template>
+      <input-delete
+        v-for="(item, index) in benchmarks" :key="item.key"
+        holder="请输入一条评价标准"
+        @tapEvt="deleteBenchmark"
+        @inputEvt="inputBenchmark"
+        :caption="item.value"
+        :index="index"
+        :canDelete="item.canDelete">
+      </input-delete>
 
       <cell-base name="增加一条" @tapEvt="addBenchmark">
         <pick-img-btn slot="icon" mini></pick-img-btn>
@@ -43,6 +47,7 @@
     <cell-title title="创建原因"></cell-title>
     <cell-wapper>
       <input-delete holder="请输入创建这颗星星的原因"
+        :caption="reason"
         @inputEvt="addReason">
       </input-delete>
     </cell-wapper>
@@ -64,7 +69,7 @@ import AreaCenter from '../components/area/AreaCenter';
 import WeuiInput from '../components/input/WeuiInput';
 import InputDelete from '../components/input/InputDelete';
 import PickImgBtn from '../components/button/PickImgBtn';
-import uploadImg from '../mixins/uploadImg';
+import uploadImg from '../mixins/wx.uploadImg';
 
 export default {
   name: 'custom-star',
@@ -86,7 +91,7 @@ export default {
       image: {},
       // 评价标准
       benchmarks: [
-        { value: '' },
+        { key: 1, value: '' },
       ],
       // 创建原因
       reason: '',
@@ -126,12 +131,10 @@ export default {
     ]),
 
     init() {
-      // TODO
-
-      // this.starName = '';
+      this.starName = '';
       this.image = {};
-      // this.benchmarks = [{ value: '' }];
-      // this.reason = '';
+      this.benchmarks = [{ key: 1, value: '' }];
+      this.reason = '';
     },
 
     // 查询孩子
@@ -166,7 +169,7 @@ export default {
 
     // 标准
     addBenchmark() {
-      this.benchmarks.push({ value: '', canDelete: true });
+      this.benchmarks.push({ key: new Date().getTime(), value: '', canDelete: true });
     },
     deleteBenchmark(index) {
       this.benchmarks.splice(index, 1);

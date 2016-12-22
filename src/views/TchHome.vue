@@ -19,7 +19,7 @@
 import { mapActions } from 'vuex';
 import IconBtnGroup from '../components/button/IconBtnGroup';
 import TextBtnGroup from '../components/button/TextBtnGroup';
-import scan from '../mixins/scan';
+import scan from '../mixins/wx.scan';
 
 export default {
   name: 'tch-home',
