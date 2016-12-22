@@ -6,7 +6,7 @@
     v-if="count"><span>{{ count }}</span>&nbsp;颗</div>
   <weui-btn mini v-if="!count"
     @tapEvt="$emit('tapEvt', id)"
-    :disabled="!canApply">申请得星</weui-btn>
+    :disabled="!canApply">{{ btnName }}</weui-btn>
 </div>
 </template>
 
@@ -38,6 +38,10 @@ export default {
     canApply: {
       type: Boolean,
       default: false,
+    },
+    btnName: {
+      type: String,
+      default: '申请得星',
     },
   },
 

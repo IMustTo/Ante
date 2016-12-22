@@ -22,6 +22,7 @@
         :img="star.imageUrl"
         :canApply="star.canApply"
         :name="star.name"
+        :btnName="star.statusName"
         :count="star.count">
       </star-custom>
     </template>
@@ -118,12 +119,28 @@ export default {
               item.icon = 'zdy';
             }
 
-            if (item.status === '106') {
-              item.count = 1;
-            }
-
-            if (item.status === '102' || item.status === '105') {
-              item.canApply = true;
+            switch (item.status) {
+              case '102':
+              case '105':
+                item.canApply = true;
+                item.statusName = '申请得星';
+                break;
+              case '103':
+                item.statusName = '被驳回';
+                break;
+              case '104':
+                item.statusName = '待审批';
+                break;
+              case '106':
+                item.count = 1;
+                break;
+              case '107':
+                item.statusName = '被撤销';
+                break;
+              case '108':
+                item.statusName = '已兑换';
+                break;
+              default:
             }
 
             return item;
