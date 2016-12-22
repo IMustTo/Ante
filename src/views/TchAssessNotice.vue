@@ -89,7 +89,33 @@ export default {
       .then(response => response.json())
       .then(({ resultBean = {} }) => {
         this.detail = resultBean;
+        this.createShareInfo();
       });
+    },
+
+    createShareInfo() {
+      const title = `恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗星星`;
+      const desc = this.detail.remark;
+      const link = `${location.origin}${location.search}`;
+      const imgUrl = ''; // TODO
+      const success = function () {};
+      const cancel = function () {};
+
+      try {
+        wx.onMenuShareTimeline({
+          title, link, imgUrl, success, cancel,
+        });
+
+        wx.onMenuShareAppMessage({
+          title, desc, link, imgUrl, success, cancel,
+        });
+
+        wx.showMenuItems({
+          menuList: ['menuItem:share:appMessage', 'menuItem:share:timeline'],
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

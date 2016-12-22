@@ -123,6 +123,7 @@ export default {
     // 查询得星纪录
     loadListByStd() {
       return this.$http.post('core/evaluestar/starrecord/findListCurrMonth', {
+        type: '108',
         studentOrg: this.student.orgId,
       }).then(res => res.json());
     },

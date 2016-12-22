@@ -49,6 +49,9 @@ export default {
         };
 
         switch (starType) {
+          case '101':
+            jichu.stars.push(starItem);
+            break;
           case '102':
             fengcai.stars.push(starItem);
             break;
@@ -61,8 +64,7 @@ export default {
           case '105':
             goldStar = starItem;
             break;
-          default: // 101
-            jichu.stars.push(starItem);
+          default:
         }
       });
 
@@ -77,7 +79,7 @@ export default {
       }
 
       starCustom.forEach(item => zidingyi.stars.push({
-        id: item.id, type: item.type, icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
+        id: item.id, type: item.type || '116', icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
       }));
 
       if (haiyang.stars.length) {

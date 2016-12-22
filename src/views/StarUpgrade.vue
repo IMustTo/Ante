@@ -548,10 +548,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ante-icon-wapper {
-  height: 150px;
-  padding: 0 80px;
+  height: 50vw;
+  padding: 0 25vw;
 }
 .ante-star-condition {
   color: #666;

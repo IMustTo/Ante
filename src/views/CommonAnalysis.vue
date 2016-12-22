@@ -1,12 +1,12 @@
 <template>
 <div class="page">
   <nav-bar v-if="userType === 2" :navbar="navBar" @tapEvt="changePanel">
-    <tch-analysis v-show="currNav === 0"></tch-analysis>
-    <prt-analysis v-show="currNav === 1"></prt-analysis>
+    <tch-analysis ref="tch" v-show="currNav === 0"></tch-analysis>
+    <prt-analysis ref="prt" v-show="currNav === 1"></prt-analysis>
   </nav-bar>
 
-  <tch-analysis v-if="userType === 0"></tch-analysis>
-  <prt-analysis v-if="userType === 1"></prt-analysis>
+  <tch-analysis ref="tch" v-if="userType === 0"></tch-analysis>
+  <prt-analysis ref="prt" v-if="userType === 1"></prt-analysis>
 </div>
 </template>
 
@@ -53,6 +53,12 @@ export default {
     changePanel(index) {
       this.currNav = index;
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.$refs.prt.init();
+    });
   },
 };
 </script>

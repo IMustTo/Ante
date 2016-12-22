@@ -205,6 +205,8 @@ router.beforeEach((to, from, next) => {
     }
   }, 32);
 
+  // 隐藏分享菜单
+  try { wx.hideOptionMenu(); } catch (e) { console.log(e); }
   next();
 });
 

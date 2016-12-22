@@ -5,8 +5,7 @@
 
   <cell-title
     v-if="!isParent"
-    :custom="titleStyle"
-    title="海洋星评价系统">
+    :custom="titleStyle">海洋星评价系统 (<span class="ante-red-word">点击分类进行评价</span>)
   </cell-title>
 
   <template v-for="btns in textBtns">
@@ -56,9 +55,9 @@ export default {
     addIconBtns(res) {
       const iconBtns = [];
 
-      if (res.hasEvalues) {
-        iconBtns.push({ name: '评价', icon: 'icon-pingjia', cls: 'active' });
-      }
+      // if (res.hasEvalues) {
+      //   iconBtns.push({ name: '评价', icon: 'icon-pingjia', cls: 'active' });
+      // }
       if (res.hasAnalysis) {
         iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/CommonAnalysis' });
       }

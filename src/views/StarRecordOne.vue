@@ -20,7 +20,7 @@
   </cell-wapper>
 
   <area-base>
-    <weui-btn dft @tapEvt="dropStar">撤销</weui-btn>
+    <weui-btn v-if="isTch" dft @tapEvt="dropStar">撤销</weui-btn>
   </area-base>
 </div>
 </template>
@@ -57,11 +57,34 @@ export default {
       // 没有更多了
       noMore: false,
 
+      userType: 0,
       records: [
         // { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
         // { name: '海洋金星 + 1', date: '2015年10月23日', desc: '哈哈哈哈哈' },
       ],
     };
+  },
+
+  computed: {
+    isTch() {
+      return this.userType !== 1;
+    },
+  },
+
+  created() {
+    const identityList = WWW_CONFIG.identityList || [];
+
+    // 家长
+    if (identityList.some(item => item.code === '102')) {
+      this.userType = 1;
+
+      // 家长还有其他身份
+      if (identityList.some(item => item.code !== '102')) {
+        this.userType = 2;
+      }
+    } else {
+      this.userType = 0;
+    }
   },
 
   methods: {
