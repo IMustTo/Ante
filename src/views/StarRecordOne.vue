@@ -1,7 +1,7 @@
 <template>
 <div class="page">
   <big-star :icon="starIcon"></big-star>
-  <star-sum :name="starName" :count="starCount"></star-sum>
+  <star-sum :name="starName" :count="starCount" :cancel="cancelCount"></star-sum>
   <cell-title tip>哈哈哈哈哈哈哈</cell-title>
 
   <cell-wapper>
@@ -49,6 +49,7 @@ export default {
 
       starName: '',
       starCount: 0,
+      cancelCount: 0,
       starIcon: '',
 
       // 加载更多

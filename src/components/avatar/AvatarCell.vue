@@ -44,6 +44,7 @@ export default {
   display: inline-block;
   font-size: 0;
   width: 80px;
+  text-align: center;
 }
 .ante-avatar-select {
   position: relative;

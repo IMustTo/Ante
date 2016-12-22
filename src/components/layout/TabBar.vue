@@ -65,4 +65,8 @@ export default {
   overflow: hidden;
   font-size: 16px;
 }
+.ante-tab-page {
+  text-align: left;
+  padding: 0 10px;
+}
 </style>

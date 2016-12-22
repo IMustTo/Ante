@@ -109,6 +109,10 @@ export default {
 }
 .ante-nav-mune-curr {
   color: #888;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .ante-nav-mune-inner {
   position: absolute;
@@ -117,12 +121,13 @@ export default {
   top: 44px;
   box-shadow: 1px 1px 5px #bbb;
   z-index: 100;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .ante-nav-mune-inner > li:active {
   background-color: #dfdfdf;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .ante-nav-mune-inner > li:not(:last-child):after {
   content: " ";

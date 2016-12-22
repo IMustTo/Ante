@@ -12,6 +12,7 @@
 
         <textarea class="weui-textarea"
           v-if="!item.name"
+          @focus="selectReason(0, true)"
           v-model="item.value"
           placeholder="请输入驳回原因"
           rows="2">

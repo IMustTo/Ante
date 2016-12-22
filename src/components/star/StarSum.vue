@@ -1,6 +1,8 @@
 <template>
 <div class="weui-cells ante-star-sum">
-  {{ name }} <span>&nbsp;{{ count }}&nbsp;</span> 颗
+  {{ name }}
+  <span class="ante-red-word">&nbsp;{{ count }}&nbsp;</span> 颗
+  <span v-if="cancel">(撤销{{ cancel }}颗)</span>
 </div>
 </template>
 
@@ -16,6 +18,10 @@ export default {
       type: Number,
       default: 0,
     },
+    cancel: {
+      type: Number,
+      default: 0,
+    },
   },
 };
 </script>
@@ -25,8 +31,5 @@ export default {
   margin: 0;
   text-align: center;
   padding: 10px 15px;
-}
-.ante-star-sum span {
-  color: #ff540a;
 }
 </style>
