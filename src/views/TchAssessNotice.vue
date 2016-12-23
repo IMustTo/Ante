@@ -44,7 +44,7 @@ export default {
       detail: {
         // avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460',
         // schoolName: '爱心小学',
-        // attachIdList: null,
+        // attachList: null,
         // starNumCount: 1,
         // remark: '阿萨法发',
         // standardList: [{
@@ -80,24 +80,60 @@ export default {
       const rootOrgId = getQueryString('rootOrgId');
       const studentId = getQueryString('studentId');
       const recordId = getQueryString('starRecordId');
+      const rewardId = getQueryString('reward');
 
-      this.$http.post('core/evaluestar/findParentMessage', {
-        rootOrgId,
-        studentId,
-        recordId,
-      })
-      .then(response => response.json())
-      .then(({ resultBean = {} }) => {
-        this.detail = resultBean;
-        this.createShareInfo();
-      });
+      if (recordId) {
+        this.$http.post('core/evaluestar/findParentMessage', {
+          rootOrgId,
+          studentId,
+          recordId,
+        })
+        .then(response => response.json())
+        .then(({ resultBean = {} }) => {
+          this.detail = resultBean;
+
+          this.setShare();
+        });
+      } else {
+        this.$http.post('core/evaluestar/findRewardInfoById', {
+          rootOrgId,
+          studentId,
+          rewardId,
+        })
+        .then(response => response.json())
+        .then(({ resultBean = {} }) => {
+          this.detail = resultBean;
+
+          this.setShare();
+        });
+      }
+    },
+
+    setShare() {
+      try {
+        if (__wechatReady) {
+          this.createShareInfo();
+        } else {
+          const share = setInterval(() => {
+            if (__wechatReady) {
+              this.createShareInfo();
+
+              clearInterval(share);
+            }
+          }, 50);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
 
     createShareInfo() {
       const title = `恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗星星`;
       const desc = this.detail.remark;
-      const link = `${location.origin}${location.search}`;
-      const imgUrl = ''; // TODO
+      const link = `${location.origin}${location.pathname}${location.search}`;
+      const imgUrl = detail.attachList
+        ? detail.attachList[0].attachmentUrl
+        : '';
       const success = function () {};
       const cancel = function () {};
 

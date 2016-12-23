@@ -2,9 +2,7 @@
 <a href="javascript:;"
   class="weui-btn"
   :class="mergeCls"
-  @click="tapBtn">
-  {{ name }}<slot></slot>
-</a>
+  @click="tapBtn">{{ name }}<slot></slot></a>
 </template>
 
 <script>

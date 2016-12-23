@@ -21,13 +21,14 @@ Vue.use(VueRouter);
 const TchHome = (resolve) => {
   require(['./views/TchHome'], resolve);
 };
-// 教师分析
-const CommonAnalysis = (resolve) => {
-  require(['./views/CommonAnalysis'], resolve);
-};
-// const TchAnalysis = (resolve) => {
-//   require(['./views/TchAnalysis'], resolve);
+// 分析2合1
+// const CommonAnalysis = (resolve) => {
+//   require(['./views/CommonAnalysis'], resolve);
 // };
+// 教师分析
+const TchAnalysis = (resolve) => {
+  require(['./views/TchAnalysis'], resolve);
+};
 const StarRecord = (resolve) => {
   require(['./views/StarRecord'], resolve);
 };
@@ -107,13 +108,16 @@ const StdShow = (resolve) => {
 const PrtAssess = (resolve) => {
   require(['./views/PrtAssess'], resolve);
 };
+const PrtAssessRecords = (resolve) => {
+  require(['./views/PrtAssessRecords'], resolve);
+};
 const AssessSuc = (resolve) => {
   require(['./views/AssessSuc'], resolve);
 };
 // 家长分析
-// const PrtAnalysis = (resolve) => {
-//   require(['./views/PrtAnalysis'], resolve);
-// };
+const PrtAnalysis = (resolve) => {
+  require(['./views/PrtAnalysis'], resolve);
+};
 const StarExchange = (resolve) => {
   require(['./views/StarExchange'], resolve);
 };
@@ -145,8 +149,8 @@ const routes = [
   { path: '/AprRefuseSuc', component: AprRefuseSuc },
   { path: '/AprReNotice/:id', component: AprReNotice },
 
-  { path: '/CommonAnalysis', component: CommonAnalysis },
-  // { path: '/TchAnalysis', component: TchAnalysis },
+  // { path: '/CommonAnalysis', component: CommonAnalysis },
+  { path: '/TchAnalysis', component: TchAnalysis },
   { path: '/StarRecord/:id', component: StarRecord },
   { path: '/StarRecordOne/:type/:id', component: StarRecordOne },
   { path: '/StarRecordList/:id', component: StarRecordList },
@@ -172,8 +176,9 @@ const routes = [
   { path: '/SelectMyChild', component: SelectMyChild },
 
   { path: '/PrtAssess/:id', component: PrtAssess },
+  { path: '/PrtAssessRecords/:id', component: PrtAssessRecords },
   { path: '/AssessSuc', component: AssessSuc },
-  // { path: '/PrtAnalysis', component: PrtAnalysis },
+  { path: '/PrtAnalysis', component: PrtAnalysis },
   { path: '/StarExchange/:id', component: StarExchange },
   { path: '/StarUpgrade/:type/:id', component: StarUpgrade },
   { path: '/ApplyStatus/:id', component: ApplyStatus },

@@ -126,7 +126,8 @@ export default {
                 item.statusName = '申请得星';
                 break;
               case '103':
-                item.statusName = '被驳回';
+                item.canApply = true;
+                item.statusName = '重新申请';
                 break;
               case '104':
                 item.statusName = '待审批';
@@ -151,8 +152,12 @@ export default {
 
     // 申请得星
     applyStar(index) {
-      const { id } = this.stars[index];
-      this.$router.push(`/CustomStarGet/${id}`);
+      const { id, status } = this.stars[index];
+      if (status === '103') {
+        this.$router.push(`/CustomStar?oldId=${id}`);
+      } else {
+        this.$router.push(`/CustomStarGet/${id}`);
+      }
     },
   },
 

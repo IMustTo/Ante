@@ -69,17 +69,24 @@ export default {
     },
 
     submit() {
-      this.$http.post('core/evaluestar/cancelrecord/save', {
+      const req = {
         qty: this.num,
         type: this.type,
         cancelReason: this.reason,
         studentOrg: this.orgId,
-      }).then(res => res.json())
-      .then(({ resultCode }) => {
-        if (resultCode === 'JSPE-200') {
-          this.tipSuccess();
-        }
-      });
+      };
+
+      if (this.$route.query.starId) {
+        req.customStarId = this.$route.query.starId;
+      }
+
+      this.$http.post('core/evaluestar/cancelrecord/save', req)
+        .then(res => res.json())
+        .then(({ resultCode }) => {
+          if (resultCode === 'JSPE-200') {
+            this.tipSuccess();
+          }
+        });
     },
 
     // 成功提示

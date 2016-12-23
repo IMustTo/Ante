@@ -1,6 +1,6 @@
 <template>
-<div class="page">
-  <bottom-fix>
+<div class="page" :style="sty">
+  <bottom-fix v-show="!hasStarInProcess">
     <cell-wapper>
       <cell-access name="学生"
         v-if="children.length > 1"
@@ -59,6 +59,11 @@
         @tapEvt="create">申请创建</weui-btn>
     </area-center>
   </bottom-fix>
+
+  <weui-msg title="温馨提示" icon="fail" v-show="hasStarInProcess"
+    desc="您还有一颗自定义星未获得，请获得后再创建新的自定义星">
+    <weui-btn @tapEvt="$router.replace('/CustomStarAssess')">点击查看</weui-btn>
+  </weui-msg>
 </div>
 </template>
 
@@ -70,6 +75,7 @@ import WeuiInput from '../components/input/WeuiInput';
 import InputDelete from '../components/input/InputDelete';
 import PickImgBtn from '../components/button/PickImgBtn';
 import uploadImg from '../mixins/wx.uploadImg';
+import WeuiMsg from '../components/message/WeuiMsg';
 
 export default {
   name: 'custom-star',
@@ -79,6 +85,7 @@ export default {
     WeuiInput,
     InputDelete,
     PickImgBtn,
+    WeuiMsg,
   },
 
   mixins: [uploadImg],
@@ -95,6 +102,8 @@ export default {
       ],
       // 创建原因
       reason: '',
+
+      hasStarInProcess: false,
     };
   },
 
@@ -113,14 +122,12 @@ export default {
         this.reason
       );
     },
-  },
 
-  created() {
-    // 第一次进入查询孩子，设置
-    if (!this.children.length) {
-      this.loadChild()
-        .then(({ resultBean }) => this.initChild(resultBean));
-    }
+    sty() {
+      return this.hasStarInProcess
+        ? { 'background-color': '#fff' }
+        : {};
+    },
   },
 
   methods: {
@@ -135,6 +142,18 @@ export default {
       this.image = {};
       this.benchmarks = [{ key: 1, value: '' }];
       this.reason = '';
+
+      if (!this.student || !this.student.orgId) {
+        this.loadChild()
+          .then(({ resultBean }) => {
+            this.initChild(resultBean);
+            this.loadStarHistory();
+            this.useOldData();
+          });
+      } else {
+        this.loadStarHistory();
+        this.useOldData();
+      }
     },
 
     // 查询孩子
@@ -153,6 +172,51 @@ export default {
     // 选择孩子页面
     selectStd() {
       this.$router.push('/SelectMyChild');
+    },
+
+    loadStarHistory() {
+      if (this.student.orgId) {
+        this.$http.post('core/evaluestar/starCustom/findListByStuOrgId', {
+          stuOrgId: this.student.orgId,
+          pageSize: 999,
+          currentPage: 1,
+        }).then(res => res.json())
+        .then(({ resultBean }) => {
+          const resultList = resultBean ? resultBean.resultList : [];
+
+          if (resultList.some(({ status }) => (
+              status === '102' ||
+              status === '104' ||
+              status === '105'
+            ))) {
+            this.hasStarInProcess = true;
+          } else {
+            this.hasStarInProcess = false;
+          }
+        });
+      }
+    },
+
+    // 使用原来的数据
+    useOldData() {
+      if (this.$route.query.oldId) {
+        this.$http.post('core/evaluestar/starCustom/findStarCustomById', {
+          starCustomId: this.$route.query.oldId,
+        }).then(res => res.json())
+        .then(({ resultBean = {} }) => {
+          const { name, imageId, imageUrl, customContentList, applyRemark } = resultBean;
+          this.starName = name;
+          this.image = { id: imageId, attachmentUrl: imageUrl };
+          this.benchmarks = customContentList.map((item, index) => {
+            if (index === 0) {
+              return { key: index, value: item, canDelete: false };
+            }
+
+            return { canDelete: true, key: index, value: item };
+          });
+          this.reason = applyRemark;
+        });
+      }
     },
 
     nameStar(value) {

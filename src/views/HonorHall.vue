@@ -7,6 +7,7 @@
       <template v-if="0 === currTab" v-for="item in goldHonor">
         <avatar-cell
           @tapEvt="checkAvatar"
+          :cancel="item.whetherCancel"
           :id="item.studentId"
           :name="item.studentName"
           :ban="item.className"
@@ -18,6 +19,7 @@
       <template v-if="1 === currTab" v-for="item in allHonor">
         <avatar-cell
           @tapEvt="checkAvatar"
+          :cancel="item.whetherCancel"
           :id="item.studentId"
           :name="item.studentName"
           :ban="item.className"
@@ -29,6 +31,7 @@
       <template v-if="2 === currTab" v-for="item in silverHonor">
         <avatar-cell
           @tapEvt="checkAvatar"
+          :cancel="item.whetherCancel"
           :id="item.studentId"
           :name="item.studentName"
           :ban="item.className"
@@ -86,6 +89,7 @@ export default {
       //  "headPortraitId": null,
       //  "avatar": "http://img.i3618.com.cn/i3618-config/child-avator/boy.png",
       //  "studentSex": "103"
+      //  "whetherCancel": "已撤销"
       // }
       goldHonor: [],
       allHonor: [],

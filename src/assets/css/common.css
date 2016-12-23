@@ -45,6 +45,10 @@
 .ante-page-withb {
   padding-bottom: 20px;
 }
+.ante-link-word {
+  color: #ff540a;
+  border-bottom: 1px solid #ff540a;
+}
 .ante-red-word {
   color: #ff540a;
 }

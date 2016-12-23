@@ -45,17 +45,12 @@ export default {
         // {
         //   stars: [
         //     { icon: 'gold', name: '海洋金星', count: 2 },
-        //     { icon: 'all', name: '海洋全能星', count: 1 },
-        //     { icon: 'silver', name: '海洋银星', count: 1 },
         //   ],
         // },
         // {
         //   title: '海洋风采星',
         //   stars: [
         //     { icon: 'hm', name: '海马之星', count: 1 },
-        //     { icon: 'qe', name: '企鹅之星', count: 10 },
-        //     { icon: 'sh', name: '珊瑚之星', count: 4 },
-        //     { icon: 'zy', name: '章鱼之星', count: 3 },
         //   ],
         // },
         // {
@@ -68,9 +63,6 @@ export default {
         //   title: '基础星',
         //   stars: [
         //     { icon: 'blue', name: '身心健康', count: 1 },
-        //     { icon: 'green', name: '品格情怀', count: 10 },
-        //     { icon: 'pink', name: '创新思维', count: 4 },
-        //     { icon: 'purple', name: '调皮捣蛋', count: 3 },
         //   ],
         // },
       ],
@@ -92,7 +84,12 @@ export default {
 
   methods: {
     showOneStar(type) {
-      this.$router.push(`/StarRecordOne/${type}/${this.$route.params.id}`);
+      if (type < 1) {
+        const starId = String(type).split('.')[1];
+        this.$router.push(`/StarRecordOne/116/${this.$route.params.id}?starId=${starId}`);
+      } else {
+        this.$router.push(`/StarRecordOne/${type}/${this.$route.params.id}`);
+      }
     },
 
     showList() {

@@ -59,7 +59,10 @@ export default {
       //   iconBtns.push({ name: '评价', icon: 'icon-pingjia', cls: 'active' });
       // }
       if (res.hasAnalysis) {
-        iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/CommonAnalysis' });
+        iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' });
+      }
+      if (res.hasExchange) {
+        iconBtns.push({ name: '兑换', icon: 'icon-duihuan', go: '/PrtAnalysis' });
       }
       if (res.hasStandard) {
         iconBtns.push({ name: '标准', icon: 'icon-wbdiconbook', go: 'base' });
@@ -122,6 +125,8 @@ export default {
     goNewPage({ go }) {
       if (go === 'scan') {
         this.scanQrcode();
+      } else if (go === 'base') {
+        location.href = 'http://m.i3618.com.cn/core-web/pages/mobile/share.jsp?id=1110908';
       } else {
         this.$router.push(go);
       }

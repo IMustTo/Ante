@@ -141,7 +141,12 @@ export default {
     },
 
     showOneStar(type) {
-      this.$router.push(`/StarRecordOne/${type}/${this.student.orgId}`);
+      if (type < 1) {
+        const starId = String(type).split('.')[1];
+        this.$router.push(`/StarRecordOne/116/${this.student.orgId}?starId=${starId}`);
+      } else {
+        this.$router.push(`/StarRecordOne/${type}/${this.student.orgId}`);
+      }
     },
 
     showList() {
@@ -170,15 +175,8 @@ export default {
         });
     },
   },
-  // beforeRouteEnter(to, from, next) {
-  //   next((vm) => {
-  //     if (vm.student.orgId) {
-  //       vm.setStarData(vm.student.orgId)
-  //         .then((group) => {
-  //           vm.group = group;
-  //         });
-  //     }
-  //   });
-  // },
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.init());
+  },
 };
 </script>

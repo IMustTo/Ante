@@ -3,6 +3,7 @@
 
   <div class="ante-avatar-select">
     <img :src="avatar"/>
+    <div class="ante-avatar-status" v-if="cancel === '已撤销'">已撤销</div>
   </div>
 
   <div class="ante-avatar-name ellipsis-one-line">{{ name }}</div>
@@ -35,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    cancel: {
+      type: String,
+      default: '正常',
+    },
   },
 };
 </script>
@@ -57,6 +62,20 @@ export default {
   object-position: center;
   margin: 10px 0 5px;
   border: 1px solid #e5e5e5;
+}
+.ante-avatar-status {
+  position: absolute;
+  bottom: 12px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: #777;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  left: 50%;
+  opacity: 0.8;
 }
 .ante-avatar-name {
   font-size: 14px;

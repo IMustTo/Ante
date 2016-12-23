@@ -41,6 +41,7 @@ export default {
       school: WWW_CONFIG.currentCorpName,
       info: {},
       showSuc: false,
+      customName: '',
     };
   },
 
@@ -58,9 +59,9 @@ export default {
     },
 
     starName() {
-      return this.info.type
-        ? StarNameMap[this.info.type]
-        : '';
+      return this.info.type === '116'
+        ? this.customName
+        : (StarNameMap[this.info.type] || '');
     },
 
     canReapply() {
@@ -95,6 +96,7 @@ export default {
       }).then(res => res.json())
       .then(({ resultBean }) => {
         this.info = resultBean;
+        this.customName = resultBean.starCustomName || '';
       });
     },
 

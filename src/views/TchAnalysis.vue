@@ -10,7 +10,7 @@
       enter-active-class="animated flipInX"
       leave-active-class="animated flipOutX">
       <cell-access v-if="canShowStar"
-        name="得星纪录"
+        name="得星概况"
         @tapEvt="showStars">
       </cell-access>
     </transition>

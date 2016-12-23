@@ -1,9 +1,9 @@
 <template>
 <div class="page">
-  <big-star :icon="starIcon"></big-star>
+  <big-star :icon="starIcon" :img="starImg"></big-star>
   <star-sum :name="starName" :count="starCount" :cancel="cancelCount"></star-sum>
-  <cell-title tip>哈哈哈哈哈哈哈</cell-title>
 
+  <cell-title>{{ starName }}获得记录</cell-title>
   <cell-wapper>
     <template v-for="item in records">
       <cell-base :name="item.name">
@@ -51,6 +51,7 @@ export default {
       starCount: 0,
       cancelCount: 0,
       starIcon: '',
+      starImg: '',
 
       // 加载更多
       loading: false,
@@ -89,8 +90,32 @@ export default {
   },
 
   methods: {
+    // 设置自定义星
+    setZdyStar() {
+      this.$http.post('core/evaluestar/starCustom/findStarCustomById', {
+        starCustomId: this.$route.query.starId,
+      }).then(res => res.json())
+      .then(({ resultBean }) => {
+        const { name, imageUrl, status, createTime } = resultBean;
+        this.starIcon = 'zdy';
+        this.starImg = imageUrl || '';
+        this.starName = name;
+        this.starCount = 1;
+        this.cancelCount = status === '107' ? 1 : 0;
+
+        this.records = [{
+          name: `${name} + 1`,
+          date: dateFormat(new Date(createTime), 'yyyy年MM月dd日'),
+          desc: '申请通过获得',
+        }];
+
+        this.noMore = true;
+      });
+    },
+
     // 设置星星名字，数量
     setStarData() {
+      this.starImg = '';
       this.starIcon = StarCodeMap[this.type];
       this.starName = StarNameMap[this.type];
 
@@ -146,7 +171,7 @@ export default {
       this.records = this.records.concat(resultList.map((item) => {
         item.name = `${this.starName} + ${item.changeQty}`;
         item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日');
-        item.desc = item.changeType;
+        item.desc = item.operateTypeDesc;
         return item;
       }));
     },
@@ -159,7 +184,11 @@ export default {
     },
 
     dropStar() {
-      this.$router.push(`/DropStar/${this.type}/${this.orgId}?count=${this.starCount}`);
+      if (this.$route.query && this.$route.query.starId) {
+        this.$router.push(`/DropStar/${this.type}/${this.orgId}?count=${this.starCount}&starId=${this.$route.query.starId}`);
+      } else {
+        this.$router.push(`/DropStar/${this.type}/${this.orgId}?count=${this.starCount}`);
+      }
     },
   },
 
@@ -168,8 +197,12 @@ export default {
       vm.type = to.params.type;
       vm.orgId = to.params.id;
 
-      vm.reloadPage();
-      vm.setStarData();
+      if (to.query && to.query.starId) {
+        vm.setZdyStar();
+      } else {
+        vm.reloadPage();
+        vm.setStarData();
+      }
     });
   },
 };

@@ -4,14 +4,17 @@
   <nav-bar v-show="!isprt" :navbar="navBar" @tapEvt="changePanel">
     <cell-wapper v-if="currNav === 0">
       <template v-for="item in allRecords">
-        <cell-access v-if="item.starType === '101'" :id="item.idType" :name="item.name"
+        <cell-access v-if="item.hasDetail"
+          :id="item.idType"
+          :name="item.name"
           @tapEvt="showRecordDetail">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
           <p class="ante-cell-desc">{{ item.desc }}</p>
         </cell-access>
 
-        <cell-base v-if="item.starType !== '101'" :name="item.name">
+        <cell-base v-if="!item.hasDetail"
+          :name="item.name">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
           <p class="ante-cell-desc">{{ item.desc }}</p>
@@ -27,11 +30,19 @@
 
     <cell-wapper v-if="currNav === 1">
       <template v-for="item in myRecords">
-        <cell-access :id="item.idType" :name="item.name" @tapEvt="showDetail">
+        <cell-access v-if="item.hasDetail"
+          :id="item.idType" :name="item.name" @tapEvt="showDetail">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
           <p class="ante-cell-desc">{{ item.desc }}</p>
         </cell-access>
+
+        <cell-base v-if="!item.hasDetail"
+          :name="item.name">
+          <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
+          <p class="ante-cell-desc">{{ item.date }}</p>
+          <p class="ante-cell-desc">{{ item.desc }}</p>
+        </cell-base>
       </template>
 
       <load-more
@@ -44,14 +55,14 @@
 
   <cell-wapper v-show="isprt">
     <template v-for="item in allRecords">
-      <cell-access v-if="item.starType === '101'" :id="item.idType" :name="item.name"
+      <cell-access v-if="item.hasDetail" :id="item.idType" :name="item.name"
         @tapEvt="showRecordDetail">
         <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
         <p class="ante-cell-desc">{{ item.date }}</p>
         <p class="ante-cell-desc">{{ item.desc }}</p>
       </cell-access>
 
-      <cell-base v-if="item.starType !== '101'" :name="item.name">
+      <cell-base v-if="!item.hasDetail" :name="item.name">
         <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
         <p class="ante-cell-desc">{{ item.date }}</p>
         <p class="ante-cell-desc">{{ item.desc }}</p>
@@ -86,15 +97,9 @@ export default {
       base: 'blue',
       allRecords: [
         // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'hm' },
-        // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'sh' },
-        // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'qe' },
-        // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'blue' },
-        // { id: '1', name: '海洋基础星+2', date: '2016-12-11', desc: '呵呵呵呵呵', icon: 'all' },
       ],
 
       myRecords: [
-        // { id: '1', name: '基础星 + 1', date: '2016-12-11', desc: '哈哈哈', icon: 'blue' },
-        // { id: '1', name: '基础星 + 1', date: '2016-12-11', desc: '哈哈哈', icon: 'blue' },
         // { id: '1', name: '基础星 + 1', date: '2016-12-11', desc: '哈哈哈', icon: 'blue' },
       ],
 
@@ -176,6 +181,12 @@ export default {
               item.icon = this.base;
             } else {
               item.icon = StarCodeMap[item.type];
+            }
+
+            if (item.starType === '101' && item.operateType !== '113') {
+              item.hasDetail = true;
+            } else {
+              item.hasDetail = false;
             }
             return item;
           }));

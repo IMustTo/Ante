@@ -1,6 +1,6 @@
 <template>
 <div class="ante-big-star">
-  <div class="ante-big-star-inner" :class="iconCls"></div>
+  <div class="ante-big-star-inner" :class="iconCls" :style="imgbg"></div>
 </div>
 </template>
 
@@ -9,6 +9,10 @@ export default {
   name: 'big-star',
   props: {
     icon: {
+      type: String,
+      default: '',
+    },
+    img: {
       type: String,
       default: '',
     },
@@ -22,6 +26,12 @@ export default {
       }
 
       return cls;
+    },
+
+    imgbg() {
+      return this.img
+        ? { 'background-image': `url('${this.img}')`, 'background-size': 'cover' }
+        : {};
     },
   },
 };

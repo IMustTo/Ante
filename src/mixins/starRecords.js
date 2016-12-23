@@ -79,7 +79,7 @@ export default {
       }
 
       starCustom.forEach(item => zidingyi.stars.push({
-        id: item.id, type: item.type || '116', icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
+        id: item.id, type: `0.${item.id}`, icon: 'zdy', name: item.name, count: 1, img: item.imageUrl,
       }));
 
       if (haiyang.stars.length) {

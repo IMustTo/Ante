@@ -1,8 +1,8 @@
 <template>
 <div class="page">
   <!-- 课堂评价 -->
-  <nav-bar :navbar="navBar" @tapEvt="changePanel" v-if="classAssess">
-    <template v-if="currNav === 0">
+  <!-- <nav-bar :navbar="navBar" @tapEvt="changePanel" v-if="classAssess"> -->
+    <!-- <template v-if="currNav === 0">
       <cell-wapper>
         <div class="ante-desc">
           <p>在链接电子白板的电脑上打开下面来链接</p>
@@ -10,40 +10,40 @@
           <p>然后点击下方按钮扫描电脑端二维码即可</p>
         </div>
       </cell-wapper>
-
+    
       <p class="weui-btn-area">
         <weui-btn name="扫描二维码" @tapEvt="scanQrcode()"></weui-btn>
       </p>
-    </template>
+    </template> -->
 
-    <bottom-fix v-if="currNav === 1">
-      <cell-wapper>
-        <cell-base name="周期" :caption="zhouqi"></cell-base>
-        <cell-access name="组织"
-          @tapEvt="$router.push('/SelectClass')"
-          :caption="currClass.name"></cell-access>
-      </cell-wapper>
+  <bottom-fix v-if="classAssess">
+    <cell-wapper>
+      <cell-base name="周期" :caption="zhouqi"></cell-base>
+      <cell-access name="组织"
+        @tapEvt="$router.push('/SelectClass')"
+        :caption="currClass.name"></cell-access>
+    </cell-wapper>
 
-      <avatar-list v-if="students && students.length">
-        <template v-for="(item, index) in students">
-          <avatar-item
-            @changeEvt="checkAvatar"
-            :check="item.check"
-            :id="index"
-            :name="item.name"
-            :avatar="item.avatar">
-          </avatar-item>
-        </template>
-      </avatar-list>
-      
-      <area-center slot="bottom">
-        <weui-btn mini plain
-          @tapEvt="selectAll"><i class="ante-icon-inbtn"
-            :class="checkAllBtnCls"></i>&emsp;全选</weui-btn>
-        <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
-      </area-center>
-    </bottom-fix>
-  </nav-bar>
+    <avatar-list v-if="students && students.length">
+      <template v-for="(item, index) in students">
+        <avatar-item
+          @changeEvt="checkAvatar"
+          :check="item.check"
+          :id="index"
+          :name="item.name"
+          :avatar="item.avatar">
+        </avatar-item>
+      </template>
+    </avatar-list>
+    
+    <area-center slot="bottom">
+      <weui-btn mini plain
+        @tapEvt="selectAll"><i class="ante-icon-inbtn"
+          :class="checkAllBtnCls"></i>&emsp;全选</weui-btn>
+      <weui-btn mini :disabled="!canAssess" @tapEvt="showSliderPage">评价</weui-btn>
+    </area-center>
+  </bottom-fix>
+  <!-- </nav-bar> -->
 
   <!-- 五大素养评价 -->
   <bottom-fix v-if="!classAssess">

@@ -31,14 +31,6 @@ export default {
         //   title: '身心健康',
         //   data: [
         //     { desc: '呵呵呵呵呵', count: '2' },
-        //     { desc: '呵呵呵呵呵', count: '3' },
-        //   ],
-        // },
-        // {
-        //   title: '品格情怀',
-        //   data: [
-        //     { desc: '呵呵呵呵呵', count: '2' },
-        //     { desc: '呵呵呵呵呵', count: '3' },
         //   ],
         // },
       ],
@@ -58,7 +50,7 @@ export default {
       });
     },
 
-    setGroupByRes(res) {
+    setGroupByRes(res = []) {
       const group = [];
       const typeMap = Object.create(null); // { 101: 0 }, type对应groupItem的index
 
@@ -82,6 +74,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      vm.group = [];
       vm.orgId = to.params.org;
       vm.id = to.params.id;
       vm.loadData();

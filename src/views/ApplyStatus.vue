@@ -3,8 +3,10 @@
   <weui-msg :title="statusDesc" :desc="desc" :icon="icon">
     <weui-btn @tapEvt="applyGet" v-if="status === '102'">申请得星</weui-btn>
 
-    <weui-btn @tapEvt="applyGet" v-if="status === '105'">重新申请</weui-btn>
-    <weui-btn @tapEvt="close" v-if="status === '105'">关闭</weui-btn>
+    <weui-btn v-if="reject"
+      @tapEvt="applyGet">重新申请</weui-btn>
+    <weui-btn v-if="reject" dft
+      @tapEvt="close">关闭</weui-btn>
   </weui-msg>
 </div>
 </template>
@@ -29,19 +31,12 @@ export default {
   },
 
   computed: {
+    reject() {
+      return this.status === '103' || this.status === '105';
+    },
+
     icon() {
-      let type = '';
-
-      switch (this.status) {
-        case '103':
-        case '105':
-          type = 'fail';
-          break;
-        default:
-          type = 'success';
-      }
-
-      return type;
+      return this.reject ? 'fail' : 'success';
     },
     statusDesc() {
       let word = '';
@@ -105,7 +100,11 @@ export default {
     },
 
     applyGet() {
-      this.$router.push(`/CustomStarGet/${this.$route.params.id}`);
+      if (this.status === '103') {
+        this.$router.push(`/CustomStar?oldId=${this.$route.params.id}`);
+      } else {
+        this.$router.push(`/CustomStarGet/${this.$route.params.id}`);
+      }
     },
 
     close() {
