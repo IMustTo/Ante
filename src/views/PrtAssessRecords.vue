@@ -38,19 +38,17 @@ export default {
       this.loadListByStd()
         .then(({ resultBean = [] }) => {
           this.records = resultBean.map((item) => {
-            item.name = '';
-            item.icon = '';
-            item.date = dateFormat(new Date(item.createTime), 'yyyy年MM月dd日 hh:mm');
-            item.desc = '';
+            item.name = `${item.typeName} + ${item.qty}`;
+            item.date = dateFormat(new Date(item.gainTime), 'yyyy年MM月dd日 hh:mm');
+            item.desc = item.standardContent;
             return item;
           });
         });
     },
 
     loadListByStd() {
-      return this.$http.post('core/evaluestar/starrecord/findListCurrMonth', {
-        type: '108',
-        studentOrg: this.orgId,
+      return this.$http.post('core/evaluestar/findFamilyEvalueRecord', {
+        stuOrgId: this.orgId,
       }).then(res => res.json());
     },
   },

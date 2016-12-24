@@ -25,8 +25,8 @@
 
     <cell-title tip>每个家庭每个评价周期可以给自己家孩子评<span class="ante-red-word">5</span>颗星，剩余<span class="ante-red-word">{{ maxStar }}</span>颗星，点击查看本月<span @click="showRecords" class="ante-link-word">评价纪录</span></cell-title>
 
-    <weui-toast icon="anteicon icon-gantanhao"
-      v-if="maxStar === 0">评价机会已用完</weui-toast>
+    <!-- <weui-toast icon="anteicon icon-gantanhao"
+      v-if="maxStar === 0">评价机会已用完</weui-toast> -->
 
     <area-center slot="bottom">
       <weui-btn mini
