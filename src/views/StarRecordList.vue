@@ -31,7 +31,7 @@
     <cell-wapper v-if="currNav === 1">
       <template v-for="item in myRecords">
         <cell-access v-if="item.hasDetail"
-          :id="item.idType" :name="item.name" @tapEvt="showDetail">
+          :id="item.idType" :name="item.name" @tapEvt="showRecordDetail">
           <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
           <p class="ante-cell-desc">{{ item.date }}</p>
           <p class="ante-cell-desc">{{ item.desc }}</p>

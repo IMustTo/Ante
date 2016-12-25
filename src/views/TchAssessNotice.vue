@@ -131,9 +131,13 @@ export default {
       const title = `恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗星星`;
       const desc = this.detail.remark;
       const link = `${location.origin}${location.pathname}${location.search}`;
-      const imgUrl = detail.attachList
-        ? detail.attachList[0].attachmentUrl
-        : '';
+      let imgUrl = '';
+      if (this.detail.attachList &&
+          this.detail.attachList[0] &&
+          this.detail.attachList[0].attachmentUrl) {
+        imgUrl = this.detail.attachList[0].attachmentUrl;
+      }
+
       const success = function () {};
       const cancel = function () {};
 
