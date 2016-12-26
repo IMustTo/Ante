@@ -2,7 +2,7 @@
 <div class="ante-avatar-item" @click="$emit('tapEvt', id)">
 
   <div class="ante-avatar-select">
-    <img :src="avatar"/>
+    <img :src="smallAvatar"/>
     <div class="ante-avatar-status" v-if="cancel === '已撤销'">已撤销</div>
   </div>
 
@@ -39,6 +39,12 @@ export default {
     cancel: {
       type: String,
       default: '正常',
+    },
+  },
+
+  computed: {
+    smallAvatar() {
+      return `${this.avatar}?x-oss-process=image/resize,m_fill,h_130,w_130`;
     },
   },
 };

@@ -1,6 +1,8 @@
 <template>
 <div class="page ante-page-withb">
   <div>
+    <div v-if="showTip" class="ante-share-tip" @click="closeTip"></div>
+
     <div class="ante-star-log">海洋星</div>
     <avatar-paper :uri="detail.avatar"></avatar-paper>
     <div class="ante-std-name">{{ detail.studentName }}</div>
@@ -8,12 +10,21 @@
 
     <div class="ante-std-stars">
       <div class="ante-std-star-item"
-        v-if="detail.studentName">恭喜{{ detail.studentName }}同学获得了{{ detail.starNumCount }}颗星星</div>
-      <div class="ante-std-star-item">评价老师：{{ detail.teacherName }}</div>
-      <div class="ante-std-star-item">评价周期：{{ zhouqi }}</div>
-      <div class="ante-std-star-item">获得原因：</div>
-      <div class="ante-std-star-item" v-for="item in detail.standardList">
+        v-if="detail.studentName && !isJL">恭喜{{ detail.studentName }}同学获得了{{ detail.starNumCount }}颗星星</div>
+      <div class="ante-std-star-item" v-if="!isJL">评价老师：{{ detail.teacherName }}</div>
+      <div class="ante-std-star-item" v-if="!isJL">评价周期：{{ zhouqi }}</div>
+      <div class="ante-std-star-item" v-if="!isJL">获得原因：</div>
+      <div class="ante-std-star-item" v-if="!isJL" v-for="item in detail.standardList">
         &emsp;【{{ item.standardName }}】 {{ item.standardContent }}
+      </div>
+
+      <div class="ante-std-star-item"
+        v-if="detail.studentName && isJL">恭喜{{ detail.studentName }}同学获得奖励{{ detail.starNumCount }}颗海洋星</div>
+      <div class="ante-std-star-item" v-if="isJL">奖星老师：{{ detail.teacherName }}</div>
+      <div class="ante-std-star-item" v-if="isJL">奖星周期：{{ zhouqi }}</div>
+      <div class="ante-std-star-item" v-if="isJL">奖星明细：</div>
+      <div class="ante-std-star-item" v-if="isJL" v-for="item in detail.standardList">
+        &emsp;【{{ item.standardName }}】 x {{ item.starNumCount }}
       </div>
       <div class="ante-std-star-item" v-if="detail.remark">评语：{{ detail.remark }}</div>
 
@@ -41,6 +52,7 @@ export default {
 
   data() {
     return {
+      showTip: true,
       detail: {
         // avatar: '//avatars3.githubusercontent.com/u/7122313?v=3&s=460',
         // schoolName: '爱心小学',
@@ -59,7 +71,7 @@ export default {
         // className: '14级一班',
         // teacherName: '我是谁a',
       },
-
+      isJL: false,
     };
   },
 
@@ -83,6 +95,7 @@ export default {
       const rewardId = getQueryString('reward');
 
       if (recordId) {
+        this.isJL = false;
         this.$http.post('core/evaluestar/findParentMessage', {
           rootOrgId,
           studentId,
@@ -95,7 +108,8 @@ export default {
           this.setShare();
         });
       } else {
-        this.$http.post('core/evaluestar/findRewardInfoById', {
+        this.isJL = true;
+        this.$http.post('core/evaluestar/starReward/findRewardInfoById', {
           rootOrgId,
           studentId,
           rewardId,
@@ -103,14 +117,40 @@ export default {
         .then(response => response.json())
         .then(({ resultBean = {} }) => {
           this.detail = resultBean;
+          let num = 0;
+          resultBean.standardList.forEach(item => (num += Number(item.starNumCount)));
+          this.detail.starNumCount = num;
 
           this.setShare();
         });
       }
     },
 
+    closeTip() {
+      this.showTip = false;
+    },
+    // 设置页面title
+    setDocumentTitle(title) {
+      document.title = title;
+      if (/ip(hone|od|ad)/i.test(navigator.userAgent)) {
+        const i = document.createElement('iframe');
+        i.src = '/favicon.ico';
+        i.style.display = 'none';
+        i.onload = () => {
+          setTimeout(() => {
+            i.remove();
+          }, 9);
+        };
+        document.body.appendChild(i);
+      }
+    },
+
     setShare() {
       try {
+        if (!document.title.trim()) {
+          this.setDocumentTitle(`恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗海洋星`);
+        }
+
         if (__wechatReady) {
           this.createShareInfo();
         } else {
@@ -128,7 +168,7 @@ export default {
     },
 
     createShareInfo() {
-      const title = `恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗星星`;
+      const title = `恭喜${this.detail.studentName}同学获得了${this.detail.starNumCount}颗海洋星`;
       const desc = this.detail.remark;
       const link = `${location.origin}${location.pathname}${location.search}`;
       let imgUrl = '';
@@ -174,6 +214,16 @@ export default {
   -webkit-background-size: contain;
   background-size: contain;
   background-position: 0 0;
+}
+.ante-share-tip {
+  background-image: url('../assets/images/share-tip.png');
+  background-size: contain;
+  width: 161px;
+  height: 82px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
 }
 .ante-star-log {
   position: absolute;

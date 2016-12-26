@@ -3,7 +3,7 @@
   <cell-wapper>
     <template v-for="item in records">
       <cell-base :name="item.name">
-        <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon>
+        <!-- <star-icon slot="icon" :icon="item.icon" :right="8"></star-icon> -->
         <p class="ante-cell-desc">{{ item.date }}</p>
         <p class="ante-cell-desc">{{ item.desc }}</p>
       </cell-base>

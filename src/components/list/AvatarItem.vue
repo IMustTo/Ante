@@ -2,7 +2,7 @@
 <label class="ante-avatar-item" :for="iptid">
 
   <div class="ante-avatar-select">
-    <img :src="avatar"/>
+    <img :src="smallAvatar"/>
     <input type="checkbox" class="weui-check" :id="iptid"
       v-model="checkStatus">
     <div class="ante-avatar-select-icon">
@@ -38,6 +38,10 @@ export default {
   computed: {
     iptid() {
       return `avatar_${this.id}`;
+    },
+
+    smallAvatar() {
+      return `${this.avatar}?x-oss-process=image/resize,m_fill,h_130,w_130`;
     },
 
     checkStatus: {

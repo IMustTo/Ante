@@ -10,7 +10,7 @@ export default {
   computed: {
     stl() {
       return {
-        'background-image': `url('${this.uri}')`,
+        'background-image': `url('${this.uri}?x-oss-process=image/resize,m_fill,h_380,w_320')`,
       };
     },
   },
