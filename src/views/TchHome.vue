@@ -12,6 +12,11 @@
     <text-btn-group :btns="btns" @tapTextBtn="goNewPage">
     </text-btn-group>
   </template>
+
+  <cell-title tip
+    v-if="hasCancelStar"
+    :custom="titleStyle">有海洋星被撤销，再次达标后可申请恢复，<span class="ante-link-word">查看记录</span>
+  </cell-title>
 </div>
 </template>
 
@@ -31,6 +36,8 @@ export default {
       titleStyle: {
         color: '#333',
       },
+
+      hasCancelStar: false,
     };
   },
 
@@ -49,9 +56,20 @@ export default {
         this.addIconBtns(resultBean);
         this.addTextBtn(resultBean);
       });
+
+    this.loadHasCancel();
   },
 
   methods: {
+    // 查询是否有撤销星星纪录
+    loadHasCancel() {
+      if (WWW_CONFIG.identityList.some(item => item.code === '102')) {
+        this.$http.post('core/evaluestar/cancelrecord/hasCancelStarsByParentId')
+          .then(res => res.json())
+          .then(({ resultBean }) => (this.hasCancelStar = !!resultBean));
+      }
+    },
+
     addIconBtns(res) {
       const iconBtns = [];
 
