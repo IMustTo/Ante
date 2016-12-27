@@ -44,8 +44,14 @@ const StarRecordDetail = (resolve) => {
 const DropStar = (resolve) => {
   require(['./views/DropStar'], resolve);
 };
+const DropStarList = (resolve) => {
+  require(['./views/DropStarList'], resolve);
+};
 const DropStarNotice = (resolve) => {
   require(['./views/DropStarNotice'], resolve);
+};
+const DropStarDetail = (resolve) => {
+  require(['./views/DropStarDetail'], resolve);
 };
 const ReapplyStar = (resolve) => {
   require(['./views/ReapplyStar'], resolve);
@@ -156,7 +162,10 @@ const routes = [
   { path: '/StarRecordList/:id', component: StarRecordList },
   { path: '/StarRecordDetail/:id/:org', component: StarRecordDetail },
   { path: '/DropStar/:type/:id', component: DropStar },
+  { path: '/DropStarList/:type/:id', component: DropStarList },
   { path: '/DropStarNotice/:id', component: DropStarNotice },
+  { path: '/DropStarDetail/:id', component: DropStarDetail },
+
   { path: '/ReapplyStar/:id', component: ReapplyStar },
 
   { path: '/HonorHall', component: HonorHall },

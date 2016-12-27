@@ -20,6 +20,7 @@
   </cell-wapper>
 
   <area-base>
+    <weui-btn v-if="isBZR && cancelCount" @tapEvt="seeDropList">恢复撤星</weui-btn>
     <weui-btn v-if="isBZR" dft @tapEvt="dropStar">撤销</weui-btn>
   </area-base>
 </div>
@@ -178,6 +179,10 @@ export default {
       } else {
         this.$router.push(`/DropStar/${this.type}/${this.orgId}?count=${this.starCount}`);
       }
+    },
+
+    seeDropList() {
+      this.$router.push(`/DropStarList/${this.type}/${this.orgId}?starIcon=${this.starIcon}`);
     },
   },
 

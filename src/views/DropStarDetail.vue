@@ -1,7 +1,6 @@
 <template>
 <div class="page ante-page-white">
-  <article-title>海洋星撤销通知</article-title>
-  <article-info :time="time" :peoson="info.cancelPersonName" :school="school"></article-info>
+  <article-title>{{ starName }} - {{ info.qty }}</article-title>
 
   <div v-show="info.studentName"
     class="ante-drop-content ante-drop-sum">{{ info.studentName }}同学被撤销了{{ info.qty }}颗 {{ starName }}
@@ -25,15 +24,12 @@
 
 <script>
 import ArticleTitle from '../components/article/ArticleTitle';
-import ArticleInfo from '../components/article/ArticleInfo';
-import { dateFormat } from '../utils';
 import { StarNameMap } from '../utils/starsMap';
 
 export default {
-  name: 'drop-star-notice',
+  name: 'drop-star-detail',
   components: {
     ArticleTitle,
-    ArticleInfo,
   },
 
   data() {
@@ -46,18 +42,6 @@ export default {
   },
 
   computed: {
-    time() {
-      return this.info.createTime
-        ? dateFormat(new Date(this.info.createTime), 'yyyy-MM-dd')
-        : '';
-    },
-
-    cancelTime() {
-      return this.info.createTime
-        ? dateFormat(new Date(this.info.createTime), 'yyyy年MM月dd日')
-        : '';
-    },
-
     starName() {
       return this.info.type === '116'
         ? this.customName
@@ -90,7 +74,7 @@ export default {
   },
 
   methods: {
-    loadStatus() {
+    loadDetail() {
       this.$http.post('core/evaluestar/cancelrecord/findById', {
         id: this.$route.params.id,
       }).then(res => res.json())
@@ -106,7 +90,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.loadStatus());
+    next(vm => vm.loadDetail());
   },
 };
 </script>
