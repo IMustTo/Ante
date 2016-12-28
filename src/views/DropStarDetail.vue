@@ -17,7 +17,8 @@
   <cell-title tip>当学生经努力再次达到获星条件时，可申请恢复</cell-title>
 
   <p class="weui-btn-area">
-    <weui-btn v-if="statusDesc" :disabled="!canReapply" @tapEvt="submit">{{ statusDesc }}</weui-btn>
+    <weui-btn v-if="isTch" @tapEvt="submit">恢复撤星</weui-btn>
+    <weui-btn v-if="!isTch && statusDesc" :disabled="!canReapply" @tapEvt="submit">{{ statusDesc }}</weui-btn>
   </p>
 </div>
 </template>
@@ -38,6 +39,8 @@ export default {
       info: {},
       showSuc: false,
       customName: '',
+
+      isTch: false,
     };
   },
 
@@ -75,17 +78,36 @@ export default {
 
   methods: {
     loadDetail() {
+      if (this.$route.query && this.$route.query.isTch) {
+        this.isTch = true;
+      } else {
+        this.isTch = false;
+      }
+
       this.$http.post('core/evaluestar/cancelrecord/findById', {
         id: this.$route.params.id,
       }).then(res => res.json())
       .then(({ resultBean }) => {
         this.info = resultBean;
-        this.customName = resultBean.starCustomName || '';
+        this.customName = resultBean.customStarName || '';
       });
     },
 
     submit() {
-      this.$router.replace(`/ReapplyStar/${this.$route.params.id}`);
+      if (this.isTch) {
+        this.$http.post('core/evaluestar/cancelrecord/applyOrApprove', {
+          id: this.$route.params.id,
+          status: '103',
+          applyRemark: this.reason,
+        }).then(res => res.json())
+        .then(({ resultCode }) => {
+          if (resultCode === 'JSPE-200') {
+            this.$router.go(-2);
+          }
+        });
+      } else {
+        this.$router.replace(`/ReapplyStar/${this.$route.params.id}`);
+      }
     },
   },
 

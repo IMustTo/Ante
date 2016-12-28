@@ -15,7 +15,7 @@
 <script>
 import StarIcon from '../components/star/StarIcon';
 import { dateFormat } from '../utils';
-import { StarNameMap, StarCodeMap } from '../utils/starsMap';
+import { StarNameMap, StarCodeMap, ColorNumMap } from '../utils/starsMap';
 
 export default {
   name: 'drop-star-list',
@@ -32,22 +32,48 @@ export default {
 
   methods: {
     init() {
-      this.loadList().then(({ resultBean: { resultList } }) => {
-        this.records = resultList.map((item) => {
-          const { type, qty, createTime, starType } = item;
+      if (Number(this.$route.params.id)) {
+        this.loadList().then(({ resultBean: { resultList } }) => {
+          this.records = resultList.map((item) => {
+            const { type, qty, createTime, starType } = item;
 
-          item.name = `${StarNameMap[type]} - ${qty}`;
-          item.date = dateFormat(new Date(createTime), 'yyyy年MM月dd日 hh:mm');
+            item.name = `${StarNameMap[type]} - ${qty}`;
+            item.date = dateFormat(new Date(createTime), 'yyyy年MM月dd日 hh:mm');
 
-          if (starType === '101') {
-            item.icon = this.$route.query.starIcon;
-          } else {
-            item.icon = StarCodeMap[type];
-          }
+            if (starType === '101') {
+              item.icon = this.$route.query.starIcon;
+            } else {
+              item.icon = StarCodeMap[type];
+            }
 
-          return item;
+            return item;
+          });
         });
-      });
+      } else {
+        this.prtLoadList().then(({ resultBean: { resultList } }) => {
+          this.records = resultList.map((item) => {
+            const { type, qty, createTime, starType, colorNum = 1 } = item;
+
+            item.name = type === '116'
+              ? `${item.customStarName} - ${qty}`
+              : `${StarNameMap[type]} - ${qty}`;
+            item.date = dateFormat(new Date(createTime), 'yyyy年MM月dd日 hh:mm');
+
+            if (starType === '101') {
+              item.icon = ColorNumMap[colorNum];
+            } else {
+              item.icon = StarCodeMap[type];
+            }
+
+            return item;
+          });
+        });
+      }
+    },
+
+    prtLoadList() {
+      return this.$http.post('core/evaluestar/cancelrecord/findCancelRecordsByParentId')
+        .then(res => res.json());
     },
 
     loadList() {
@@ -58,7 +84,11 @@ export default {
     },
 
     showRecordDetail(id) {
-      this.$router.push(`/DropStarDetail/${id}`);
+      if (Number(this.$route.params.id)) {
+        this.$router.push(`/DropStarDetail/${id}?isTch=true`);
+      } else {
+        this.$router.push(`/DropStarDetail/${id}`);
+      }
     },
   },
 

@@ -15,7 +15,8 @@
 
   <cell-title tip
     v-if="hasCancelStar"
-    :custom="titleStyle">有海洋星被撤销，再次达标后可申请恢复，<span class="ante-link-word">查看记录</span>
+    :custom="titleStyle">有海洋星被撤销，再次达标后可申请恢复，<span class="ante-link-word"
+      @click="$router.push('/DropStarList/0/0')">查看记录</span>
   </cell-title>
 </div>
 </template>
