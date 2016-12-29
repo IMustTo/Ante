@@ -1,14 +1,19 @@
 <template>
 <div class="page">
   <weui-msg :title="statusDesc" :desc="desc">
-    <weui-btn v-if="!passed" disabled="applying" @tapEvt="goList">重新申请</weui-btn>
+    <weui-btn v-if="!passed" :disabled="applying" @tapEvt="goList">重新申请</weui-btn>
   </weui-msg>
 </div>
 </template>
 
 <script>
+import WeuiMsg from '../components/message/WeuiMsg';
+
 export default {
   name: 'apr-re-notice',
+  components: {
+    WeuiMsg,
+  },
 
   data() {
     return {
@@ -53,10 +58,10 @@ export default {
 
       switch (this.info.status) {
         case '104':
-          word = `${this.studentName}同学的恢复得星申请被驳回`;
+          word = `${this.info.studentName}同学的恢复得星申请被驳回`;
           break;
         case '103':
-          word = `${this.studentName}同学重新获得了被撤销的海洋星`;
+          word = `${this.info.studentName}同学重新获得了被撤销的海洋星`;
           break;
         default:
           word = '';
@@ -78,6 +83,10 @@ export default {
 
     submit() {
       this.$router.replace(`/ReapplyStar/${this.$route.params.id}`);
+    },
+
+    goList() {
+
     },
   },
 
