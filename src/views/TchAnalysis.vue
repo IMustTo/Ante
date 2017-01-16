@@ -97,17 +97,21 @@ export default {
         });
     },
     // 设置图表数据
-    setCharts(res = {}) {
+    setCharts(res = []) {
+      const xAxis = [];
       const data = [];
-      const xAxis = Object.keys(res);
+
       // 没有星星不显示得星纪录
-      if (xAxis.length) {
+      if (res.length) {
         this.showRecord = true;
       } else {
         this.showRecord = false;
       }
 
-      xAxis.forEach(item => data.push(res[item].baseStarNum || 0));
+      res.forEach(({ key, value }) => {
+        xAxis.push(key);
+        data.push(value.baseStarNum || 0);
+      });
 
       this.$refs.charts.mergeOptions({
         tooltip: {
