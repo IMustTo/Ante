@@ -144,6 +144,25 @@ const ApplyStatus = (resolve) => {
   require(['./views/ApplyStatus'], resolve);
 };
 
+const EvaTrend = (resolve) => {
+  require(['./views/EvaTrend'], resolve);
+};
+const EvaQuery = (resolve) => {
+  require(['./views/EvaQuery'], resolve);
+};
+const EvaLine = (resolve) => {
+  require(['./views/EvaLine'], resolve);
+};
+const EvaRadar = (resolve) => {
+  require(['./views/EvaRadar'], resolve);
+};
+const EvaRank = (resolve) => {
+  require(['./views/EvaRank'], resolve);
+};
+const EvaRankPre = (resolve) => {
+  require(['./views/EvaRankPre'], resolve);
+};
+
 // 路由映射
 const routes = [
   { path: '/TchHome', component: TchHome },
@@ -195,8 +214,16 @@ const routes = [
   { path: '/CustomStar', component: CustomStar },
   { path: '/CustomStarAssess', component: CustomStarAssess },
   { path: '/CustomStarGet/:id', component: CustomStarGet },
+
+  { path: '/EvaTrend', component: EvaTrend },
+  { path: '/EvaQuery', component: EvaQuery },
+  { path: '/EvaLine', component: EvaLine },
+  { path: '/EvaRadar', component: EvaRadar },
+  { path: '/EvaRank', component: EvaRank },
+  { path: '/EvaRankPre', component: EvaRankPre },
+
   // TOFIX: 从参数设置路由有不能返回的bug, 先不加redirect了
-  // { path: '/*', redirect: '/TchHome' },
+  // { path: '/*', redirect: '。/TchHome' },
 ];
 
 // 路由

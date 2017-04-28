@@ -78,7 +78,7 @@ export default {
       //   iconBtns.push({ name: '评价', icon: 'icon-pingjia', cls: 'active' });
       // }
       if (res.hasAnalysis) {
-        iconBtns.push({ name: '分析', icon: 'icon-fenxi', go: '/TchAnalysis' });
+        iconBtns.push({ name: '学生分析', icon: 'icon-fenxi', go: '/TchAnalysis' });
       }
       if (res.hasExchange) {
         iconBtns.push({ name: '兑换', icon: 'icon-duihuan', go: '/PrtAnalysis' });
@@ -97,6 +97,9 @@ export default {
       }
       if (res.hasScan) {
         iconBtns.push({ name: '扫码评价', icon: 'icon-scan', go: 'scan' });
+      }
+      if (res.hasStatistics) {
+        iconBtns.push({ name: '评价统计', icon: 'icon-fenxi', go: '/EvaTrend' });
       }
 
       this.iconBtns = iconBtns;

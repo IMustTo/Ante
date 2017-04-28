@@ -9,6 +9,7 @@
       <p class="ante-cell-desc">{{ item.date }}</p>
       <p class="ante-cell-desc">{{ item.cancelReason }}</p>
     </cell-access>
+  </cell-wapper>
 </div>
 </template>
 

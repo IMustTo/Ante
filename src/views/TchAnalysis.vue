@@ -116,8 +116,7 @@ export default {
       this.$refs.charts.mergeOptions({
         tooltip: {
           formatter(params) {
-            const xName = xAxis[params.dataIndex];
-            const { starOption } = res[xName];
+            const { starOption } = res[params.dataIndex].value;
             let tipstr = '本月获得<br/>';
 
             Object.keys(starOption).forEach((item) => {
