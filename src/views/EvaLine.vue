@@ -31,7 +31,6 @@ import { mapGetters, mapActions } from 'vuex';
 import DateTime from 'components/datetime';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/radar';
 import 'echarts/lib/component/tooltip';
 
 export default {
