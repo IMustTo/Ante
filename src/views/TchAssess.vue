@@ -258,7 +258,7 @@ export default {
           item.check = false;
           return item;
         });
-      } else {
+      } else if (orgIdList) {
         this.$http
           .post('system/user/findChildByOrgIds', { orgIdList })
           .then(response => response.json())
@@ -273,6 +273,8 @@ export default {
             this.students = resultBean;
             this.cacheStds[orgIdList] = resultBean;
           });
+      } else {
+        this.students = [];
       }
     },
     // 选中一个小哥

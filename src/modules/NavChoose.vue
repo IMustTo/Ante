@@ -311,4 +311,10 @@ export default {
   position: fixed;
   z-index: 1;
 }
+.icon-xiajiantou,
+.icon-shangjiantou {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12px;
+}
 </style>

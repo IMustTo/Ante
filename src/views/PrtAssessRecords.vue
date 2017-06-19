@@ -35,15 +35,17 @@ export default {
     init() {
       this.orgId = this.$route.params.id;
       this.records = [];
-      this.loadListByStd()
-        .then(({ resultBean = [] }) => {
-          this.records = resultBean.map((item) => {
-            item.name = `${item.typeName} + ${item.qty}`;
-            item.date = dateFormat(new Date(item.gainTime), 'yyyy年MM月dd日 hh:mm');
-            item.desc = item.standardContent;
-            return item;
+      if (this.orgId) {
+        this.loadListByStd()
+          .then(({ resultBean = [] }) => {
+            this.records = resultBean.map((item) => {
+              item.name = `${item.typeName} + ${item.qty}`;
+              item.date = dateFormat(new Date(item.gainTime), 'yyyy年MM月dd日 hh:mm');
+              item.desc = item.standardContent;
+              return item;
+            });
           });
-        });
+      }
     },
 
     loadListByStd() {
