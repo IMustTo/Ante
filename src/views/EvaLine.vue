@@ -41,8 +41,8 @@ export default {
   data() {
     return {
       star: {},
-      starMap: ['海洋全能星', '海洋金星', '海洋银星', '海洋风采星', '基础星'],
-      typeMap: ['105', '104', '103', '102', '101'],
+      starMap: ['海洋金星', '海洋银星', '海洋风采星', '基础星'],
+      typeMap: ['104', '103', '102', '101'],
       showSelectType: false,
       start: '',
       end: '',

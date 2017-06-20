@@ -16,8 +16,8 @@ export const StarNameMap = {
   115: '海马之星',
   116: '自定义星',
   117: '海洋银星',
-  118: '海洋全能星',
-  119: '海洋金星',
+  118: '海洋金星',
+  // 119: '海洋金星',
 };
 
 export const StarCodeMap = {
@@ -39,8 +39,8 @@ export const StarCodeMap = {
   115: 'hm',
   116: 'zdy',
   117: 'silver',
-  118: 'all',
-  119: 'gold',
+  118: 'gold',
+  // 119: 'gold',
 };
 
 export const ColorNumMap = {

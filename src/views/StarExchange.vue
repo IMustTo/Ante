@@ -2,24 +2,14 @@
 <div class="page ante-page-withb">
   <cell-wapper>
     <star-ex-item
-      @exchange="exchangeStar('105')"
+      @exchange="exchangeStar('104')"
       :up="false"
       :count="goldStar.leftQty"
       :cancel="goldStar.cancelQty"
       :canExchange="goldStar.canExchange"
       :icon="['gold']"
       :name="['海洋金星']"
-      desc="5颗海洋全能星可成为“金星少年”进入金星少年殿堂">
-    </star-ex-item>
-
-    <star-ex-item
-      @exchange="exchangeStar('104')"
-      :count="allStar.leftQty"
-      :cancel="allStar.cancelQty"
-      :canExchange="allStar.canExchange"
-      :icon="['all']"
-      :name="['海洋全能星']"
-      desc="5颗海洋银星可兑换一颗海洋全能星，并进入金能星殿堂进行风采展示">
+      desc="5颗海洋银星可兑换一颗海洋金星，成为“金星少年”进入金星少年殿堂">
     </star-ex-item>
 
     <star-ex-item
@@ -83,11 +73,11 @@ export default {
           case '106':
             this.zdyStar = res[item];
             break;
-          case '105':
-            this.goldStar = res[item];
-            break;
+          // case '105':
+          //   this.goldStar = res[item];
+          //   break;
           case '104':
-            this.allStar = res[item];
+            this.goldStar = res[item];
             break;
           case '103':
             this.silverStar = res[item];

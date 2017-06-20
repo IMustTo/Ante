@@ -30,9 +30,6 @@ export default {
       const { type } = this.$route.query;
 
       switch (type) {
-        case '105':
-          this.title = '海洋全能星';
-          break;
         case '104':
           this.title = '海洋金星';
           break;

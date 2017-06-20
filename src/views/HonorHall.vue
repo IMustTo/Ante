@@ -16,19 +16,7 @@
         </avatar-cell>
       </template>
 
-      <template v-if="1 === currTab" v-for="item in allHonor">
-        <avatar-cell
-          @tapEvt="checkAvatar"
-          :cancel="item.whetherCancel"
-          :id="item.studentId"
-          :name="item.studentName"
-          :ban="item.className"
-          :date="item.date"
-          :avatar="item.avatar">
-        </avatar-cell>
-      </template>
-
-      <template v-if="2 === currTab" v-for="item in silverHonor">
+      <template v-if="1 === currTab" v-for="item in silverHonor">
         <avatar-cell
           @tapEvt="checkAvatar"
           :cancel="item.whetherCancel"
@@ -76,23 +64,9 @@ export default {
       ],
       currTab: 0,
       // 105金星 104全能星 103银星
-      tabBar: ['金星殿堂', '全能星殿堂', '银星殿堂'],
+      tabBar: ['金星殿堂', '银星殿堂'],
 
-
-      // {
-      //  "studentName": "陈小鑫",
-      //  "className": "14级一班",
-      //  "createTime": 1481644800000,
-      //  "orgSeq": null,
-      //  "termId": null,
-      //  "studentId": null,
-      //  "headPortraitId": null,
-      //  "avatar": "http://img.i3618.com.cn/i3618-config/child-avator/boy.png",
-      //  "studentSex": "103"
-      //  "whetherCancel": "已撤销"
-      // }
       goldHonor: [],
-      allHonor: [],
       silverHonor: [],
     };
   },
@@ -102,8 +76,7 @@ export default {
     showNoneContent() {
       return (
         (this.currTab === 0 && !this.goldHonor.length) ||
-        (this.currTab === 1 && !this.allHonor.length) ||
-        (this.currTab === 2 && !this.silverHonor.length)
+        (this.currTab === 1 && !this.silverHonor.length)
       );
     },
   },
@@ -137,13 +110,11 @@ export default {
 
     // 查询荣誉列表
     loadHonorList() {
-      let starType = '105';
+      let starType = '104';
       switch (this.currTab) {
-        case 1: starType = '104';
+        case 1: starType = '103';
           break;
-        case 2: starType = '103';
-          break;
-        default: starType = '105';
+        default: starType = '104';
       }
       const req = {
         pageSize: 9999,

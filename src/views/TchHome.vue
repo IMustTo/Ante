@@ -98,9 +98,9 @@ export default {
       if (res.hasScan) {
         iconBtns.push({ name: '扫码评价', icon: 'icon-scan', go: 'scan' });
       }
-      // if (res.hasStatistics) {
-      //   iconBtns.push({ name: '评价统计', icon: 'icon-fenxi', go: '/EvaTrend' });
-      // }
+      if (res.hasStatistics) {
+        iconBtns.push({ name: '评价统计', icon: 'icon-fenxi', go: '/EvaTrend' });
+      }
 
       this.iconBtns = iconBtns;
     },
