@@ -19,7 +19,7 @@
       :canExchange="silverStar.canExchange"
       :icon="['silver']"
       :name="['海洋银星']"
-      desc="8颗海洋风采星可兑换一颗海洋银星，并进入海洋银星殿堂进行风采展示 ( 或者6颗海洋风采星加一颗自定义星可兑换一颗海洋银星 )">
+      desc="4颗海洋风采星可兑换一颗海洋银星，并进入海洋银星殿堂进行风采展示 ( 或者3颗海洋风采星加一颗自定义星可兑换一颗海洋银星 )">
     </star-ex-item>
 
     <star-ex-item isFc
