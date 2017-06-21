@@ -199,33 +199,13 @@ export default {
   },
 
   computed: {
-    lackArr() {
-      const arr = [];
-
-      [
-        { code: 'sxjk', name: '身心健康' },
-        { code: 'pgqh', name: '品格情怀' },
-        { code: 'cxsw', name: '创新思维' },
-        { code: 'smyq', name: '审美雅趣' },
-        { code: 'rwbd', name: '人文表达' },
-      ].forEach((dalei) => {
-        if (!this[dalei.code].some(item => item.num)) {
-          arr.push(dalei.name);
-        }
-      });
-
-      return arr;
-    },
-
     // 不能兑换银星的提示
     silverExTip() {
       let tip = '';
-      if (this.lackArr.length) {
-        tip = `缺少“${this.lackArr.join('、')}”素养的风采星，五大素养每一类至少要有一颗`;
-      } else if (this.fengcaiCount > 8) {
-        tip = `风采星数量超出${this.fengcaiCount - 8}颗`;
-      } else if (this.fengcaiCount < 8) {
-        tip = `还缺少${8 - this.fengcaiCount}颗任意风采星才能进行兑换`;
+      if (this.fengcaiCount > 4) {
+        tip = `风采星数量超出${this.fengcaiCount - 4}颗`;
+      } else if (this.fengcaiCount < 4) {
+        tip = `还缺少${4 - this.fengcaiCount}颗任意风采星才能进行兑换`;
       }
 
       return tip;
@@ -415,13 +395,13 @@ export default {
     // 自定义星
     reduceZdyx(i) {
       this.zdyx[i].num--;
-      this.calcCanExSilver(-2);
+      this.calcCanExSilver(-1);
     },
     increaseZdyx(i) {
       // 自定义星只能加一次
       if (!this.zdyx.some(item => item.num)) {
         this.zdyx[i].num++;
-        this.calcCanExSilver(2);
+        this.calcCanExSilver(1);
       }
     },
 
@@ -429,7 +409,7 @@ export default {
     calcCanExSilver(increase) {
       this.fengcaiCount += increase;
 
-      if (!this.lackArr.length && this.fengcaiCount === 8) {
+      if (this.fengcaiCount === 4) {
         this.canEx = true;
       } else {
         this.canEx = false;
@@ -513,31 +493,20 @@ export default {
             name: '海洋银星',
             icon: StarMap['117'],
             starType: '103',
-            exchangeRule: '兑换海洋银星需要<span class="ante-red-word ante-big-word">8</span>颗海洋风采星 (需要涵盖5大素养)，如果有自定义星则需要<span class="ante-red-word ante-big-word">1</span>颗自定义星加<span class="ante-red-word ante-big-word">6</span>颗海洋风采星',
+            exchangeRule: '兑换海洋银星需要<span class="ante-red-word ante-big-word">4</span>颗海洋风采星 (需要涵盖5大素养)，如果有自定义星则需要<span class="ante-red-word ante-big-word">1</span>颗自定义星加<span class="ante-red-word ante-big-word">3</span>颗海洋风采星',
             consumeType: '102',
             consumeTypeName: '海洋风采星',
-            consumeQty: 8,
+            consumeQty: 4,
           };
             break;
           case '104': vm.star = {
             code: '118',
-            name: '海洋全能星',
+            name: '海洋金星',
             icon: StarMap['118'],
             starType: '104',
-            exchangeRule: '兑换海洋全能星需要<span class="ante-red-word ante-big-word">5</span>颗海洋银星',
+            exchangeRule: '兑换海洋金星需要<span class="ante-red-word ante-big-word">5</span>颗海洋银星',
             consumeType: '117',
             consumeTypeName: '海洋银星',
-            consumeQty: 5,
-          };
-            break;
-          case '105': vm.star = {
-            code: '119',
-            name: '海洋金星',
-            icon: StarMap['119'],
-            starType: '105',
-            exchangeRule: '兑换海洋金星需要<span class="ante-red-word ante-big-word">5</span>颗海洋全能星',
-            consumeType: '118',
-            consumeTypeName: '海洋全能星',
             consumeQty: 5,
           };
             break;
