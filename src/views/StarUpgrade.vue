@@ -27,6 +27,7 @@
             @reduce="reduceSxjk"
             @increase="increaseSxjk"
             :i="index"
+            :all="item.all"
             :num="item.num"
             :max="item.max"
             :min="item.min"
@@ -42,6 +43,7 @@
             @reduce="reducePgqh"
             @increase="increasePgqh"
             :i="index"
+            :all="item.all"
             :num="item.num"
             :max="item.max"
             :min="item.min"
@@ -57,6 +59,7 @@
             @reduce="reduceCxsw"
             @increase="increaseCxsw"
             :i="index"
+            :all="item.all"
             :num="item.num"
             :max="item.max"
             :min="item.min"
@@ -72,6 +75,7 @@
             @reduce="reduceSmyq"
             @increase="increaseSmyq"
             :i="index"
+            :all="item.all"
             :num="item.num"
             :max="item.max"
             :min="item.min"
@@ -87,6 +91,7 @@
             @reduce="reduceRwbd"
             @increase="increaseRwbd"
             :i="index"
+            :all="item.all"
             :num="item.num"
             :max="item.max"
             :min="item.min"
@@ -326,10 +331,11 @@ export default {
       let fengcai = 0;
       let cancelFc = 0;
       ['sxjk', 'pgqh', 'cxsw', 'smyq', 'rwbd'].forEach((dalei) => {
-        this[dalei].map((item) => {
+        this[dalei] = this[dalei].map((item) => {
           const starItem = commonStar[item.code] || {};
-          item.max = starItem.leftQty || 0;
-          fengcai += item.max;
+          item.all = starItem.leftQty || 0;
+          item.max = starItem.leftQty ? 1 : 0;
+          fengcai += item.all;
           cancelFc += (starItem.cancelQty || 0);
           return item;
         });

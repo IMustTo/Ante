@@ -42,11 +42,15 @@ export default {
       type: Number,
       default: 0,
     },
+    all: {
+      type: Number,
+      default: 0,
+    },
   },
 
   computed: {
     count() {
-      return `x ${this.max}`;
+      return this.all ? `x ${this.all}` : `x ${this.max}`;
     },
 
     cls() {
